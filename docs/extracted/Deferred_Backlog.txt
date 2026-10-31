@@ -1,0 +1,6 @@
+STORY ID | USER STORY REQUIREMENT | PRIORITY | RISK | STORY POINTS
+9 | As a student, I want to view a centralized daily timetable and classroom venue map, so that I can easily navigate to my lectures without scheduling confusion. | Must Do | Medium | 5
+11 | As a student, I want to access a digital marketplace to sell or buy used textbooks and drawing instruments from seniors, so that I can save money on academic materials. | Could Do | Medium | 5
+12 | As a student, I want to book a discussion room or lab desk space ahead of time, so that my project team has a dedicated venue to collaborate for hackathons. | Should Do | High | 8
+23 | As an admin, I want to configure reservation rules for campus discussion rooms and labs, so that room allocations remain fair and prevent double-booking issues. | Should Do | High | 5
+25 | As an admin, I want to generate weekly PDF activity summary reports for university management, so that they can track platform usage metrics and active grievances. | Could Do | Low | 3

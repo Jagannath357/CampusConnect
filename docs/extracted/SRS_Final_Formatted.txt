@@ -1,0 +1,657 @@
+SOFTWARE REQUIREMENTS SPECIFICATION
+
+CampusConnect Portal — Version 1.0 Approved
+
+Prepared By:
+
+Jagannath Padhi
+
+Organization:
+
+Silicon University, Bhubaneswar
+
+Date Created / Approved:
+
+31st August 2026
+
+Standard / Framework:
+
+IEEE Std 830-1998 (Wiegers Modified Format)
+
+――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+Table of Contents
+
+1. Introduction & Project Scope
+
+2. Overall Description & User Classes
+
+3. External Interface Requirements
+
+4. System Features / Detailed Functional Requirements (Atomic IPO Breakdown)
+
+    4.1 Student Core Workflows (52 SP Total)
+
+    4.2 Admin Governance Modules (42 SP Total)
+
+5. Other Nonfunctional Requirements (Security, Performance, Safety, Rules)
+
+6. Agile Implementation & Sprint Reconciliation (120 SP Model)
+
+Appendix A: Glossary
+
+Appendix B: Analysis Models (RBAC Architecture)
+
+Appendix C: Deferred Scope / Product Backlog (26 SP)
+
+Revision History
+
+Name
+
+Date
+
+Reason For Changes
+
+Version
+
+Jagannath Padhi
+
+31st August 2026
+
+Formal IEEE 830-1998 compliant SRS with atomic IPO functional requirements
+
+1.0
+
+1. Introduction
+
+1.1 Purpose
+
+This Software Requirements Specification (SRS) establishes the complete functional and non-functional requirements for the CampusConnect Portal (Version 1.0 approved). It defines the operational boundaries of a dual-role web application engineered specifically for single-campus deployment at Silicon University, establishing an authoritative validation baseline for development, automated testing, evaluators, and viva assessments.
+
+1.2 Document Conventions
+
+This document adheres to IEEE Std 830-1998 guidelines and Agile estimation rules:
+
+Must Do: Non-negotiable core requirements essential for system security, safety, or core operations.
+
+Should Do: Important operational requirements enhancing system capabilities, positioned below launch blockers.
+
+Could Do: Desirable optional requirements that can be safely deferred during sprint capacity bottlenecks.
+
+Fibonacci Scale (Story Points): Relative complexity quantified using 2, 3, 5, and 8 Story Points (SP).
+
+Atomic IPO Requirements: Each functional requirement itemizes exactly one verified Input, Processing step, and Output.
+
+1.3 Product Scope
+
+CampusConnect acts as a centralized digital coordination layer for students and administrators across Silicon University. It unifies disconnected student workflows (teammates, Q&A, study resources, lost-and-found, events, grievances, and placement drives) with institutional governance controls (account audits, content moderation, claim verifications, and global emergency broadcasting). The initial product release implements 21 active user stories (94 SP) across a 4-sprint plan, deferring 5 complex stories (26 SP) to future iterations.
+
+1.4 References
+
+IEEE Recommended Practice for Software Requirements Specifications (IEEE Std 830-1998).
+
+Karl E. Wiegers, Software Requirements, Microsoft Press.
+
+CampusConnect Software Requirements Specification (SRS v1.0), Silicon University, August 2026.
+
+2. Overall Description
+
+2.1 Product Perspective & Context
+
+CampusConnect operates as a self-contained web portal replacing fragmented campus communication tools (WhatsApp groups, physical boards, spreadsheets). It implements strict Role-Based Access Control (RBAC) to ensure absolute separation between Student collaboration workflows and Admin moderation governance.
+
+2.2 User Classes and Characteristics
+
+Students: General campus users requiring intuitive, responsive mobile/desktop navigation to collaborate, share academic resources, track events, and receive push notifications.
+
+Administrators: Authorized campus staff and faculty moderators who require secure verification queues, audit trails, content removal controls, and instantaneous broadcast capabilities.
+
+2.3 Operating Environment & Constraints
+
+Client Browsers: Responsive web interface tested on Google Chrome, Mozilla Firefox, Apple Safari, and Microsoft Edge.
+
+Single-Campus Boundary: Network routing, lab testing, and security policies are restricted to Silicon University's intranet and laboratory infrastructure.
+
+Sprint Boundaries: Implementation is strictly bound to 4 sprints totaling 120 SP (94 SP active, 26 SP deferred).
+
+3. External Interface Requirements
+
+3.1 User, Hardware & Software Interfaces
+
+Interface Layer
+
+Technical Specification
+
+User Interface (UI)
+
+Role-based dynamic views; fluid responsive grid (<600px mobile, 600-1024px tablet, >1024px desktop); explicit modal alerts.
+
+Hardware Interface
+
+Commodity smartphone, tablet, and PC browser hardware; localized x86_64 host server (min 4 cores, 8GB RAM).
+
+Database Layer
+
+Relational/Document storage engine (PostgreSQL/MongoDB) enforcing ACID properties and index optimization.
+
+Communications Layer
+
+HTTPS (TLS 1.3), Web Push API, and persistent WebSocket channels for immediate emergency broadcast reception.
+
+4. System Features (Functional Requirements)
+
+This section specifies the detailed functional requirements of the CampusConnect portal. Each functional module is broken down into constituent atomic requirements structured strictly with an Input, Processing, and Output specification.
+
+4.1 Student Core Workflows (52 SP Total)
+
+FR-STU-01: Profile Registration & Management (5 SP)
+
+Agile Allocation: Sprint 1 | Priority: Must Do | Risk: High
+
+REQ-STU-01.1: Student Account Self-Registration
+
+Input: A registration payload containing the student's name, unique university email ID, secure password, department, and graduation batch year.
+
+Processing: The system matches the email against the allowed university domain, cryptographically hashes the password, and checks for existing duplicate accounts before committing the row.
+
+Output: A new active student user entity persistently written into the database framework.
+
+REQ-STU-01.2: Student Profile Metadata Management
+
+Input: An update form text data payload containing a student's contact number, bio details, and profile image file.
+
+Processing: The system captures the inputs from the current authenticated student session context, validates file size boundaries, and modifies the targeted profile columns.
+
+Output: An instantaneous visual refresh displaying the student's updated dashboard information layout.
+
+FR-STU-02: Project Teammate Finder (8 SP)
+
+Agile Allocation: Sprint 3 | Priority: Must Do | Risk: Medium
+
+REQ-STU-02.1: Collaboration Post Creation
+
+Input: Form text input containing a project title, technical domain tags, skill requirements, vacancy description, and contact info.
+
+Processing: The system sanitizes text strings to block code injections, indexes the domain tags, binds the post to the student’s active session ID, and appends it to the board.
+
+Output: A visible collaboration card displayed live on the project teammate finder feed sorted in reverse chronological order.
+
+REQ-STU-02.2: Teammate Request Discovery & Filtering
+
+Input: A user text keyword search query or technical domain tag filter selection click.
+
+Processing: The system executes a selective query against the project board table filtering by active search parameters and returns matching records.
+
+Output: A filtered grid layout showing only the open collaboration cards that match the user's specific project criteria.
+
+FR-STU-03: Academic Peer Q&A (5 SP)
+
+Agile Allocation: Sprint 2 | Priority: Should Do | Risk: Low
+
+REQ-STU-03.1: Academic Question Submission
+
+Input: An academic packet containing a subject category dropdown selection, a question title headline, detailed text description, and searchable academic tags.
+
+Processing: The system parses the text input, attaches the logged student's identifier with a creation timestamp, and updates the application's global search index.
+
+Output: A new active question thread posted live within the subject-filtered peer-to-peer academic forum.
+
+REQ-STU-03.2: Tag-Based Academic Search
+
+Input: A specific academic subject tag selection click or text keyword lookup string.
+
+Processing: The system scans the indexed forum table rows to pull any question metadata matching the user's active search constraints.
+
+Output: A dynamic text list view rendering all historical peer solutions matching the specified tags.
+
+FR-STU-04: Academic Resource Sharing (5 SP)
+
+Agile Allocation: Sprint 4 | Priority: Should Do | Risk: Low
+
+REQ-STU-04.1: Study Material Document Upload
+
+Input: A course code selection, resource type classification tag, and an attached digital document file payload like a PDF.
+
+Processing: The system validates the file format, writes the document to the server storage directory, creates a unique download path hash, and records the metadata.
+
+Output: A file upload confirmation alert and an active download action button mapped directly to the shared resource repository.
+
+FR-STU-05: Lost and Found Log (8 SP)
+
+Agile Allocation: Sprint 1 | Priority: Must Do | Risk: Medium
+
+REQ-STU-05.1: Lost/Found Item Registry Logging
+
+Input: An item status toggle selection, the item name, location category, a descriptive text overview, and a supporting photo upload.
+
+Processing: The system compresses the image asset, saves it to storage, and writes the log entry into the database with a default verification flag set to pending.
+
+Output: A fresh item log card added to the public catalog bearing a distinct visual 'Pending Verification' placeholder badge.
+
+FR-STU-06: Campus Event Registration (5 SP)
+
+Agile Allocation: Sprint 2 | Priority: Should Do | Risk: Medium
+
+REQ-STU-06.1: Workshop Feed Browsing
+
+Input: A navigation scroll action or click directed to the upcoming campus activities dashboard area.
+
+Processing: The system queries the events registry table to pull all upcoming institutional entries whose operational status is set to active.
+
+Output: An organized chronological board displaying detailed information cards for all scheduled workshops and events.
+
+REQ-STU-06.2: Event Seat Reservation Booking
+
+Input: A confirmation click event on the dashboard registration button for an individual Event ID.
+
+Processing: The system verifies remaining seating capacity, checks for duplicate user bookings, creates an enrollment link table row, and decrements the seat count by one.
+
+Output: A digital seat reservation token generated on-screen and a real-time numeric decrement on the event's public capacity tracker.
+
+FR-STU-07: Anonymous Grievance Submission (3 SP)
+
+Agile Allocation: Sprint 2 | Priority: Could Do | Risk: Low
+
+REQ-STU-07.1: Identity-Stripped Incident Filing
+
+Input: An infrastructure category selection dropdown accompanied by a detailed text description of the complaint.
+
+Processing: The system strips all session markers and tracking parameters from the payload to enforce anonymity, generates a randomized ticket tracking string, and logs the complaint.
+
+Output: The screen presentation of a unique alphanumeric ticket tracking number along with a standardized submission acknowledgment message.
+
+FR-STU-08: Real-Time Mobile Alerts (5 SP)
+
+Agile Allocation: Sprint 2 | Priority: Must Do | Risk: High
+
+REQ-STU-08.1: High-Priority Emergency Interface Interception
+
+Input: An urgent text alert payload transmitted from the administration's high-priority socket gateway connection.
+
+Processing: The system listens via an open browser websocket thread, intercepts the critical payload, and forces a dominant UI rendering event that bypasses background data syncs.
+
+Output: An instant, high-visibility operational notification block displayed prominently as an override banner at the top of the student's interface.
+
+FR-STU-09: Club Discovery Feed (3 SP)
+
+Agile Allocation: Sprint 4 | Priority: Should Do | Risk: Low
+
+REQ-STU-09.1: Organization Search & Membership Inquiry
+
+Input: A text keyword search string and a club classification toggle filter selection like technical or cultural.
+
+Processing: The system executes a query against the organizations table filtering by the search tokens, suppresses unverified club profiles, and sorts the results alphabetically.
+
+Output: A dynamic grid view rendering info cards for matching verified student clubs alongside their official membership pathways.
+
+FR-STU-10: Placement Job Search (5 SP)
+
+Agile Allocation: Sprint 4 | Priority: Must Do | Risk: High
+
+REQ-STU-10.1: Branch-Eligibility Filtered Recruitment Discovery
+
+Input: An active job board view interaction click executed by an authenticated student user.
+
+Processing: The system extracts the student's academic branch metadata from their active session, queries the recruitment drives registry, and filters out jobs where the student's branch is ineligible.
+
+Output: A personalized placement feed displaying exclusively the active corporate recruitment listings that the student is academically eligible to join.
+
+4.2 Admin Governance Modules (42 SP Total)
+
+FR-ADM-01: Student Account Auditing (3 SP)
+
+Agile Allocation: Sprint 1 | Priority: Must Do | Risk: High
+
+REQ-ADM-01.1: Administrative Privilege Review & Audit
+
+Input: A target Student Account ID string and an administrative status modification toggle choice.
+
+Processing: The system runs an RBAC clearance check on the active administrator session, retrieves the target user profile, overwrites the account state, and logs the action to an immutable audit file.
+
+Output: An administrative update confirmation message and an immediate change in the targeted student's structural login permissions.
+
+FR-ADM-02: Content Moderation Engine (3 SP)
+
+Agile Allocation: Sprint 3 | Priority: Must Do | Risk: Medium
+
+REQ-ADM-02.1: Malicious Material Removal Execution
+
+Input: A targeted Post ID or Comment ID string and an interactive click on the 'Remove Content' dashboard button.
+
+Processing: The system validates administrative permissions, executes a delete command on the target database row, and re-indexes dependent forum tables to erase broken references.
+
+Output: The complete structural removal of the offending post or comment from all public-facing student feeds and interfaces.
+
+FR-ADM-03: Lost & Found Item Verification (5 SP)
+
+Agile Allocation: Sprint 1 | Priority: Should Do | Risk: High
+
+REQ-ADM-03.1: Ownership Document Cross-Referencing
+
+Input: A target Item ID selection, a student claimant account number, and an interactive click on the 'Confirm Return' interface control.
+
+Processing: The system verifies the matching claim files, changes the database item status attribute from pending to resolved, and appends the administrator's ID with a resolution timestamp.
+
+Output: An updated status indicator on the master administrative tracking ledger and an automatic resolution alert transmitted to the claimant student.
+
+FR-ADM-04: Live Activity Analytics (3 SP)
+
+Agile Allocation: Sprint 4 | Priority: Could Do | Risk: Low
+
+REQ-ADM-04.1: Metric Aggregation Rendering
+
+Input: A systemic timeframe boundaries selection choice from a control panel filter dropdown.
+
+Processing: The system triggers aggregate database count operations across user and post tables, compiles the numeric metrics in cache memory, and binds them to UI chart components.
+
+Output: A real-time graphic and numerical metrics layout tracking active system usage trends inside the central manager dashboard.
+
+FR-ADM-05: Single-Campus Configuration Control (2 SP)
+
+Agile Allocation: Sprint 1 | Priority: Should Do | Risk: Medium
+
+REQ-ADM-05.1: Lab Runtime Variables Configuration
+
+Input: A packet of network IP address ranges, local folder file paths, and prototype laboratory operational parameter flags.
+
+Processing: The system loads the global application configuration dictionary, overwrites existing strings with the new lab constraints, and saves changes to rewrite localized routing filtering rules.
+
+Output: An updated runtime environment file locking down all system and networking data operations strictly within the single-campus testing perimeter.
+
+FR-ADM-06: Official Event Publishing (3 SP)
+
+Agile Allocation: Sprint 4 | Priority: Should Do | Risk: Low
+
+REQ-ADM-06.1: Institutional Timeline CRUD Management
+
+Input: An event entry form submission detailing the title, calendar schedule parameters, physical venue location, and maximum seating capacity.
+
+Processing: The system validates that the target dates do not exist in the past, commits a new record row to the events database table, and exposes it to public indexing.
+
+Output: A successfully instantiated event entry causing a new official event card to appear live within the student dashboard feed.
+
+FR-ADM-07: Emergency System Broadcast (3 SP)
+
+Agile Allocation: Sprint 4 | Priority: Must Do | Risk: Medium
+
+REQ-ADM-07.1: Application-Wide Overriding Dispatch
+
+Input: A high-priority text notification string payload and an interactive trigger click on the 'Broadcast Emergency' action panel.
+
+Processing: The system skips standard secondary database queues, applies a high-priority critical flag to the payload, and streams the alert instantly across active network websocket channels.
+
+Output: An immediate application-wide notification dispatch forcing an overlay popup across all connected client browser interface nodes.
+
+FR-ADM-08: Grievance Routing Framework (5 SP)
+
+Agile Allocation: Sprint 2 | Priority: Should Do | Risk: Medium
+
+REQ-ADM-08.1: Complaint Status & Department Assignment Framework
+
+Input: A target Grievance Ticket ID string, an institutional department routing selection, and a progress workflow state tag selection.
+
+Processing: The system retrieves the anonymous ticket record, modifies the department routing field, updates the tracking state variable, and preserves entry anonymity by altering no user records.
+
+Output: An updated grievance details control screen displaying the modified institutional assignment path and modern workflow state tag.
+
+FR-ADM-09: Student Organization Governance (5 SP)
+
+Agile Allocation: Sprint 4 | Priority: Must Do | Risk: Medium
+
+REQ-ADM-09.1: Club Application Auditing & Permitting
+
+Input: A pending club registration application ID and a binary decision button click for approval or rejection.
+
+Processing: The system pulls the application metadata and either flips the club profile status flag to verified or flags it as rejected and archives the application file.
+
+Output: An updated database permission matrix table that dynamically grants or blocks event-creation rights for that targeted club profile.
+
+FR-ADM-10: Placement Notification Management (5 SP)
+
+Agile Allocation: Sprint 3 | Priority: Must Do | Risk: High
+
+REQ-ADM-10.1: Company Criteria Metadata Compilation
+
+Input: A form payload containing the recruitment company name, job description text, minimum eligible CGPA, and an array list of permitted academic branches.
+
+Processing: The system verifies that all criteria variables are present, inserts a new drive record into the placement table, and triggers a background lookup refresh across active student sessions.
+
+Output: A published corporate recruitment listing appearing live across the filtered placement job boards of all qualifying student profiles.
+
+FR-ADM-11: Guideline Enforcement / User Suspension (5 SP)
+
+Agile Allocation: Sprint 3 | Priority: Must Do | Risk: High
+
+REQ-ADM-11.1: Code-of-Conduct Enforcement & Session Termination
+
+Input: An offending student’s User ID string, a text string containing the misconduct rationale, and boundary dates for the suspension period.
+
+Processing: The system verifies administrative clearance, overwrites the target user's access parameter flag to suspended, and deletes all active login session tokens tied to that ID.
+
+Output: The absolute functional exclusion of the targeted student account, displaying an access denied page upon any subsequent connection attempts.
+
+5. Other Nonfunctional Requirements
+
+5.1 Performance Requirements
+
+Emergency Precedence: Urgent broadcast dispatch transactions bypass standard queue processing, rendering within < 1 second across active websockets.
+
+Query Latency: Dashboard metrics, filtered placement feeds, and Q&A searches execute within acceptable limits (< 500ms) under nominal lab conditions.
+
+Relational Indexing: Foreign keys, tag matrices, and student IDs are indexed to avoid full-table scans during peak concurrent usage.
+
+5.2 Safety Requirements
+
+Anonymity Assurance: Grievance logging scrubs user IDs, IP addresses, and session markers to protect student whistleblowers.
+
+Property Release Integrity: Physical or documented ownership validation is strictly required before an admin transitions a lost/found item to 'Resolved'.
+
+5.3 Security Requirements
+
+RBAC Isolation: Student tokens attempting administrative route execution must immediately receive HTTP 403 Forbidden responses.
+
+Cryptographic Hashing: Passwords must be salted and hashed using bcrypt or Argon2; plaintext storage in logs or persistent records is strictly disallowed.
+
+Input Sanitization: All text payloads are sanitized against Cross-Site Scripting (XSS) and parameter-bound to prevent SQL Injection (SQLi).
+
+5.4 Business Rules
+
+BR-01 (Domain Restriction): Only authenticated email domains belonging to Silicon University are permitted account registration.
+
+BR-02 (Club Event Rights): Unverified student clubs are blocked from publishing campus events until validated by an administrator.
+
+BR-03 (Broadcast Exclusivity): Only authenticated administrators possess the cryptographic privileges to broadcast emergency overlay alerts.
+
+BR-04 (Immediate Revocation): Suspension actions instantly invalidate active JWTs and session tokens for the target account.
+
+6. Agile Implementation & Sprint Reconciliation
+
+The engineering lifecycle follows a decrement model of exactly -2 SP per iteration (33 -> 31 -> 29 -> 27 SP), governing the 120 SP product estimate (94 SP active across 21 user stories, 26 SP deferred across 5 user stories).
+
+Sprint
+
+Capacity
+
+Assigned Functional Modules
+
+Active Load
+
+Buffer
+
+Sprint 1
+
+33 SP
+
+FR-STU-01, FR-STU-05, FR-ADM-01, FR-ADM-03, FR-ADM-05
+
+23 SP
+
+10 SP
+
+Sprint 2
+
+31 SP
+
+FR-STU-03, FR-STU-06, FR-STU-07, FR-STU-08, FR-ADM-08
+
+23 SP
+
+8 SP
+
+Sprint 3
+
+29 SP
+
+FR-STU-02, FR-ADM-02, FR-ADM-10, FR-ADM-11
+
+21 SP
+
+8 SP
+
+Sprint 4
+
+27 SP
+
+FR-STU-04, FR-STU-09, FR-STU-10, FR-ADM-04, FR-ADM-06, FR-ADM-07, FR-ADM-09
+
+27 SP
+
+0 SP
+
+TOTAL
+
+120 SP
+
+21 Active Functional Modules
+
+94 SP
+
+26 SP
+
+Appendix A: Glossary
+
+Term / Acronym
+
+Contextual Definition within CampusConnect
+
+ACID
+
+Atomicity, Consistency, Isolation, Durability guarantees enforced by the database layer.
+
+IPO
+
+Input, Processing, Output — atomic requirement definition framework.
+
+JWT
+
+JSON Web Token — cryptographically signed token enforcing RBAC session states.
+
+PYQ
+
+Previous Year Questions collected in the academic resource repository.
+
+RBAC
+
+Role-Based Access Control restricting actions between Students and Administrators.
+
+SP
+
+Story Points calculated on the standard Fibonacci scale (2, 3, 5, 8).
+
+SRS
+
+Software Requirements Specification formatted under IEEE Std 830-1998.
+
+Appendix B: Analysis Models (RBAC Architecture)
+
+The state routing diagram below defines the privilege boundaries enforced upon session authentication:
+
++-------------------------------------------------------------------------+|                       Unauthenticated User / Client                     |+-------------------------------------------------------------------------+                                     |                         [Login / JWT Authentication]                                     |                 +-------------------+-------------------+                 |                                       |         [Role == Student]                        [Role == Admin]                 |                                       |                 v                                       v+---------------------------------+     +---------------------------------+|        Student Dashboard        |     |       Admin Control Panel       || - Branch-Filtered Placements    |     | - Malicious Content Moderation  || - Peer Q&A & Teammates Finder   |     | - Account Audits & Suspensions  || - Study Notes & PYQ Repository  |     | - Lost Item Claim Verification  || - Lost / Found Item Logger      |     | - Overriding Broadcast Alerts   |+---------------------------------+     +---------------------------------+
+
+Appendix C: Deferred Scope / Product Backlog (26 SP)
+
+The following 5 user stories are deferred to future releases outside the active four-sprint scope:
+
+ID
+
+Feature Module
+
+Deferred Requirement Description
+
+Priority
+
+Risk
+
+SP
+
+9
+
+Interactive Map & Timetable
+
+Centralized daily timetable & classroom venue navigation map
+
+Must Do
+
+Medium
+
+5 SP
+
+11
+
+Student Marketplace
+
+Digital peer marketplace to buy/sell used textbooks & drawing tools
+
+Could Do
+
+Medium
+
+5 SP
+
+12
+
+Space Booking Engine
+
+Reserve discussion rooms and lab desks for hackathons/projects
+
+Should Do
+
+High
+
+8 SP
+
+23
+
+Reservation Controls
+
+Administrative configuration rules for room allocations and slots
+
+Should Do
+
+High
+
+5 SP
+
+25
+
+Reporting Automation
+
+Generate weekly PDF activity summary reports for university management
+
+Could Do
+
+Low
+
+3 SP
+
+TOTAL
+
+Deferred Scope Total
+
+Sum of backlog commitments reserved for future releases
+
+—
+
+—
+
+26 SP

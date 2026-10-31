@@ -1,0 +1,583 @@
+Decision Tables
+
+CampusConnect – Decision Tables
+
+Decision Table 1: Authentication & Role-Based Access Control
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Rule 4
+
+Rule 5
+
+Authentication credentials valid?
+
+Y
+
+Y
+
+N
+
+Y
+
+Y
+
+Role = Student?
+
+Y
+
+N
+
+-
+
+Y
+
+N
+
+Role = Admin?
+
+N
+
+Y
+
+-
+
+N
+
+Y
+
+Account active/not suspended?
+
+Y
+
+Y
+
+-
+
+N
+
+N
+
+ACTIONS
+
+Grant Student Access
+
+T
+
+Grant Admin Access
+
+T
+
+Reject / Show Authentication Error
+
+T
+
+Reject Access / Account Suspended
+
+T
+
+T
+
+Allow Requested Feature
+
+T
+
+T
+
+Return HTTP 403 / Access Denied
+
+T
+
+T
+
+Decision Table 2: Student Account Registration
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Rule 4
+
+University email belongs to allowed Silicon University domain?
+
+Y
+
+N
+
+Y
+
+Y
+
+Required registration information complete?
+
+Y
+
+Y
+
+N
+
+Y
+
+Password valid/acceptable?
+
+Y
+
+Y
+
+Y
+
+N
+
+Duplicate account already exists?
+
+N
+
+-
+
+-
+
+N
+
+ACTIONS
+
+Create active student account
+
+T
+
+Show invalid university-domain error
+
+T
+
+Show missing-information validation error
+
+T
+
+Show password validation error
+
+T
+
+Show duplicate-account error
+
+Decision Table 3: Campus Event Seat Reservation
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Rule 4
+
+Student is authenticated?
+
+Y
+
+Y
+
+N
+
+Y
+
+Event has remaining seats?
+
+Y
+
+N
+
+-
+
+Y
+
+Student already booked this event?
+
+N
+
+N
+
+-
+
+Y
+
+ACTIONS
+
+Create enrollment record
+
+T
+
+Generate reservation token
+
+T
+
+Decrease available seat count
+
+T
+
+Show full-capacity message
+
+T
+
+Reject unauthenticated booking
+
+T
+
+Show duplicate-booking message
+
+T
+
+Decision Table 4: Placement Job Eligibility
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Rule 4
+
+Student authenticated?
+
+Y
+
+Y
+
+Y
+
+N
+
+Student branch permitted for job?
+
+Y
+
+N
+
+Y
+
+-
+
+Student meets minimum CGPA?
+
+Y
+
+Y
+
+N
+
+-
+
+Job listing active?
+
+Y
+
+Y
+
+Y
+
+-
+
+ACTIONS
+
+Display job in personalized placement feed
+
+T
+
+Exclude job because branch is ineligible
+
+T
+
+Exclude job because CGPA is below minimum
+
+T
+
+Reject / require authentication
+
+T
+
+Decision Table 5: Lost & Found Ownership Verification
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Rule 4
+
+Admin authenticated and authorized?
+
+Y
+
+Y
+
+N
+
+Y
+
+Target item exists?
+
+Y
+
+Y
+
+-
+
+N
+
+Claim/ownership documents match?
+
+Y
+
+N
+
+-
+
+-
+
+ACTIONS
+
+Change item status to Resolved
+
+T
+
+Append admin ID and resolution timestamp
+
+T
+
+Send resolution alert to claimant
+
+T
+
+Keep item Pending Verification
+
+T
+
+Reject unauthorized operation
+
+T
+
+Show item-not-found error
+
+T
+
+Decision Table 6: Emergency Alert Broadcast
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+User authenticated?
+
+Y
+
+Y
+
+N
+
+User is Admin?
+
+Y
+
+N
+
+-
+
+Alert message valid?
+
+Y
+
+Y
+
+-
+
+ACTIONS
+
+Apply high-priority critical flag
+
+T
+
+Broadcast through active websocket channels
+
+T
+
+Show application-wide overlay popup
+
+T
+
+Reject non-admin broadcast request
+
+T
+
+Reject unauthenticated request
+
+T
+
+Decision Table 7: Club Event Publishing Authorization
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Club application approved/verified?
+
+Y
+
+N
+
+Y
+
+Requester authorized for club?
+
+Y
+
+Y
+
+N
+
+Event date is valid (not in past)?
+
+Y
+
+Y
+
+Y
+
+ACTIONS
+
+Create and publish official event
+
+T
+
+Block publishing because club is unverified
+
+T
+
+Reject unauthorized requester
+
+T
+
+Expose event in student dashboard
+
+T
+
+Decision Table 8: Student Account Suspension
+
+CONDITIONS / RULES
+
+Rule 1
+
+Rule 2
+
+Rule 3
+
+Admin authenticated and authorized?
+
+Y
+
+N
+
+Y
+
+Target student account exists?
+
+Y
+
+-
+
+N
+
+Suspension dates valid?
+
+Y
+
+-
+
+-
+
+ACTIONS
+
+Set account status to Suspended
+
+T
+
+Invalidate active JWT/session tokens
+
+T
+
+Display access-denied page on later login
+
+T
+
+Reject unauthorized suspension request
+
+T
+
+Show account-not-found error
+
+T
+
+Legend
+
+Symbol
+
+Meaning
+
+Y
+
+Condition is true / applies
+
+N
+
+Condition is false / does not apply
+
+-
+
+Condition is not relevant for that rule
+
+T
+
+Action is triggered
+
+Decision Table
+
+Conditions determine the applicable rule; actions are performed for that rule.
+
+Name:- Jagannath PadhiRoll No.: 11SIC:- 24BCSA34Group:- B1Name:- Jagannath PadhiRoll No.: 11SIC:- 24BCSA34Group:- B1
+
+Name:- Jagannath Padhi
+
+Roll No.: 11
+
+SIC:- 24BCSA34
+
+Group:- B1
+
+Name:- Jagannath Padhi
+
+Roll No.: 11
+
+SIC:- 24BCSA34
+
+Group:- B1

@@ -1,0 +1,30 @@
+{
+  "name": "campusconnect",
+  "version": "1.0.0",
+  "description": "Centralized single-campus university web portal for Silicon University, Bhubaneswar",
+  "private": true,
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "test:backend": "npm --prefix backend run test",
+    "test:frontend": "npm --prefix frontend run test",
+    "test": "npm run test:backend && npm run test:frontend",
+    "seed": "npm --prefix backend run seed",
+    "bootstrap:admin": "npm --prefix backend run bootstrap:admin"
+  },
+  "keywords": [
+    "campusconnect",
+    "silicon-university",
+    "portal",
+    "react",
+    "node",
+    "express",
+    "mongodb",
+    "socket.io"
+  ],
+  "author": "Silicon University Engineering Team",
+  "license": "ISC"
+}
