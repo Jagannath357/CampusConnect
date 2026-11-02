@@ -117,24 +117,24 @@ export const MyRegistrationsPage: React.FC = () => {
                 </div>
 
                 {/* Right Ticket Barcode / Token Stub */}
-                <div className="bg-slate-50 p-6 md:w-64 border-t md:border-t-0 md:border-l border-dashed border-slate-200 flex flex-col justify-between items-center text-center">
+                <div className="bg-slate-50 dark:bg-slate-900/90 p-6 md:w-64 border-t md:border-t-0 md:border-l border-dashed border-slate-200 dark:border-slate-800 flex flex-col justify-between items-center text-center">
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-400 tracking-wider">
                       ADMISSION PASS TOKEN
                     </span>
-                    <div className="mt-1 font-mono text-sm font-black text-indigo-700 bg-white px-3 py-1.5 rounded-lg border border-indigo-200 shadow-xs select-all">
+                    <div className="mt-1 font-mono text-sm font-black text-indigo-700 dark:text-indigo-300 bg-white dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-indigo-200 dark:border-indigo-800 shadow-xs select-all">
                       {reg.registrationToken}
                     </div>
-                    <p className="text-[10px] text-slate-400 mt-1">Show this token at campus entry</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-400 mt-1">Show this token at campus entry</p>
                   </div>
 
-                  <div className="mt-4 pt-3 w-full border-t border-slate-200/60 flex items-center justify-between">
-                    <Link to={`/events/${reg.eventId?._id}`} className="text-xs text-indigo-600 font-bold hover:underline">
+                  <div className="mt-4 pt-3 w-full border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
+                    <Link to={`/events/${reg.eventId?._id}`} className="text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
                       View Event
                     </Link>
                     <button
                       onClick={() => setSelectedToCancel(reg)}
-                      className="text-xs text-rose-600 hover:text-rose-800 font-medium"
+                      className="text-xs text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-300 font-medium"
                     >
                       Cancel Pass
                     </button>

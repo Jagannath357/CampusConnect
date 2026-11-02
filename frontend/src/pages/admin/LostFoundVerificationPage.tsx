@@ -109,8 +109,8 @@ export const LostFoundVerificationPage: React.FC = () => {
           ) : items.length === 0 ? (
             <p className="text-xs text-slate-400 text-center py-8">No reported items.</p>
           ) : (
-            <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 border-b border-slate-200/80 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+            <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
                 <tr>
                   <th className="p-4">Item Details</th>
                   <th className="p-4">Type</th>
@@ -120,35 +120,35 @@ export const LostFoundVerificationPage: React.FC = () => {
                   <th className="p-4 text-right">Verification</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {items.map((item) => (
-                  <tr key={item._id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={item._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/70 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center space-x-3">
                         {item.imageUrl ? (
                           <img
                             src={getFileUrl(item.imageUrl)}
                             alt={item.itemName}
-                            className="w-10 h-10 rounded-lg object-cover border border-slate-200"
+                            className="w-10 h-10 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-400 flex items-center justify-center font-bold">
+                          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold">
                             N/A
                           </div>
                         )}
                         <div>
-                          <p className="font-bold text-slate-900">{item.itemName}</p>
-                          <p className="text-[11px] text-slate-500 line-clamp-1">{item.description}</p>
+                          <p className="font-bold text-slate-900 dark:text-slate-100">{item.itemName}</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">{item.description}</p>
                         </div>
                       </div>
                     </td>
                     <td className="p-4 font-bold">
                       <StatusBadge status={item.type} />
                     </td>
-                    <td className="p-4 text-slate-600">
+                    <td className="p-4 text-slate-600 dark:text-slate-300">
                       {item.locationCategory} {item.locationDetails ? `(${item.locationDetails})` : ''}
                     </td>
-                    <td className="p-4 text-slate-600">
+                    <td className="p-4 text-slate-600 dark:text-slate-300">
                       {item.reporterId?.name || 'Student'}
                     </td>
                     <td className="p-4">
@@ -193,29 +193,29 @@ export const LostFoundVerificationPage: React.FC = () => {
       >
         {verifyingItem && (
           <form onSubmit={handleVerify} className="space-y-4 pt-2">
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-2">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs space-y-2">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 text-sm">{verifyingItem.itemName}</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">{verifyingItem.itemName}</span>
                 <StatusBadge status={verifyingItem.type} />
               </div>
-              <p className="text-slate-600">{verifyingItem.description}</p>
-              <p className="text-slate-500 text-[11px]">
+              <p className="text-slate-600 dark:text-slate-300">{verifyingItem.description}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-[11px]">
                 Location: {verifyingItem.locationCategory} • Reported by: {verifyingItem.reporterId?.name}
               </p>
             </div>
 
             {selectedClaim ? (
-              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs space-y-2">
-                <span className="font-bold uppercase text-amber-900 text-[10px]">
+              <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 text-xs space-y-2">
+                <span className="font-bold uppercase text-amber-900 dark:text-amber-300 text-[10px]">
                   Submitted Ownership Claim Evidence
                 </span>
-                <p className="text-slate-800">
+                <p className="text-slate-800 dark:text-slate-200">
                   <strong>Claimant:</strong> {selectedClaim.claimantId?.name} ({selectedClaim.claimantId?.email})
                 </p>
-                <p className="text-slate-700">
+                <p className="text-slate-700 dark:text-slate-300">
                   <strong>Claim Explanation:</strong> {selectedClaim.claimDescription}
                 </p>
-                <p className="text-slate-700">
+                <p className="text-slate-700 dark:text-slate-300">
                   <strong>Proof Details:</strong> {selectedClaim.proofDetails}
                 </p>
                 {selectedClaim.proofFileUrl && (
@@ -223,21 +223,21 @@ export const LostFoundVerificationPage: React.FC = () => {
                     href={getFileUrl(selectedClaim.proofFileUrl)}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center text-indigo-600 hover:underline font-bold"
+                    className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:underline font-bold"
                   >
                     Inspect Uploaded Proof Document <ExternalLink className="w-3.5 h-3.5 ml-1" />
                   </a>
                 )}
               </div>
             ) : (
-              <p className="text-xs text-slate-500 italic p-2 bg-slate-50 rounded-lg">
+              <p className="text-xs text-slate-500 dark:text-slate-400 italic p-2 bg-slate-50 dark:bg-slate-800/60 rounded-lg">
                 No claim record on file. Direct in-person administrative verification.
               </p>
             )}
 
             {/* Evidence Evaluation Choice */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Ownership Verification Result (Decision Table 5)
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -245,8 +245,8 @@ export const LostFoundVerificationPage: React.FC = () => {
                   type="button"
                   onClick={() => setEvidenceMatches(true)}
                   className={`p-3 rounded-xl border text-xs font-bold transition-all ${evidenceMatches
-                    ? 'bg-emerald-50 border-emerald-400 text-emerald-800 shadow-xs'
-                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-400 dark:border-emerald-700 text-emerald-800 dark:text-emerald-300 shadow-xs'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                     }`}
                 >
                   ✓ Evidence Matches: Approve & Mark Resolved
@@ -255,8 +255,8 @@ export const LostFoundVerificationPage: React.FC = () => {
                   type="button"
                   onClick={() => setEvidenceMatches(false)}
                   className={`p-3 rounded-xl border text-xs font-bold transition-all ${!evidenceMatches
-                    ? 'bg-rose-50 border-rose-400 text-rose-800 shadow-xs'
-                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 dark:border-rose-700 text-rose-800 dark:text-rose-300 shadow-xs'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                     }`}
                 >
                   ✕ Evidence Mismatch: Retain Pending Verification
@@ -273,7 +273,7 @@ export const LostFoundVerificationPage: React.FC = () => {
               required
             />
 
-            <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+            <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-800">
               <Button type="button" variant="outline" onClick={() => setVerifyingItem(null)}>
                 Cancel
               </Button>

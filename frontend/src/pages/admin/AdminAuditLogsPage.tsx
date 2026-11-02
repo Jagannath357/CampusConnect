@@ -175,11 +175,11 @@ export const AdminAuditLogsPage: React.FC = () => {
           description="No administrative actions match your current filter criteria."
         />
       ) : (
-        <Card className="border-gray-200 shadow-sm overflow-hidden">
+        <Card className="border-gray-200 dark:border-slate-800 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-gray-50 border-b text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                <tr className="bg-gray-50 dark:bg-slate-900/90 border-b border-gray-200 dark:border-slate-800 text-[11px] font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                   <th className="py-3 px-4">Timestamp</th>
                   <th className="py-3 px-4">Action Type</th>
                   <th className="py-3 px-4">Administrator</th>
@@ -188,10 +188,10 @@ export const AdminAuditLogsPage: React.FC = () => {
                   <th className="py-3 px-4 text-right">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100 text-sm">
+              <tbody className="divide-y divide-gray-100 dark:divide-slate-800 text-sm">
                 {logs.map((log) => (
-                  <tr key={log._id} className="hover:bg-gray-50/60 transition-colors">
-                    <td className="py-3 px-4 font-mono text-xs text-gray-500 whitespace-nowrap">
+                  <tr key={log._id} className="hover:bg-gray-50/60 dark:hover:bg-slate-800/70 transition-colors">
+                    <td className="py-3 px-4 font-mono text-xs text-gray-500 dark:text-slate-400 whitespace-nowrap">
                       {new Date(log.timestamp).toLocaleString()}
                     </td>
                     <td className="py-3 px-4 whitespace-nowrap">
@@ -200,24 +200,24 @@ export const AdminAuditLogsPage: React.FC = () => {
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <div className="text-xs font-semibold text-gray-900">
+                      <div className="text-xs font-semibold text-gray-900 dark:text-slate-100">
                         {log.adminId?.name || 'Administrator'}
                       </div>
-                      <div className="text-[11px] text-gray-400 font-mono">
+                      <div className="text-[11px] text-gray-400 dark:text-slate-500 font-mono">
                         {log.adminId?.email || 'System'}
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="text-xs font-semibold text-gray-700 bg-gray-100 px-2 py-0.5 rounded">
+                      <span className="text-xs font-semibold text-gray-700 dark:text-slate-200 bg-gray-100 dark:bg-slate-800 border dark:border-slate-700 px-2 py-0.5 rounded">
                         {log.targetEntity}
                       </span>
                       {log.targetId && (
-                        <span className="text-[11px] font-mono text-gray-500 block truncate max-w-[120px]">
+                        <span className="text-[11px] font-mono text-gray-500 dark:text-slate-400 block truncate max-w-[120px]">
                           {log.targetId}
                         </span>
                       )}
                     </td>
-                    <td className="py-3 px-4 font-mono text-xs text-gray-500">
+                    <td className="py-3 px-4 font-mono text-xs text-gray-500 dark:text-slate-400">
                       {log.ipAddress || '127.0.0.1'}
                     </td>
                     <td className="py-3 px-4 text-right">
@@ -283,7 +283,7 @@ export const AdminAuditLogsPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="space-y-2 text-xs text-gray-700 bg-gray-50 p-3 rounded-lg border font-mono">
+            <div className="space-y-2 text-xs text-gray-700 dark:text-slate-200 bg-gray-50 dark:bg-slate-900/90 p-3 rounded-lg border border-gray-200 dark:border-slate-800 font-mono">
               <div><strong>Admin:</strong> {inspectedLog.adminId?.name} ({inspectedLog.adminId?.email})</div>
               <div><strong>Timestamp:</strong> {new Date(inspectedLog.timestamp).toISOString()}</div>
               <div><strong>Target:</strong> {inspectedLog.targetEntity} / ID: {inspectedLog.targetId || 'N/A'}</div>
@@ -294,7 +294,7 @@ export const AdminAuditLogsPage: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-gray-700 uppercase mb-1 flex items-center gap-1.5">
+              <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1 flex items-center gap-1.5">
                 <Code2 className="w-3.5 h-3.5" />
                 Raw Audit Payload (JSON)
               </label>

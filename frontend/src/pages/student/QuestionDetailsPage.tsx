@@ -110,23 +110,23 @@ export const QuestionDetailsPage: React.FC = () => {
 
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 leading-snug">{question.title}</h1>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-sm text-slate-800 leading-relaxed whitespace-pre-wrap">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
             {question.description}
           </div>
 
-          <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100">
+          <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
             <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-[10px]">
+              <div className="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center text-[10px]">
                 {question.authorId?.name?.charAt(0)}
               </div>
-              <span className="font-semibold text-slate-700">{question.authorId?.name}</span>
+              <span className="font-semibold text-slate-700 dark:text-slate-300">{question.authorId?.name}</span>
               <span>•</span>
               <span>{new Date(question.createdAt).toLocaleDateString()}</span>
             </div>
 
             <div className="flex gap-1.5 mt-2 sm:mt-0">
               {question.tags.map((tag) => (
-                <span key={tag} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                <span key={tag} className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded">
                   #{tag}
                 </span>
               ))}
@@ -137,27 +137,27 @@ export const QuestionDetailsPage: React.FC = () => {
 
       {/* Answers Section */}
       <div className="space-y-4">
-        <h3 className="text-base font-bold text-slate-900 flex items-center space-x-2">
-          <MessageSquare className="w-4 h-4 text-indigo-600" />
+        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
+          <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
           <span>Peer Answers ({answers.length})</span>
         </h3>
 
         {answers.length === 0 ? (
-          <div className="p-8 text-center bg-white rounded-2xl border border-slate-200/80">
-            <p className="text-xs text-slate-500">No peer answers posted yet. Help your classmate by answering below!</p>
+          <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+            <p className="text-xs text-slate-500 dark:text-slate-400">No peer answers posted yet. Help your classmate by answering below!</p>
           </div>
         ) : (
           <div className="space-y-3">
             {answers.map((ans) => (
-              <Card key={ans._id} className="border-slate-200/80">
+              <Card key={ans._id} className="border-slate-200/80 dark:border-slate-800">
                 <CardContent className="p-5 space-y-3">
-                  <div className="text-sm text-slate-800 leading-relaxed whitespace-pre-wrap">
+                  <div className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">
                     {ans.content}
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-slate-100">
+                  <div className="flex items-center justify-between text-xs text-slate-400 dark:text-slate-500 pt-2 border-t border-slate-100 dark:border-slate-800">
                     <div className="flex items-center space-x-2">
-                      <span className="font-semibold text-slate-700">{ans.authorId?.name}</span>
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">{ans.authorId?.name}</span>
                       <span>•</span>
                       <span>{new Date(ans.createdAt).toLocaleDateString()}</span>
                     </div>
@@ -171,7 +171,7 @@ export const QuestionDetailsPage: React.FC = () => {
         {/* Post Answer Form */}
         <Card>
           <CardContent className="p-6">
-            <h4 className="text-sm font-bold text-slate-900 mb-3">Your Answer / Academic Solution</h4>
+            <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-3">Your Answer / Academic Solution</h4>
             {errorMessage && (
               <div className="mb-3 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-center space-x-2">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />

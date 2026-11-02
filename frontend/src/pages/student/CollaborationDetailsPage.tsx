@@ -116,24 +116,24 @@ export const CollaborationDetailsPage: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Project Description</h3>
-            <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">{post.description}</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Project Description</h3>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">{post.description}</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Teammate Vacancies</span>
-              <p className="text-sm font-bold text-slate-800 mt-0.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Teammate Vacancies</span>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">
                 {post.vacancyCount} {post.vacancyCount === 1 ? 'teammate' : 'teammates'} needed
               </p>
               {post.vacancyDescription && (
-                <p className="text-xs text-slate-500 mt-1">{post.vacancyDescription}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{post.vacancyDescription}</p>
               )}
             </div>
 
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Direct Contact Details</span>
-              <p className="text-sm font-bold text-indigo-700 mt-0.5 select-all">{post.contactInfo}</p>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Direct Contact Details</span>
+              <p className="text-sm font-bold text-indigo-700 dark:text-indigo-400 mt-0.5 select-all">{post.contactInfo}</p>
             </div>
           </div>
 
@@ -152,15 +152,15 @@ export const CollaborationDetailsPage: React.FC = () => {
           </div>
 
           {/* Project Creator Summary Card */}
-          <div className="pt-6 border-t border-slate-100">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Posted By</h3>
-            <div className="flex items-center space-x-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold">
+          <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-3">Posted By</h3>
+            <div className="flex items-center space-x-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
+              <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold">
                 {post.creatorId?.name?.charAt(0)}
               </div>
               <div>
-                <p className="text-sm font-bold text-slate-800">{post.creatorId?.name}</p>
-                <p className="text-xs text-slate-500">
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{post.creatorId?.name}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {creatorProfile?.department || 'Student'} • Batch {creatorProfile?.batchYear || ''} • {post.creatorId?.email}
                 </p>
               </div>

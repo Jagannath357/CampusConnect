@@ -78,30 +78,30 @@ export const ClubDetailsPage: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">About the Organization</h3>
-            <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">{club.description}</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">About the Organization</h3>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">{club.description}</p>
           </div>
 
           {club.membershipInfo && (
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 space-y-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 block">
                 Official Membership Pathways & Schedule
               </span>
-              <p className="text-xs text-slate-700 leading-relaxed">{club.membershipInfo}</p>
+              <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">{club.membershipInfo}</p>
             </div>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-xs">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Student Coordinator</span>
-              <p className="text-sm font-bold text-slate-800 mt-0.5">{club.leadStudentName}</p>
-              <p className="text-slate-500 mt-0.5">{club.leadStudentId?.email}</p>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Student Coordinator</span>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">{club.leadStudentName}</p>
+              <p className="text-slate-500 dark:text-slate-400 mt-0.5">{club.leadStudentId?.email}</p>
             </div>
 
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Official Club Inquiries</span>
-              <p className="text-sm font-bold text-indigo-700 mt-0.5">{club.contactEmail}</p>
-              <p className="text-slate-500 mt-0.5">Silicon University Campus</p>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Official Club Inquiries</span>
+              <p className="text-sm font-bold text-indigo-700 dark:text-indigo-400 mt-0.5">{club.contactEmail}</p>
+              <p className="text-slate-500 dark:text-slate-400 mt-0.5">Silicon University Campus</p>
             </div>
           </div>
         </CardContent>

@@ -181,29 +181,29 @@ export const MyProfilePage: React.FC = () => {
             /* View Mode */
             <div className="pt-6 space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Department</span>
-                  <p className="text-base font-bold text-slate-800 mt-1">{profile?.department}</p>
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Department</span>
+                  <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-1">{profile?.department}</p>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Cumulative CGPA</span>
-                  <p className="text-base font-bold text-indigo-600 mt-1">{profile?.cgpa ? profile.cgpa.toFixed(2) : '0.00'} / 10.0</p>
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Cumulative CGPA</span>
+                  <p className="text-base font-bold text-indigo-600 dark:text-indigo-400 mt-1">{profile?.cgpa ? profile.cgpa.toFixed(2) : '0.00'} / 10.0</p>
                 </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Contact Number</span>
-                  <p className="text-base font-bold text-slate-800 mt-1">{profile?.contactNumber || 'Not configured'}</p>
+                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Contact Number</span>
+                  <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-1">{profile?.contactNumber || 'Not configured'}</p>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Student Bio</h4>
-                <p className="text-sm text-slate-700 leading-relaxed bg-slate-50/70 p-4 rounded-xl border border-slate-100">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Student Bio</h4>
+                <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed bg-slate-50/70 dark:bg-slate-800/80 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                   {profile?.bio || 'No bio added yet. Click "Edit Profile" to summarize your academic interests and projects.'}
                 </p>
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Technical Skills</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Technical Skills</h4>
                 <div className="flex flex-wrap gap-2">
                   {profile?.skills && profile.skills.length > 0 ? (
                     profile.skills.map((skill) => (
@@ -217,13 +217,13 @@ export const MyProfilePage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4 pt-4 border-t border-slate-100 text-xs">
+              <div className="flex items-center space-x-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs">
                 {profile?.githubUrl && (
                   <a
                     href={profile.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center space-x-1.5 text-slate-600 hover:text-indigo-600 transition-colors font-semibold"
+                    className="flex items-center space-x-1.5 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-semibold"
                   >
                     <Github className="w-4 h-4" />
                     <span>GitHub Profile</span>
@@ -234,7 +234,7 @@ export const MyProfilePage: React.FC = () => {
                     href={profile.linkedinUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center space-x-1.5 text-slate-600 hover:text-indigo-600 transition-colors font-semibold"
+                    className="flex items-center space-x-1.5 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors font-semibold"
                   >
                     <Linkedin className="w-4 h-4" />
                     <span>LinkedIn Profile</span>
@@ -296,7 +296,7 @@ export const MyProfilePage: React.FC = () => {
                 />
               </div>
 
-              <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+              <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
                   Cancel
                 </Button>

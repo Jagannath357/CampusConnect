@@ -141,18 +141,18 @@ export const StudentDetailsPage: React.FC = () => {
       {/* Main Student Audit Card */}
       <Card>
         <CardContent className="p-6 sm:p-8 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-2xl font-black">
+              <div className="w-16 h-16 rounded-2xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-2xl font-black">
                 {user.name.charAt(0)}
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <h1 className="text-2xl font-black text-slate-900">{user.name}</h1>
+                  <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{user.name}</h1>
                   <StatusBadge status={user.status} />
                 </div>
-                <p className="text-xs text-slate-500">{user.email}</p>
-                <p className="text-xs font-bold text-slate-600 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
+                <p className="text-xs font-bold text-slate-600 dark:text-slate-300 mt-0.5">
                   Roll: {profile?.rollNumber} • {profile?.department} • Batch {profile?.batchYear}
                 </p>
               </div>
@@ -182,24 +182,24 @@ export const StudentDetailsPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-xs">
             <div>
-              <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Current CGPA</span>
-              <p className="text-base font-bold text-indigo-600 mt-0.5">
+              <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 text-[10px]">Current CGPA</span>
+              <p className="text-base font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">
                 {profile?.cgpa ? profile.cgpa.toFixed(2) : '0.00'} / 10.0
               </p>
             </div>
 
             <div>
-              <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Contact Phone</span>
-              <p className="text-base font-bold text-slate-800 mt-0.5">
+              <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 text-[10px]">Contact Phone</span>
+              <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-0.5">
                 {profile?.contactNumber || 'Not provided'}
               </p>
             </div>
 
             <div>
-              <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Token Version</span>
-              <p className="text-base font-bold text-slate-800 mt-0.5">
+              <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 text-[10px]">Token Version</span>
+              <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-0.5">
                 v{user.tokenVersion} (Revocation key)
               </p>
             </div>
@@ -207,34 +207,34 @@ export const StudentDetailsPage: React.FC = () => {
 
           {profile?.bio && (
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Student Bio</h3>
-              <p className="text-xs text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-100">{profile.bio}</p>
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-1">Student Bio</h3>
+              <p className="text-xs text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/80 p-3 rounded-lg border border-slate-100 dark:border-slate-700">{profile.bio}</p>
             </div>
           )}
 
           {/* Past Suspension History */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Suspension History</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-3">Suspension History</h3>
             {suspensions.length === 0 ? (
-              <p className="text-xs text-slate-500 bg-slate-50 p-4 rounded-xl border border-slate-100">
+              <p className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/80 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                 No disciplinary suspensions on record for this student account.
               </p>
             ) : (
               <div className="space-y-3">
                 {suspensions.map((s: any) => (
-                  <div key={s._id} className="p-4 rounded-xl border border-rose-200 bg-rose-50/40 text-xs space-y-1.5">
-                    <div className="flex items-center justify-between font-bold text-rose-900">
+                  <div key={s._id} className="p-4 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/30 text-xs space-y-1.5">
+                    <div className="flex items-center justify-between font-bold text-rose-900 dark:text-rose-200">
                       <span>Reason: {s.reason}</span>
                       <span className={s.isActive ? 'text-rose-600 uppercase font-black' : 'text-slate-500 uppercase'}>
                         {s.isActive ? 'Currently Active' : 'Reactivated'}
                       </span>
                     </div>
-                    <p className="text-slate-600">
+                    <p className="text-slate-600 dark:text-slate-400">
                       Issued on: {new Date(s.startDate).toLocaleDateString()}
                       {s.endDate && ` • Valid until: ${new Date(s.endDate).toLocaleDateString()}`}
                     </p>
                     {s.reactivationNotes && (
-                      <p className="text-emerald-700 pt-1 border-t border-rose-100">
+                      <p className="text-emerald-700 dark:text-emerald-400 pt-1 border-t border-rose-100 dark:border-rose-900/60">
                         <strong>Reactivation:</strong> {s.reactivationNotes}
                       </p>
                     )}
@@ -270,13 +270,13 @@ export const StudentDetailsPage: React.FC = () => {
             onChange={(e) => setSuspendEndDate(e.target.value)}
           />
 
-          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-[11px] text-rose-800 space-y-1">
+          <div className="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 rounded-xl text-[11px] text-rose-800 dark:text-rose-300 space-y-1">
             <p className="font-bold">Immediate Revocation Enforcement:</p>
             <p>• Student's active JWT tokens will be immediately invalidated.</p>
             <p>• Subsequent API requests and portal logins will be blocked with HTTP 403.</p>
           </div>
 
-          <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+          <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-800">
             <Button type="button" variant="outline" onClick={() => setShowSuspendModal(false)}>
               Cancel
             </Button>

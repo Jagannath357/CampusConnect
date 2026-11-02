@@ -149,52 +149,52 @@ export const EventDetailsPage: React.FC = () => {
           )}
 
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-xs">
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-xl bg-white shadow-xs text-indigo-600">
+              <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs text-indigo-600 dark:text-indigo-400">
                 <Calendar className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Date & Time</span>
-                <p className="text-sm font-bold text-slate-800">
+                <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 text-[10px]">Date & Time</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100">
                   {new Date(event.date).toLocaleDateString()}
                 </p>
-                <p className="text-slate-500 text-[11px]">{event.startTime} - {event.endTime}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-[11px]">{event.startTime} - {event.endTime}</p>
               </div>
             </div>
 
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-xl bg-white shadow-xs text-indigo-600">
+              <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs text-indigo-600 dark:text-indigo-400">
                 <MapPin className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Campus Venue</span>
-                <p className="text-sm font-bold text-slate-800">{event.venue}</p>
-                <p className="text-slate-500 text-[11px]">Silicon University Campus</p>
+                <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 text-[10px]">Campus Venue</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{event.venue}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-[11px]">Silicon University Campus</p>
               </div>
             </div>
 
             <div className="flex items-center space-x-3">
-              <div className="p-2.5 rounded-xl bg-white shadow-xs text-indigo-600">
+              <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs text-indigo-600 dark:text-indigo-400">
                 <Users className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-bold uppercase tracking-wider text-slate-400 text-[10px]">Seat Capacity</span>
-                <p className="text-sm font-bold text-slate-800">
+                <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 text-[10px]">Seat Capacity</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100">
                   {event.availableSeats} Seats Available
                 </p>
-                <p className="text-slate-500 text-[11px]">Total Capacity: {event.maxCapacity}</p>
+                <p className="text-slate-500 dark:text-slate-400 text-[11px]">Total Capacity: {event.maxCapacity}</p>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Event Description</h3>
-            <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">{event.description}</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Event Description</h3>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">{event.description}</p>
           </div>
 
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Organized by: <strong>{event.organizer}</strong></span>
+          <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>Organized by: <strong className="text-slate-700 dark:text-slate-200">{event.organizer}</strong></span>
             <span>Silicon University Official Event</span>
           </div>
         </CardContent>

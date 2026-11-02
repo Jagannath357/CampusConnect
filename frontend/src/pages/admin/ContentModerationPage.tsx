@@ -115,15 +115,15 @@ export const ContentModerationPage: React.FC = () => {
                   {posts.map((post) => (
                     <div
                       key={post._id}
-                      className="p-4 rounded-xl border border-rose-200 bg-rose-50/30 flex items-start justify-between gap-4"
+                      className="p-4 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/30 dark:bg-rose-950/30 flex items-start justify-between gap-4"
                     >
                       <div className="space-y-1">
-                        <span className="text-[10px] font-extrabold uppercase bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full">
+                        <span className="text-[10px] font-extrabold uppercase bg-rose-100 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 px-2.5 py-0.5 rounded-full border border-rose-200 dark:border-rose-800">
                           MODERATED • HIDDEN FROM PUBLIC FEED
                         </span>
-                        <h4 className="text-sm font-bold text-slate-900 pt-1">{post.title}</h4>
-                        <p className="text-xs text-slate-600 line-clamp-2">{post.description}</p>
-                        <p className="text-[11px] text-slate-400">
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 pt-1">{post.title}</h4>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">{post.description}</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-400">
                           Creator: {post.creatorId?.name} ({post.creatorId?.email})
                         </p>
                       </div>
@@ -163,15 +163,15 @@ export const ContentModerationPage: React.FC = () => {
                   {questions.map((q) => (
                     <div
                       key={q._id}
-                      className="p-4 rounded-xl border border-rose-200 bg-rose-50/30 flex items-start justify-between gap-4"
+                      className="p-4 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/30 dark:bg-rose-950/30 flex items-start justify-between gap-4"
                     >
                       <div className="space-y-1">
-                        <span className="text-[10px] font-extrabold uppercase bg-rose-100 text-rose-700 px-2.5 py-0.5 rounded-full">
+                        <span className="text-[10px] font-extrabold uppercase bg-rose-100 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 px-2.5 py-0.5 rounded-full border border-rose-200 dark:border-rose-800">
                           MODERATED • HIDDEN
                         </span>
-                        <h4 className="text-sm font-bold text-slate-900 pt-1">{q.title}</h4>
-                        <p className="text-xs text-slate-600 line-clamp-2">{q.description}</p>
-                        <p className="text-[11px] text-slate-400">
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 pt-1">{q.title}</h4>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">{q.description}</p>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-400">
                           Author: {q.authorId?.name} ({q.authorId?.email})
                         </p>
                       </div>

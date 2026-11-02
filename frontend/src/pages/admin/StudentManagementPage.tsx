@@ -133,8 +133,8 @@ export const StudentManagementPage: React.FC = () => {
               No student records found matching the filter.
             </div>
           ) : (
-            <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 border-b border-slate-200/80 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+            <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
                 <tr>
                   <th className="p-4">Student</th>
                   <th className="p-4">Roll Number</th>
@@ -144,27 +144,27 @@ export const StudentManagementPage: React.FC = () => {
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {students.map(({ user, profile }) => (
-                  <tr key={user._id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={user._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/70 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center text-xs">
+                        <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center text-xs">
                           {user.name.charAt(0)}
                         </div>
                         <div>
-                          <p className="font-bold text-slate-900">{user.name}</p>
-                          <p className="text-[11px] text-slate-500">{user.email}</p>
+                          <p className="font-bold text-slate-900 dark:text-slate-100">{user.name}</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400">{user.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-4 font-mono font-bold text-slate-800">
+                    <td className="p-4 font-mono font-bold text-slate-800 dark:text-slate-200">
                       {profile?.rollNumber || 'N/A'}
                     </td>
-                    <td className="p-4 font-medium">
+                    <td className="p-4 font-medium text-slate-700 dark:text-slate-300">
                       {profile?.department || 'CSE'} • Batch {profile?.batchYear || '2026'}
                     </td>
-                    <td className="p-4 font-bold text-indigo-700">
+                    <td className="p-4 font-bold text-indigo-700 dark:text-indigo-400">
                       {profile?.cgpa ? profile.cgpa.toFixed(2) : '0.00'}
                     </td>
                     <td className="p-4">

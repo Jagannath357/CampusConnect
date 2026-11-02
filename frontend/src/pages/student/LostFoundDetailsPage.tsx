@@ -155,34 +155,34 @@ export const LostFoundDetailsPage: React.FC = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-xs">
             <div>
-              <span className="font-bold uppercase tracking-wider text-slate-400">Location Area</span>
-              <p className="text-sm font-bold text-slate-800 mt-0.5">{item.locationCategory}</p>
+              <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Location Area</span>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">{item.locationCategory}</p>
               {item.locationDetails && (
-                <p className="text-slate-500 mt-0.5">{item.locationDetails}</p>
+                <p className="text-slate-500 dark:text-slate-400 mt-0.5">{item.locationDetails}</p>
               )}
             </div>
 
             <div>
-              <span className="font-bold uppercase tracking-wider text-slate-400">Reporter</span>
-              <p className="text-sm font-bold text-slate-800 mt-0.5">{item.reporterId?.name}</p>
-              <p className="text-slate-500 mt-0.5">{item.reporterId?.email}</p>
+              <span className="font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Reporter</span>
+              <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">{item.reporterId?.name}</p>
+              <p className="text-slate-500 dark:text-slate-400 mt-0.5">{item.reporterId?.email}</p>
             </div>
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Item Description</h3>
-            <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">{item.description}</p>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Item Description</h3>
+            <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-wrap">{item.description}</p>
           </div>
 
           {item.status === 'RESOLVED' && (
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-1">
+            <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200 text-xs space-y-1">
               <div className="flex items-center space-x-1.5 font-bold">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>Verified & Resolved by Administration</span>
               </div>
-              {item.resolutionNotes && <p className="text-emerald-800">{item.resolutionNotes}</p>}
+              {item.resolutionNotes && <p className="text-emerald-800 dark:text-emerald-300">{item.resolutionNotes}</p>}
               {item.resolvedAt && (
                 <p className="text-slate-500 text-[11px]">
                   Resolved at: {new Date(item.resolvedAt).toLocaleString()}
@@ -263,15 +263,15 @@ export const LostFoundDetailsPage: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {claims.map((claim) => (
-              <div key={claim._id} className="p-4 rounded-xl border border-slate-200 bg-slate-50 text-xs space-y-2">
+              <div key={claim._id} className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 text-xs space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-900">{claim.claimantId?.name} ({claim.claimantId?.email})</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100">{claim.claimantId?.name} ({claim.claimantId?.email})</span>
                   <StatusBadge status={claim.status} />
                 </div>
-                <p className="text-slate-700 leading-relaxed"><strong>Claim:</strong> {claim.claimDescription}</p>
-                <p className="text-slate-600"><strong>Proof:</strong> {claim.proofDetails}</p>
+                <p className="text-slate-700 dark:text-slate-200 leading-relaxed"><strong>Claim:</strong> {claim.claimDescription}</p>
+                <p className="text-slate-600 dark:text-slate-300"><strong>Proof:</strong> {claim.proofDetails}</p>
                 {claim.proofFileUrl && (
-                  <a href={getFileUrl(claim.proofFileUrl)} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline font-semibold block">
+                  <a href={getFileUrl(claim.proofFileUrl)} target="_blank" rel="noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold block">
                     View Attached Proof File
                   </a>
                 )}

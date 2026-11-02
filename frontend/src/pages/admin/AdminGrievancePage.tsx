@@ -253,39 +253,39 @@ export const AdminGrievancePage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {grievances.map((item) => (
-            <Card key={item._id} className="border-gray-200 hover:border-indigo-300 transition-all flex flex-col justify-between shadow-sm">
-              <CardHeader className="p-4 pb-2 border-b bg-gray-50/50">
+            <Card key={item._id} className="border-gray-200 dark:border-slate-800 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all flex flex-col justify-between shadow-sm">
+              <CardHeader className="p-4 pb-2 border-b border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-slate-900/70">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold bg-indigo-100 text-indigo-900 px-2 py-0.5 rounded border border-indigo-200">
+                  <span className="font-mono text-xs font-bold bg-indigo-100 dark:bg-indigo-950/80 text-indigo-900 dark:text-indigo-300 px-2 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">
                     {item.trackingTicket}
                   </span>
                   <StatusBadge status={item.status} />
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-2">
-                  <Tag className="w-3.5 h-3.5 text-gray-400" />
-                  <span className="font-medium text-gray-700">{item.category}</span>
+                <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-slate-400 mt-2">
+                  <Tag className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500" />
+                  <span className="font-medium text-gray-700 dark:text-slate-300">{item.category}</span>
                   <span>•</span>
-                  <Clock className="w-3.5 h-3.5 text-gray-400" />
+                  <Clock className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500" />
                   <span>{new Date(item.createdAt).toLocaleDateString()}</span>
                 </div>
               </CardHeader>
 
               <CardContent className="p-4 flex-1 flex flex-col justify-between space-y-4">
                 <div>
-                  <p className="text-sm text-gray-700 line-clamp-3 leading-relaxed">
+                  <p className="text-sm text-gray-700 dark:text-slate-200 line-clamp-3 leading-relaxed">
                     {item.description}
                   </p>
 
                   {item.assignedDepartment && (
-                    <div className="mt-3 p-2 bg-slate-50 border rounded text-xs flex items-center gap-1.5 text-slate-700 font-medium">
-                      <Building2 className="w-3.5 h-3.5 text-indigo-600" />
+                    <div className="mt-3 p-2 bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded text-xs flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
+                      <Building2 className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                       <span>Assigned: {item.assignedDepartment}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="pt-2 border-t flex items-center justify-between">
-                  <span className="text-[11px] text-gray-400">
+                <div className="pt-2 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-[11px] text-gray-400 dark:text-slate-500">
                     {item.statusTimeline.length} updates logged
                   </span>
                   <Button

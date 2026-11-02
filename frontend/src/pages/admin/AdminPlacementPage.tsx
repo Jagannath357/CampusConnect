@@ -219,27 +219,27 @@ export const AdminPlacementPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {placements.map((item) => (
-            <Card key={item._id} className="border-gray-200 hover:border-blue-300 transition-all flex flex-col justify-between shadow-sm">
-              <CardHeader className="p-4 pb-2 border-b bg-gray-50/50">
+            <Card key={item._id} className="border-gray-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all flex flex-col justify-between shadow-sm">
+              <CardHeader className="p-4 pb-2 border-b border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-slate-900/70">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-base text-gray-900">{item.companyName}</span>
+                  <span className="font-bold text-base text-gray-900 dark:text-slate-100">{item.companyName}</span>
                   <StatusBadge status={item.status} />
                 </div>
-                <h4 className="text-sm font-semibold text-blue-700 mt-1">{item.jobTitle}</h4>
+                <h4 className="text-sm font-semibold text-blue-700 dark:text-blue-400 mt-1">{item.jobTitle}</h4>
               </CardHeader>
 
               <CardContent className="p-4 flex-1 flex flex-col justify-between space-y-4">
-                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                   {item.jobDescription}
                 </p>
 
-                <div className="space-y-1.5 text-xs text-gray-600 bg-slate-50 p-3 rounded-lg border">
+                <div className="space-y-1.5 text-xs text-gray-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/80 p-3 rounded-lg border border-slate-200 dark:border-slate-800">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 font-medium">
-                      <GraduationCap className="w-3.5 h-3.5 text-blue-600" />
+                      <GraduationCap className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                       Min CGPA:
                     </span>
-                    <span className="font-bold text-gray-800">{item.minimumCgpa.toFixed(1)}</span>
+                    <span className="font-bold text-gray-800 dark:text-slate-100">{item.minimumCgpa.toFixed(1)}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -308,9 +308,9 @@ export const AdminPlacementPage: React.FC = () => {
       {/* Creation / Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200">
-            <div className="p-6 border-b bg-gray-50 flex items-center justify-between">
-              <h3 className="text-lg font-bold text-gray-900">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-slate-800">
+            <div className="p-6 border-b border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-900/90 flex items-center justify-between">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">
                 {editingId ? 'Edit Placement Opportunity' : 'Publish New Campus Placement Drive'}
               </h3>
               <button
@@ -413,7 +413,7 @@ export const AdminPlacementPage: React.FC = () => {
                         className={`text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
                           isSelected
                             ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                            : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-200 border-gray-300 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700'
                         }`}
                       >
                         {b}

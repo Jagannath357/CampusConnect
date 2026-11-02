@@ -237,27 +237,27 @@ export const ClubGovernancePage: React.FC = () => {
                     <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
                       Description & Scope
                     </h4>
-                    <p className="text-sm text-gray-700">{app.description}</p>
+                    <p className="text-sm text-gray-700 dark:text-slate-200">{app.description}</p>
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                    <h4 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-1">
                       Charter Objectives & Mission
                     </h4>
-                    <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg border">
+                    <p className="text-sm text-gray-700 dark:text-slate-200 bg-gray-50 dark:bg-slate-900/80 p-3 rounded-lg border border-gray-200 dark:border-slate-800">
                       {app.objectives}
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs bg-slate-50 p-3 rounded-lg border">
-                    <div className="flex items-center gap-2 text-gray-700">
-                      <UserCheck className="w-4 h-4 text-emerald-600" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs bg-slate-50 dark:bg-slate-900/80 p-3 rounded-lg border border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2 text-gray-700 dark:text-slate-300">
+                      <UserCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                       <span>
                         <strong>Proposed Lead:</strong> {app.proposedLeadStudentName} ({app.proposedLeadStudentId?.email})
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-gray-700">
-                      <Mail className="w-4 h-4 text-emerald-600" />
+                    <div className="flex items-center gap-2 text-gray-700 dark:text-slate-300">
+                      <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                       <span>
                         <strong>Contact Email:</strong> {app.contactEmail}
                       </span>
@@ -265,13 +265,13 @@ export const ClubGovernancePage: React.FC = () => {
                   </div>
 
                   {app.reviewNotes && (
-                    <div className="text-xs p-3 bg-blue-50 border border-blue-200 rounded text-blue-900">
+                    <div className="text-xs p-3 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 rounded text-blue-900 dark:text-blue-200">
                       <strong>Admin Review Notes:</strong> {app.reviewNotes}
                     </div>
                   )}
 
                   {app.status === 'PENDING' && (
-                    <div className="pt-2 border-t flex items-center justify-end gap-3">
+                    <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
                       <Button
                         variant="outline"
                         size="sm"
@@ -306,33 +306,33 @@ export const ClubGovernancePage: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {verifiedClubs.map((club) => (
-              <Card key={club._id} className="border-gray-200 shadow-sm hover:border-emerald-300 transition-all flex flex-col justify-between">
-                <CardHeader className="p-4 pb-2 border-b bg-gray-50/50">
+              <Card key={club._id} className="border-gray-200 dark:border-slate-800 shadow-sm hover:border-emerald-300 dark:hover:border-emerald-600 transition-all flex flex-col justify-between">
+                <CardHeader className="p-4 pb-2 border-b border-gray-100 dark:border-slate-800 bg-gray-50/50 dark:bg-slate-900/70">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded border border-emerald-200">
+                    <span className="text-xs font-mono font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-900 dark:text-emerald-300 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
                       {club.code}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
                       <ShieldCheck className="w-3 h-3" />
                       Verified
                     </span>
                   </div>
-                  <h3 className="font-bold text-base text-gray-900 mt-2">{club.name}</h3>
-                  <span className="text-xs text-gray-500 font-medium">{club.category}</span>
+                  <h3 className="font-bold text-base text-gray-900 dark:text-slate-100 mt-2">{club.name}</h3>
+                  <span className="text-xs text-gray-500 dark:text-slate-400 font-medium">{club.category}</span>
                 </CardHeader>
                 <CardContent className="p-4 flex-1 flex flex-col justify-between space-y-4">
-                  <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">
+                  <p className="text-sm text-gray-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                     {club.description}
                   </p>
 
-                  <div className="pt-2 border-t text-xs text-gray-500 space-y-1">
+                  <div className="pt-2 border-t border-gray-100 dark:border-slate-800 text-xs text-gray-500 dark:text-slate-400 space-y-1">
                     <p className="flex items-center gap-1.5">
                       <UserCheck className="w-3.5 h-3.5 text-gray-400" />
-                      <span>Lead: <strong>{club.leadStudentName}</strong></span>
+                      <span>Lead: <strong className="text-gray-700 dark:text-slate-200">{club.leadStudentName}</strong></span>
                     </p>
                     <p className="flex items-center gap-1.5">
                       <Mail className="w-3.5 h-3.5 text-gray-400" />
-                      <span>{club.contactEmail}</span>
+                      <span className="text-gray-600 dark:text-slate-300">{club.contactEmail}</span>
                     </p>
                   </div>
                 </CardContent>

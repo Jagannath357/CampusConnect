@@ -99,12 +99,40 @@
     border-color: #1e293b !important;
   }
 
-  .dark .bg-slate-50\/50:not([class*="dark:bg-"]),
-  .dark .bg-slate-50:not([class*="dark:bg-"]),
-  .dark .bg-gray-50:not([class*="dark:bg-"]),
-  .dark .bg-gray-50\/50:not([class*="dark:bg-"]) {
+  /* Universal Dark Mode Backgrounds for slate/gray/zinc-50 at any opacity (/50, /70, /80) */
+  .dark [class*="bg-slate-50"]:not([class*="dark:bg-"]):not([class*="hover:"]),
+  .dark [class*="bg-gray-50"]:not([class*="dark:bg-"]):not([class*="hover:"]),
+  .dark [class*="bg-zinc-50"]:not([class*="dark:bg-"]):not([class*="hover:"]) {
     background-color: #0f172a !important;
     border-color: #1e293b !important;
+  }
+
+  /* Universal Dark Mode Hover States for Tables, Rows, Cards, and Lists */
+  .dark tr:hover,
+  .dark tr[class*="hover:bg-"]:hover,
+  .dark [class*="hover:bg-slate-50"]:hover,
+  .dark [class*="hover:bg-slate-100"]:hover,
+  .dark [class*="hover:bg-gray-50"]:hover,
+  .dark [class*="hover:bg-gray-100"]:hover,
+  .dark [class*="hover:bg-zinc-50"]:hover,
+  .dark [class*="hover:bg-zinc-100"]:hover {
+    background-color: rgba(30, 41, 59, 0.75) !important; /* sleek slate-800 highlight */
+  }
+
+  .dark tr:hover td,
+  .dark tr:hover th,
+  .dark tr:hover p,
+  .dark tr:hover div,
+  .dark tr:hover span:not([class*="bg-indigo-"]):not([class*="bg-emerald-"]):not([class*="bg-amber-"]):not([class*="bg-rose-"]):not([class*="bg-sky-"]),
+  .dark tr:hover .text-slate-900,
+  .dark tr:hover .text-slate-800,
+  .dark tr:hover .text-slate-700,
+  .dark tr:hover .text-slate-600,
+  .dark tr:hover .text-gray-900,
+  .dark tr:hover .text-gray-800,
+  .dark tr:hover .text-gray-700,
+  .dark tr:hover .text-gray-600 {
+    color: #f8fafc !important;
   }
 
   /* Universal Dark Mode Chips, Pills, Badges & Skill Tags */
@@ -202,12 +230,35 @@
     color: #f8fafc;
   }
 
+  .dark thead {
+    background-color: #0b1329 !important;
+    border-color: #1e293b !important;
+  }
+
+  .dark thead th {
+    color: #94a3b8 !important;
+  }
+
+  .dark tbody tr {
+    border-color: #1e293b !important;
+  }
+
   .dark th {
     color: #94a3b8;
   }
 
   .dark td {
     color: #f1f5f9;
+  }
+
+  .dark input,
+  .dark textarea {
+    color: #f8fafc;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #64748b;
   }
 }
 

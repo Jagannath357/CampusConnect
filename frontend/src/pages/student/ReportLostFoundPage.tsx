@@ -103,8 +103,8 @@ export const ReportLostFoundPage: React.FC = () => {
                   onClick={() => setType('LOST')}
                   className={`p-3 rounded-xl border text-xs font-bold transition-all ${
                     type === 'LOST'
-                      ? 'bg-rose-50 border-rose-400 text-rose-700 shadow-xs'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-400 dark:border-rose-700 text-rose-700 dark:text-rose-300 shadow-xs'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
                   I Lost An Item
@@ -114,8 +114,8 @@ export const ReportLostFoundPage: React.FC = () => {
                   onClick={() => setType('FOUND')}
                   className={`p-3 rounded-xl border text-xs font-bold transition-all ${
                     type === 'FOUND'
-                      ? 'bg-sky-50 border-sky-400 text-sky-700 shadow-xs'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'bg-sky-50 dark:bg-sky-950/60 border-sky-400 dark:border-sky-700 text-sky-700 dark:text-sky-300 shadow-xs'
+                      : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
                   I Found An Item
@@ -176,10 +176,10 @@ export const ReportLostFoundPage: React.FC = () => {
 
             {/* Optional Photo Upload */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Supporting Photograph (Optional)
               </label>
-              <div className="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center hover:border-indigo-400 transition-colors bg-slate-50/50">
+              <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-4 text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-colors bg-slate-50/50 dark:bg-slate-800/40">
                 <input
                   id="lost-found-file-input"
                   type="file"
@@ -190,9 +190,9 @@ export const ReportLostFoundPage: React.FC = () => {
                 <label htmlFor="lost-found-file-input" className="cursor-pointer block">
                   <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
                   {imageFile ? (
-                    <p className="text-xs font-bold text-slate-800">{imageFile.name}</p>
+                    <p className="text-xs font-bold text-slate-800 dark:text-slate-100">{imageFile.name}</p>
                   ) : (
-                    <p className="text-xs text-slate-500 font-medium">Click to attach photo</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Click to attach photo</p>
                   )}
                 </label>
               </div>

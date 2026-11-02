@@ -58,8 +58,8 @@ export const SuspensionManagementPage: React.FC = () => {
               No disciplinary suspensions recorded. All student accounts in good standing.
             </div>
           ) : (
-            <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 border-b border-slate-200/80 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+            <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
                 <tr>
                   <th className="p-4">Target Student</th>
                   <th className="p-4">Reason</th>
@@ -69,16 +69,16 @@ export const SuspensionManagementPage: React.FC = () => {
                   <th className="p-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {suspensionHistory.map((s) => (
-                  <tr key={s._id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={s._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/70 transition-colors">
                     <td className="p-4">
-                      <p className="font-bold text-slate-900">{s.studentId?.name || 'Student'}</p>
-                      <p className="text-[11px] text-slate-500">{s.studentId?.email}</p>
+                      <p className="font-bold text-slate-900 dark:text-slate-100">{s.studentId?.name || 'Student'}</p>
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400">{s.studentId?.email}</p>
                     </td>
-                    <td className="p-4 max-w-xs text-slate-800 font-medium">{s.reason}</td>
-                    <td className="p-4 text-slate-600 font-medium">{s.suspendedBy?.name || 'Administrator'}</td>
-                    <td className="p-4 text-slate-500 text-[11px]">
+                    <td className="p-4 max-w-xs text-slate-800 dark:text-slate-200 font-medium">{s.reason}</td>
+                    <td className="p-4 text-slate-600 dark:text-slate-300 font-medium">{s.suspendedBy?.name || 'Administrator'}</td>
+                    <td className="p-4 text-slate-500 dark:text-slate-400 text-[11px]">
                       {new Date(s.startDate).toLocaleDateString()}
                       {s.endDate && ` - ${new Date(s.endDate).toLocaleDateString()}`}
                     </td>
@@ -86,8 +86,8 @@ export const SuspensionManagementPage: React.FC = () => {
                       <span
                         className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                           s.isActive
-                            ? 'bg-rose-50 border-rose-200 text-rose-700'
-                            : 'bg-emerald-50 border-emerald-200 text-emerald-700'
+                            ? 'bg-rose-50 dark:bg-rose-950/70 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300'
+                            : 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300'
                         }`}
                       >
                         {s.isActive ? 'ACTIVE SUSPENSION' : 'REACTIVATED'}

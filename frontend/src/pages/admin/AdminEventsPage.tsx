@@ -86,8 +86,8 @@ export const AdminEventsPage: React.FC = () => {
           ) : events.length === 0 ? (
             <p className="text-xs text-slate-400 text-center py-8">No campus events published yet.</p>
           ) : (
-            <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 border-b border-slate-200/80 text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+            <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
                 <tr>
                   <th className="p-4">Event Title</th>
                   <th className="p-4">Category</th>
@@ -98,25 +98,25 @@ export const AdminEventsPage: React.FC = () => {
                   <th className="p-4 text-right">Attendees</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {events.map((evt) => (
-                  <tr key={evt._id} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={evt._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/70 transition-colors">
                     <td className="p-4">
-                      <p className="font-bold text-slate-900">{evt.title}</p>
-                      <p className="text-[11px] text-slate-400">{evt.organizer}</p>
+                      <p className="font-bold text-slate-900 dark:text-slate-100">{evt.title}</p>
+                      <p className="text-[11px] text-slate-400 dark:text-slate-400">{evt.organizer}</p>
                     </td>
                     <td className="p-4">
-                      <span className="text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-700 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                      <span className="text-[10px] font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 px-2.5 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">
                         {evt.category}
                       </span>
                     </td>
-                    <td className="p-4 text-slate-600">
+                    <td className="p-4 text-slate-600 dark:text-slate-300">
                       {new Date(evt.date).toLocaleDateString()}
-                      <span className="block text-[11px] text-slate-400">{evt.startTime} - {evt.endTime}</span>
+                      <span className="block text-[11px] text-slate-400 dark:text-slate-400">{evt.startTime} - {evt.endTime}</span>
                     </td>
-                    <td className="p-4 text-slate-700 font-medium">{evt.venue}</td>
+                    <td className="p-4 text-slate-700 dark:text-slate-300 font-medium">{evt.venue}</td>
                     <td className="p-4">
-                      <span className="font-bold text-indigo-700">
+                      <span className="font-bold text-indigo-700 dark:text-indigo-400">
                         {evt.availableSeats} / {evt.maxCapacity} available
                       </span>
                     </td>
@@ -153,20 +153,20 @@ export const AdminEventsPage: React.FC = () => {
               No students have registered for this event yet.
             </p>
           ) : (
-            <div className="max-h-96 overflow-y-auto divide-y divide-slate-100">
+            <div className="max-h-96 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
               {attendees.map((att, idx) => (
                 <div key={idx} className="py-3 flex items-center justify-between text-xs">
                   <div>
-                    <p className="font-bold text-slate-900">{att.student?.name}</p>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="font-bold text-slate-900 dark:text-slate-100">{att.student?.name}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
                       {att.student?.email} • {att.profile?.department || 'Student'} • Roll: {att.profile?.rollNumber || 'N/A'}
                     </p>
                   </div>
                   <div className="text-right">
-                    <span className="font-mono text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
+                    <span className="font-mono text-xs font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 px-2 py-0.5 rounded border border-indigo-200 dark:border-indigo-800">
                       {att.registrationToken}
                     </span>
-                    <span className="block text-[10px] text-slate-400 mt-0.5">
+                    <span className="block text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">
                       {new Date(att.registeredAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -175,7 +175,7 @@ export const AdminEventsPage: React.FC = () => {
             </div>
           )}
 
-          <div className="flex justify-end pt-3 border-t border-slate-100">
+          <div className="flex justify-end pt-3 border-t border-slate-100 dark:border-slate-800">
             <Button variant="outline" size="sm" onClick={() => setInspectingEvent(null)}>
               Close
             </Button>

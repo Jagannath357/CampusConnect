@@ -126,37 +126,37 @@ export const GrievanceTrackPage: React.FC = () => {
 
           <CardContent className="p-6 space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Category</span>
-                <p className="text-sm font-bold text-slate-800 mt-0.5">{grievance.category}</p>
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Category</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">{grievance.category}</p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Assigned Department</span>
-                <p className="text-sm font-bold text-indigo-600 mt-0.5">
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
+                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Assigned Department</span>
+                <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400 mt-0.5">
                   {grievance.assignedDepartment || 'Pending Administrative Routing'}
                 </p>
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Submitted Description</h4>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-1.5">Submitted Description</h4>
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed bg-slate-50 dark:bg-slate-800/80 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                 {grievance.description}
               </p>
             </div>
 
             {/* Status Timeline */}
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Resolution Progress Timeline</h4>
-              <div className="space-y-3 relative pl-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-3">Resolution Progress Timeline</h4>
+              <div className="space-y-3 relative pl-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-700">
                 {grievance.statusTimeline?.map((item, idx) => (
                   <div key={idx} className="relative">
-                    <div className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-indigo-600 ring-4 ring-white" />
+                    <div className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900" />
                     <div className="text-xs">
-                      <span className="font-bold text-slate-800">{item.status}</span>
-                      <p className="text-slate-600 mt-0.5">{item.note}</p>
-                      <span className="text-[10px] text-slate-400 block mt-0.5">
+                      <span className="font-bold text-slate-800 dark:text-slate-100">{item.status}</span>
+                      <p className="text-slate-600 dark:text-slate-300 mt-0.5">{item.note}</p>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-400 block mt-0.5">
                         {new Date(item.updatedAt).toLocaleString()}
                       </span>
                     </div>
