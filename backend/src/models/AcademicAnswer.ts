@@ -45,3 +45,4 @@ export const AcademicAnswer: Model<IAcademicAnswer> = mongoose.model<IAcademicAn
   AcademicAnswerSchema
 );
 export default AcademicAnswer;
+

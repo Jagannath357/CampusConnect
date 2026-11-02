@@ -100,3 +100,4 @@ All administrative routes are protected by backend RBAC (`role === 'ADMIN'`) and
   - Purges entries from `user_sessions`.
   - One-click account reactivation with administrative reactivation notes.
   - Complete historical log of all past disciplinary actions.
+

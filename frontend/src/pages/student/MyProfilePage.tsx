@@ -19,6 +19,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/ca
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Textarea } from '../../components/ui/textarea';
+import { getFileUrl } from '../../utils/url';
 
 export const MyProfilePage: React.FC = () => {
   const { user, profile, refreshUser } = useAuth();
@@ -135,7 +136,7 @@ export const MyProfilePage: React.FC = () => {
             <div className="relative group">
               {profile?.avatarUrl ? (
                 <img
-                  src={profile.avatarUrl}
+                  src={getFileUrl(profile.avatarUrl)}
                   alt={user?.name}
                   className="w-24 h-24 rounded-3xl object-cover border-4 border-indigo-100 shadow-md"
                 />
@@ -310,3 +311,4 @@ export const MyProfilePage: React.FC = () => {
     </div>
   );
 };
+

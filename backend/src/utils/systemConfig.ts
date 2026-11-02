@@ -20,3 +20,4 @@ export const isAllowedEmailDomain = async (email: string): Promise<boolean> => {
   if (!domain) return false;
   return allowed.includes(domain);
 };
+

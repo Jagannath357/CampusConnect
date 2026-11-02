@@ -119,3 +119,4 @@ export const authorize = (...allowedRoles: UserRole[]) => {
 
 ### Client-Side Route Protection (`ProtectedRoute.tsx`)
 On the React frontend, `<ProtectedRoute requiredRole="ADMIN" />` inspects the authenticated user state before rendering administrative layouts. If an unauthorized student accesses `/admin/*`, the route guard redirects them to `/unauthorized`. If an account is suspended, they are redirected to `/suspended`.
+

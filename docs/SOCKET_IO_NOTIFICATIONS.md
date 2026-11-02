@@ -86,3 +86,4 @@ In `frontend/src/services/socket.ts`:
     }
   };
   ```
+

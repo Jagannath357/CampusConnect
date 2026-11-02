@@ -136,3 +136,4 @@ export const getProfileByUserId = async (req: AuthenticatedRequest, res: Respons
     });
   }
 };
+

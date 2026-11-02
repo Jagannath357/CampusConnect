@@ -17,6 +17,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { getFileUrl } from '../../utils/url';
 
 export const EventDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -143,7 +144,7 @@ export const EventDetailsPage: React.FC = () => {
           {/* Event Image */}
           {event.imageUrl && (
             <div className="rounded-2xl overflow-hidden max-h-80 bg-slate-100 border border-slate-200">
-              <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover max-h-80" />
+              <img src={getFileUrl(event.imageUrl)} alt={event.title} className="w-full h-full object-cover max-h-80" />
             </div>
           )}
 
@@ -201,3 +202,4 @@ export const EventDetailsPage: React.FC = () => {
     </div>
   );
 };
+

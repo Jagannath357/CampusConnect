@@ -185,3 +185,4 @@ export const AdminEventsPage: React.FC = () => {
     </div>
   );
 };
+

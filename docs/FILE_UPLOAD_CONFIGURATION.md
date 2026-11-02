@@ -98,3 +98,4 @@ CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 Uploaded documents and images will be securely hosted on Cloudinary under the `campusconnect/` folder with HTTPS delivery.
+

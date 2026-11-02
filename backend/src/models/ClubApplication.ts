@@ -96,3 +96,4 @@ export const ClubApplication: Model<IClubApplication> = mongoose.model<IClubAppl
   ClubApplicationSchema
 );
 export default ClubApplication;
+

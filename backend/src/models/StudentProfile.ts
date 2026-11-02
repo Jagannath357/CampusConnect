@@ -92,3 +92,4 @@ export const StudentProfile: Model<IStudentProfile> = mongoose.model<IStudentPro
   StudentProfileSchema
 );
 export default StudentProfile;
+

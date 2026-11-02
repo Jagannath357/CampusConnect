@@ -144,3 +144,4 @@
 | `GET` | `/admin/configuration` | Retrieve permitted registration email domains and identity settings. |
 | `PUT` | `/admin/configuration/:key` | Update system settings (`allowedEmailDomains`, `campusIdentity`). |
 | `GET` | `/admin/audit-logs` | Query append-only administrative audit log ledger. |
+

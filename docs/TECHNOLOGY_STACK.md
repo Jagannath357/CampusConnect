@@ -58,3 +58,4 @@ The CampusConnect platform is built using a modern, scalable, and strongly-typed
 ### Media & Document Storage
 - **Cloudinary Storage:** Primary cloud storage provider for user avatars, lost item photographs, event banners, and academic PDFs.
 - **Local Filesystem Fallback:** When Cloudinary credentials are not configured or cloud services are unreachable, the system automatically falls back to storing uploads locally in `/uploads` on the backend server, exposing them via an Express static file route.
+

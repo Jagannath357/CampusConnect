@@ -93,3 +93,4 @@ ClubSchema.index({ isVerified: 1, category: 1 });
 
 export const Club: Model<IClub> = mongoose.model<IClub>('Club', ClubSchema);
 export default Club;
+

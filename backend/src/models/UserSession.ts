@@ -47,3 +47,4 @@ export const UserSession: Model<IUserSession> = mongoose.model<IUserSession>(
   UserSessionSchema
 );
 export default UserSession;
+

@@ -160,3 +160,4 @@ Immutable append-only ledger for privileged administrative activities.
 | `ipAddress` | String | Origin client IP address |
 | `userAgent` | String | HTTP User-Agent string |
 | `timestamp` | Date | Default: `Date.now`, Indexed |
+

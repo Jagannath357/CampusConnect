@@ -209,3 +209,4 @@ export const CreateCollaborationPage: React.FC = () => {
     </div>
   );
 };
+

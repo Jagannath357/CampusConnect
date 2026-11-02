@@ -39,3 +39,4 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, ch
 
   return children ? <>{children}</> : <Outlet />;
 };
+

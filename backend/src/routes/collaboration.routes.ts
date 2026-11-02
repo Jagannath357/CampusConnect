@@ -21,3 +21,4 @@ router.put('/:id', validate(updateCollabSchema), updatePost);
 router.delete('/:id', deletePost);
 
 export default router;
+

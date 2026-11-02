@@ -12,3 +12,4 @@ export const generateRegistrationToken = (eventId: string, studentId: string): s
   const random = Math.random().toString(36).substring(2, 6).toUpperCase();
   return `EVT-${shortEvent}-${shortStudent}-${random}`;
 };
+

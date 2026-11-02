@@ -18,6 +18,7 @@ import { Card, CardContent } from '../../components/ui/card';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { EmptyState } from '../../components/common/EmptyState';
+import { getFileUrl } from '../../utils/url';
 
 const LOCATION_CATEGORIES = [
   'ALL',
@@ -133,7 +134,7 @@ export const LostFoundListPage: React.FC = () => {
                 {item.imageUrl ? (
                   <div className="h-44 w-full overflow-hidden bg-slate-100 relative">
                     <img
-                      src={item.imageUrl}
+                      src={getFileUrl(item.imageUrl)}
                       alt={item.itemName}
                       className="w-full h-full object-cover"
                     />
@@ -188,3 +189,4 @@ export const LostFoundListPage: React.FC = () => {
     </div>
   );
 };
+

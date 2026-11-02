@@ -204,3 +204,4 @@ export const deletePost = async (req: AuthenticatedRequest, res: Response): Prom
     });
   }
 };
+

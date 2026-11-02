@@ -182,3 +182,4 @@ export const CollaborationDetailsPage: React.FC = () => {
     </div>
   );
 };
+

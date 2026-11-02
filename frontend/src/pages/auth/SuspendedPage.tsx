@@ -48,3 +48,4 @@ export const SuspendedPage: React.FC = () => {
     </div>
   );
 };
+

@@ -61,3 +61,4 @@ export const EmergencyAlert: Model<IEmergencyAlert> = mongoose.model<IEmergencyA
   EmergencyAlertSchema
 );
 export default EmergencyAlert;
+

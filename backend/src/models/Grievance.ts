@@ -93,3 +93,4 @@ GrievanceSchema.index({ status: 1, category: 1, createdAt: -1 });
 
 export const Grievance: Model<IGrievance> = mongoose.model<IGrievance>('Grievance', GrievanceSchema);
 export default Grievance;
+

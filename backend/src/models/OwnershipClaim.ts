@@ -72,3 +72,4 @@ export const OwnershipClaim: Model<IOwnershipClaim> = mongoose.model<IOwnershipC
   OwnershipClaimSchema
 );
 export default OwnershipClaim;
+

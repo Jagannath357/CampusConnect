@@ -400,3 +400,4 @@ export const ClubGovernancePage: React.FC = () => {
     </div>
   );
 };
+

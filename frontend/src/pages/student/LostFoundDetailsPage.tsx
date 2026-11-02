@@ -20,6 +20,7 @@ import { Input } from '../../components/ui/input';
 import { Textarea } from '../../components/ui/textarea';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { getFileUrl } from '../../utils/url';
 
 export const LostFoundDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -147,7 +148,7 @@ export const LostFoundDetailsPage: React.FC = () => {
           {item.imageUrl && (
             <div className="rounded-2xl overflow-hidden max-h-80 bg-slate-100 border border-slate-200">
               <img
-                src={item.imageUrl}
+                src={getFileUrl(item.imageUrl)}
                 alt={item.itemName}
                 className="w-full h-full object-cover max-h-80"
               />
@@ -270,7 +271,7 @@ export const LostFoundDetailsPage: React.FC = () => {
                 <p className="text-slate-700 leading-relaxed"><strong>Claim:</strong> {claim.claimDescription}</p>
                 <p className="text-slate-600"><strong>Proof:</strong> {claim.proofDetails}</p>
                 {claim.proofFileUrl && (
-                  <a href={claim.proofFileUrl} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline font-semibold block">
+                  <a href={getFileUrl(claim.proofFileUrl)} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline font-semibold block">
                     View Attached Proof File
                   </a>
                 )}
@@ -282,3 +283,4 @@ export const LostFoundDetailsPage: React.FC = () => {
     </div>
   );
 };
+

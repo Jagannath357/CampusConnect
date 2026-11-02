@@ -16,6 +16,7 @@ import { StatusBadge } from '../../components/common/StatusBadge';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { Dialog } from '../../components/ui/dialog';
 import { Textarea } from '../../components/ui/textarea';
+import { getFileUrl } from '../../utils/url';
 
 export const LostFoundVerificationPage: React.FC = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -126,7 +127,7 @@ export const LostFoundVerificationPage: React.FC = () => {
                       <div className="flex items-center space-x-3">
                         {item.imageUrl ? (
                           <img
-                            src={item.imageUrl}
+                            src={getFileUrl(item.imageUrl)}
                             alt={item.itemName}
                             className="w-10 h-10 rounded-lg object-cover border border-slate-200"
                           />
@@ -219,7 +220,7 @@ export const LostFoundVerificationPage: React.FC = () => {
                 </p>
                 {selectedClaim.proofFileUrl && (
                   <a
-                    href={selectedClaim.proofFileUrl}
+                    href={getFileUrl(selectedClaim.proofFileUrl)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center text-indigo-600 hover:underline font-bold"
@@ -288,3 +289,4 @@ export const LostFoundVerificationPage: React.FC = () => {
     </div>
   );
 };
+

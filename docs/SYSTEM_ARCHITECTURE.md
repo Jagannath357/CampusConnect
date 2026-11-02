@@ -110,3 +110,4 @@ To guarantee student safety and satisfy **Module 8 / Module 18**, grievances are
 ```
 
 Administrators can view, assign to departments, and update resolution notes for grievances in the admin console without ever having access to the submitter's identity. Students check grievance status by querying `GET /api/grievances/track/:ticket` without requiring login credentials.
+

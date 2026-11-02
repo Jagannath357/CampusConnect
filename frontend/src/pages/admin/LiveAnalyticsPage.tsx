@@ -365,3 +365,4 @@ export const LiveAnalyticsPage: React.FC = () => {
     </div>
   );
 };
+

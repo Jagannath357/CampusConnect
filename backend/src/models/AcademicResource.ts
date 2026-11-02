@@ -84,3 +84,4 @@ export const AcademicResource: Model<IAcademicResource> = mongoose.model<IAcadem
   AcademicResourceSchema
 );
 export default AcademicResource;
+

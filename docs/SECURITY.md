@@ -43,3 +43,4 @@ Express Rate Limit protects API routes against brute-force credential stuffing a
 - Every administrative action (`USER_SUSPEND`, `USER_REACTIVATE`, `CONTENT_MODERATE`, `LOST_FOUND_RESOLVE`, `EVENT_PUBLISH`, `EMERGENCY_BROADCAST`, `CONFIG_UPDATE`) is logged to the `AdminAuditLog` collection.
 - Logs include administrator ID, timestamp, target entity, client IP address, User-Agent, and full request details.
 - No update or delete endpoints exist for audit logs.
+

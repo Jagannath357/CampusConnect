@@ -108,3 +108,4 @@ EventSchema.index({ title: 'text', description: 'text', venue: 'text' });
 
 export const Event: Model<IEvent> = mongoose.model<IEvent>('Event', EventSchema);
 export default Event;
+

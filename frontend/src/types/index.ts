@@ -307,3 +307,4 @@ export interface SystemConfiguration {
   description?: string;
   updatedAt: string;
 }
+

@@ -100,3 +100,4 @@ router.put('/configuration/:key', updateSystemConfiguration);
 router.get('/audit-logs', getAuditLogs);
 
 export default router;
+

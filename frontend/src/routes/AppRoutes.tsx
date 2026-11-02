@@ -108,6 +108,7 @@ export const AppRoutes: React.FC = () => {
           <Route path="/admin/moderation" element={<ContentModerationPage />} />
           <Route path="/admin/lost-found" element={<LostFoundVerificationPage />} />
           <Route path="/admin/events" element={<AdminEventsPage />} />
+          <Route path="/admin/events/create" element={<CreateEventPage />} />
           <Route path="/admin/events/new" element={<CreateEventPage />} />
           <Route path="/admin/emergency" element={<EmergencyBroadcastPage />} />
           <Route path="/admin/grievances" element={<AdminGrievancePage />} />
@@ -124,3 +125,4 @@ export const AppRoutes: React.FC = () => {
     </Routes>
   );
 };
+

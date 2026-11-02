@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import { AcademicResource } from '../../types';
+import { getFileUrl } from '../../utils/url';
 import {
   BookOpen,
   Upload,
@@ -49,9 +50,10 @@ export const AcademicResourcesPage: React.FC = () => {
   }, [search, selectedCategory]);
 
   const handleDownload = async (resource: AcademicResource) => {
+    const targetUrl = getFileUrl(resource.fileUrl);
     try {
       await api.post(`/resources/${resource._id}/download`);
-      window.open(resource.fileUrl, '_blank');
+      window.open(targetUrl, '_blank');
       // Update local download counter
       setResources((prev) =>
         prev.map((r) =>
@@ -59,7 +61,7 @@ export const AcademicResourcesPage: React.FC = () => {
         )
       );
     } catch (e) {
-      window.open(resource.fileUrl, '_blank');
+      window.open(targetUrl, '_blank');
     }
   };
 
@@ -177,3 +179,4 @@ export const AcademicResourcesPage: React.FC = () => {
     </div>
   );
 };
+

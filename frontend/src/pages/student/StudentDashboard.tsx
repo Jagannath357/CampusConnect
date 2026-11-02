@@ -20,6 +20,7 @@ import { StatusBadge } from '../../components/common/StatusBadge';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { getFileUrl } from '../../utils/url';
 
 export const StudentDashboard: React.FC = () => {
   const { user, profile } = useAuth();
@@ -43,11 +44,14 @@ export const StudentDashboard: React.FC = () => {
             api.get('/lost-found?limit=3'),
           ]);
 
-        if (eventsRes.data.success) setUpcomingEvents(eventsRes.data.data);
-        if (collabRes.data.success) setRecentCollaborations(collabRes.data.data);
-        if (questionsRes.data.success) setRecentQuestions(questionsRes.data.data);
-        if (placementsRes.data.success) setEligiblePlacements(placementsRes.data.data.placements);
-        if (lostFoundRes.data.success) setLostFoundItems(lostFoundRes.data.data);
+        if (eventsRes.data.success) setUpcomingEvents(eventsRes.data.data || []);
+        if (collabRes.data.success) setRecentCollaborations(collabRes.data.data || []);
+        if (questionsRes.data.success) setRecentQuestions(questionsRes.data.data || []);
+        if (placementsRes.data.success) {
+          const pData = placementsRes.data.data;
+          setEligiblePlacements(pData?.placements || (Array.isArray(pData) ? pData : []));
+        }
+        if (lostFoundRes.data.success) setLostFoundItems(lostFoundRes.data.data || []);
       } catch (err) {
         console.error('Error fetching student dashboard data', err);
       } finally {
@@ -70,7 +74,7 @@ export const StudentDashboard: React.FC = () => {
           <div className="flex items-center space-x-4">
             {profile?.avatarUrl ? (
               <img
-                src={profile.avatarUrl}
+                src={getFileUrl(profile.avatarUrl)}
                 alt={user?.name}
                 className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-400/40 shadow-md"
               />
@@ -310,3 +314,4 @@ export const StudentDashboard: React.FC = () => {
     </div>
   );
 };
+

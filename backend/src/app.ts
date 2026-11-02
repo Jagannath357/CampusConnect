@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
+import fs from 'fs';
 import apiRoutes from './routes/index.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
@@ -64,9 +65,20 @@ export const createApp = (): Application => {
     app.use(morgan('dev'));
   }
 
-  // Serve local uploads statically
-  const uploadsPath = path.join(process.cwd(), 'uploads');
-  app.use('/uploads', express.static(uploadsPath));
+  // Serve local uploads statically across multiple possible paths (root or backend dir)
+  const possibleUploadPaths = [
+    path.join(process.cwd(), 'uploads'),
+    path.join(process.cwd(), 'backend', 'uploads'),
+    path.resolve(process.cwd(), '../uploads'),
+  ];
+  possibleUploadPaths.forEach((uploadDir) => {
+    if (!fs.existsSync(uploadDir)) {
+      try {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      } catch (e) {}
+    }
+    app.use('/uploads', express.static(uploadDir));
+  });
 
   // Health check
   app.get('/api/health', (req: Request, res: Response) => {
@@ -96,3 +108,4 @@ export const createApp = (): Application => {
 };
 
 export default createApp;
+

@@ -19,3 +19,4 @@ router.get('/:id', getClubById);
 router.post('/apply', validate(applyClubSchema), applyForClub);
 
 export default router;
+

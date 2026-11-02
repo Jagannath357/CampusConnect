@@ -162,3 +162,4 @@ export const PlacementsListPage: React.FC = () => {
     </div>
   );
 };
+

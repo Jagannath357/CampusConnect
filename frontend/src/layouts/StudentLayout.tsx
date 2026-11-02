@@ -26,3 +26,4 @@ export const StudentLayout: React.FC = () => {
     </div>
   );
 };
+

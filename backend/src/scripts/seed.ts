@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import fs from 'fs';
+import path from 'path';
 import mongoose from 'mongoose';
 import { connectDB, disconnectDB } from '../config/db.js';
 import {
@@ -274,6 +276,21 @@ export const seedDatabase = async () => {
     });
 
     console.log('📚 Seeding Academic Resources...');
+    const ensureSamplePdf = (relPath: string, sampleTitle: string) => {
+      const locations = [
+        path.join(process.cwd(), 'uploads', relPath),
+        path.join(process.cwd(), 'backend', 'uploads', relPath),
+      ];
+      const minimalPdf = `%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>\nendobj\n4 0 obj\n<< /Length 100 >>\nstream\nBT\n/F1 16 Tf\n50 720 Td\n(${sampleTitle}) Tj\nET\nendstream\nendobj\n5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\nxref\n0 6\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000115 00000 n \n0000000234 00000 n \n0000000383 00000 n \ntrailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n460\n%%EOF\n`;
+      for (const loc of locations) {
+        const dir = path.dirname(loc);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        if (!fs.existsSync(loc)) fs.writeFileSync(loc, minimalPdf);
+      }
+    };
+    ensureSamplePdf('resources/sample-daa-notes.pdf', 'Silicon University - Design and Analysis of Algorithms');
+    ensureSamplePdf('resources/sample-dsp-pyq.pdf', 'Silicon University - Digital Signal Processing Question Bank');
+
     await AcademicResource.create([
       {
         uploaderId: student1._id,

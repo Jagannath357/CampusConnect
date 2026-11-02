@@ -26,3 +26,4 @@ export interface ApiResponse<T = any> {
   };
   errors?: any;
 }
+

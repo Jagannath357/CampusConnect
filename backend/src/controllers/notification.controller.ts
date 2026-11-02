@@ -79,3 +79,4 @@ export const markAllAsRead = async (req: AuthenticatedRequest, res: Response): P
     });
   }
 };
+

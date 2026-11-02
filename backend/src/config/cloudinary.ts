@@ -106,3 +106,4 @@ export const deleteFromStorage = async (publicId: string): Promise<void> => {
 };
 
 export default cloudinary;
+

@@ -219,3 +219,4 @@ export const CollaborationListPage: React.FC = () => {
     </div>
   );
 };
+

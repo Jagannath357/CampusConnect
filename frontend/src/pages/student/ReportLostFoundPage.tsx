@@ -214,3 +214,4 @@ export const ReportLostFoundPage: React.FC = () => {
     </div>
   );
 };
+

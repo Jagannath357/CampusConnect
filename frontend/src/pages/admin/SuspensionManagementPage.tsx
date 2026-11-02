@@ -112,3 +112,4 @@ export const SuspensionManagementPage: React.FC = () => {
     </div>
   );
 };
+

@@ -72,3 +72,4 @@ export const AcademicQuestion: Model<IAcademicQuestion> = mongoose.model<IAcadem
   AcademicQuestionSchema
 );
 export default AcademicQuestion;
+

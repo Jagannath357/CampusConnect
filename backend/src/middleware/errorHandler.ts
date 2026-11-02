@@ -43,3 +43,4 @@ export const errorHandler = (
     message: err.message || 'Internal Server Error',
   });
 };
+

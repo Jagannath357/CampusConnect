@@ -16,8 +16,9 @@ import {
   CheckCircle2, 
   XCircle, 
   Clock, 
-  Eye,
-  AlertOctagon
+  Eye, 
+  AlertOctagon,
+  AlertCircle
 } from 'lucide-react';
 
 interface EmergencyAlertItem {
@@ -149,7 +150,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
       {/* Status Messages */}
       {error && (
         <div className="p-4 bg-red-50 border border-red-300 rounded-lg text-sm text-red-800 flex items-center gap-2">
-          <AlertCircleIcon className="w-5 h-5 flex-shrink-0 text-red-600" />
+          <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-600" />
           <span>{error}</span>
         </div>
       )}
@@ -357,19 +358,3 @@ export const EmergencyBroadcastPage: React.FC = () => {
     </div>
   );
 };
-
-function AlertCircleIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <circle cx="12" cy="12" r="10" strokeWidth="2" />
-      <line x1="12" y1="8" x2="12" y2="12" strokeWidth="2" />
-      <line x1="12" y1="16" x2="12.01" y2="16" strokeWidth="2" />
-    </svg>
-  );
-}

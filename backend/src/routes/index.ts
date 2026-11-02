@@ -28,3 +28,4 @@ router.use('/placements', placementRoutes);
 router.use('/admin', adminRoutes);
 
 export default router;
+

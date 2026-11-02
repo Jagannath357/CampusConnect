@@ -70,3 +70,4 @@ export const SuspensionRecord: Model<ISuspensionRecord> = mongoose.model<ISuspen
   SuspensionRecordSchema
 );
 export default SuspensionRecord;
+

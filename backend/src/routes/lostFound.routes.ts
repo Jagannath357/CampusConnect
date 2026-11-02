@@ -22,3 +22,4 @@ router.post('/', upload.single('image'), validate(createLostFoundSchema), create
 router.post('/:id/claim', upload.single('proofFile'), validate(createClaimSchema), submitClaim);
 
 export default router;
+

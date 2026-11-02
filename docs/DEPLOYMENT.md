@@ -77,3 +77,4 @@ npm run seed
 ```
 
 This ensures that the official administrator account (`admin@silicon.ac.in`) and initial allowed email domains (`silicon.ac.in`) are persisted in MongoDB Atlas.
+

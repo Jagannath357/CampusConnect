@@ -86,3 +86,4 @@ The Student Portal encompasses **10 interconnected modules** designed to streaml
   - View active campus placement drives, job roles, CTC package, and deadlines.
   - Filter listings matching the student's department/branch.
   - Visual status indicator showing whether the student meets the minimum CGPA requirement.
+

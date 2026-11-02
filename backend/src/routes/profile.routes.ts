@@ -20,3 +20,4 @@ router.post('/avatar', upload.single('avatar'), uploadAvatar);
 router.get('/user/:userId', getProfileByUserId);
 
 export default router;
+

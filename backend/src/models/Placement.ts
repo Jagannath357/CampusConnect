@@ -92,3 +92,4 @@ PlacementSchema.index({ companyName: 'text', jobTitle: 'text' });
 
 export const Placement: Model<IPlacement> = mongoose.model<IPlacement>('Placement', PlacementSchema);
 export default Placement;
+

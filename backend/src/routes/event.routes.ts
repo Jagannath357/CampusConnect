@@ -19,3 +19,4 @@ router.post('/:id/register', registerForEvent);
 router.post('/:id/cancel', cancelRegistration);
 
 export default router;
+

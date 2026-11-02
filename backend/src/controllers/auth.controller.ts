@@ -230,3 +230,4 @@ export const logout = async (req: AuthenticatedRequest, res: Response): Promise<
     });
   }
 };
+

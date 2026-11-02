@@ -19,6 +19,7 @@ import { Card, CardContent } from '../../components/ui/card';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { EmptyState } from '../../components/common/EmptyState';
+import { getFileUrl } from '../../utils/url';
 
 const CATEGORIES = ['ALL', 'Technical', 'Workshop', 'Cultural', 'Sports', 'Seminar', 'Hackathon'];
 
@@ -146,7 +147,7 @@ export const EventsListPage: React.FC = () => {
                 {/* Event Photo if present */}
                 {evt.imageUrl ? (
                   <div className="h-44 w-full overflow-hidden bg-slate-100 relative">
-                    <img src={evt.imageUrl} alt={evt.title} className="w-full h-full object-cover" />
+                    <img src={getFileUrl(evt.imageUrl)} alt={evt.title} className="w-full h-full object-cover" />
                     <div className="absolute top-2.5 left-2.5">
                       <span className="text-[10px] font-extrabold uppercase bg-white/95 text-indigo-700 px-2.5 py-1 rounded-full shadow-xs">
                         {evt.category}
@@ -233,3 +234,4 @@ export const EventsListPage: React.FC = () => {
     </div>
   );
 };
+

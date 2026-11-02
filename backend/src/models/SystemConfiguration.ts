@@ -43,3 +43,4 @@ export const SystemConfiguration: Model<ISystemConfiguration> = mongoose.model<I
   SystemConfigurationSchema
 );
 export default SystemConfiguration;
+

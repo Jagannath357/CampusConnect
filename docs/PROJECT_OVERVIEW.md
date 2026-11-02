@@ -70,3 +70,4 @@ All 8 official Decision Tables from the project specification are completely imp
 | **DT-6** | Emergency Broadcast Dispatch | Admin authentication guard, high-priority critical flag, live WebSocket dispatch. | Verified (100% test coverage) |
 | **DT-7** | Official Event Publishing | Future date validation, verified club authorization, atomic seat reservation. | Verified (100% test coverage) |
 | **DT-8** | Account Guideline Enforcement | Immediate token revocation via `tokenVersion` increment, session purge, audit logging. | Verified (100% test coverage) |
+

@@ -89,3 +89,4 @@ export const StudentSidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     </>
   );
 };
+

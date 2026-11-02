@@ -214,3 +214,4 @@ export const StudentManagementPage: React.FC = () => {
     </div>
   );
 };
+

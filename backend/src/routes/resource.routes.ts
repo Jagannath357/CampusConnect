@@ -22,3 +22,4 @@ router.post('/:id/download', trackDownload);
 router.delete('/:id', deleteResource);
 
 export default router;
+

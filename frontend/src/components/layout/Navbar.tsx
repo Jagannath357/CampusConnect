@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNotifications } from '../../contexts/NotificationContext';
+import { getFileUrl } from '../../utils/url';
 import {
   Bell,
   LogOut,
@@ -89,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
                 >
                   {profile?.avatarUrl ? (
                     <img
-                      src={profile.avatarUrl}
+                      src={getFileUrl(profile.avatarUrl)}
                       alt={user?.name}
                       className="w-8 h-8 rounded-full object-cover border border-slate-200"
                     />
@@ -173,3 +174,4 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
     </header>
   );
 };
+

@@ -151,3 +151,4 @@ export const ClubsListPage: React.FC = () => {
     </div>
   );
 };
+

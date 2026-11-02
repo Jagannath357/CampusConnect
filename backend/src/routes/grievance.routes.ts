@@ -10,3 +10,4 @@ router.post('/', validate(createGrievanceSchema), submitGrievance);
 router.get('/track/:ticket', trackGrievance);
 
 export default router;
+

@@ -102,3 +102,4 @@ export const emitEventUpdate = (eventId: string, updateData: any): void => {
   if (!io) return;
   io.emit('event_update', { eventId, ...updateData });
 };
+

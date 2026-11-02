@@ -53,3 +53,4 @@ export const EventRegistration: Model<IEventRegistration> = mongoose.model<IEven
   EventRegistrationSchema
 );
 export default EventRegistration;
+
