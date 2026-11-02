@@ -198,13 +198,13 @@ export const SystemConfigurationPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Module 15: Allowed Email Domains (Decision Table 2) */}
         <div className="lg:col-span-6 space-y-6">
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="py-4 border-b bg-gray-50/50">
-              <CardTitle className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <Globe className="w-5 h-5 text-blue-600" />
+          <Card className="border-gray-200 dark:border-slate-800 shadow-sm">
+            <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 bg-gray-50/50 dark:bg-slate-800/40">
+              <CardTitle className="text-base font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <Globe className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 Permitted Email Domains (Registration Guard)
               </CardTitle>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
                 Enforces Decision Table 2 Rule 1: Student self-registration requires an institutional email ending with an authorized domain.
               </p>
             </CardHeader>
@@ -212,7 +212,7 @@ export const SystemConfigurationPage: React.FC = () => {
             <CardContent className="p-5 space-y-4">
               <form onSubmit={handleAddDomain} className="flex gap-2">
                 <div className="relative flex-1">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-mono text-sm">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 font-mono text-sm">
                     @
                   </span>
                   <Input
@@ -229,17 +229,17 @@ export const SystemConfigurationPage: React.FC = () => {
               </form>
 
               <div className="space-y-2 pt-2">
-                <label className="text-xs font-bold text-gray-600 uppercase tracking-wider block">
+                <label className="text-xs font-bold text-gray-600 dark:text-slate-300 uppercase tracking-wider block">
                   Active Authorized Domains ({allowedDomains.length})
                 </label>
-                <div className="divide-y border rounded-lg overflow-hidden bg-white">
+                <div className="divide-y divide-slate-100 dark:divide-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800">
                   {allowedDomains.map((domain) => (
                     <div key={domain} className="p-3 flex items-center justify-between text-sm">
                       <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                        <span className="font-mono font-semibold text-gray-800">@{domain}</span>
+                        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        <span className="font-mono font-semibold text-gray-800 dark:text-slate-200">@{domain}</span>
                         {domain === 'silicon.ac.in' && (
-                          <span className="text-[10px] bg-blue-100 text-blue-800 font-bold px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-bold px-1.5 py-0.5 rounded">
                             Primary
                           </span>
                         )}
@@ -247,7 +247,7 @@ export const SystemConfigurationPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleRemoveDomain(domain)}
-                        className="text-gray-400 hover:text-red-600 transition-colors"
+                        className="text-gray-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                         title="Remove domain"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -257,7 +257,7 @@ export const SystemConfigurationPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-3 border-t flex justify-end">
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
                 <Button
                   onClick={handleSaveDomains}
                   disabled={savingKey === 'allowedEmailDomains'}
@@ -273,13 +273,13 @@ export const SystemConfigurationPage: React.FC = () => {
 
         {/* Campus Identity Configuration */}
         <div className="lg:col-span-6 space-y-6">
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="py-4 border-b bg-gray-50/50">
-              <CardTitle className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-indigo-600" />
+          <Card className="border-gray-200 dark:border-slate-800 shadow-sm">
+            <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 bg-gray-50/50 dark:bg-slate-800/40">
+              <CardTitle className="text-base font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 Campus Identity & Portal Metadata
               </CardTitle>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">
                 Silicon University single-campus branding and institutional parameters.
               </p>
             </CardHeader>
@@ -287,7 +287,7 @@ export const SystemConfigurationPage: React.FC = () => {
             <CardContent className="p-5">
               <form onSubmit={handleSaveIdentity} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Institution Name
                   </label>
                   <Input
@@ -298,7 +298,7 @@ export const SystemConfigurationPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Campus Location / Address
                   </label>
                   <Input
@@ -309,7 +309,7 @@ export const SystemConfigurationPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     University Tagline
                   </label>
                   <Input
@@ -320,7 +320,7 @@ export const SystemConfigurationPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     System Support Email
                   </label>
                   <Input
@@ -331,7 +331,7 @@ export const SystemConfigurationPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="pt-3 border-t flex justify-end">
+                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-end">
                   <Button
                     type="submit"
                     disabled={savingKey === 'campusIdentity'}
@@ -346,10 +346,10 @@ export const SystemConfigurationPage: React.FC = () => {
           </Card>
 
           {/* Compliance & Audit Note */}
-          <div className="p-4 bg-slate-100 border border-slate-300 rounded-xl flex items-start gap-3">
-            <FileLock2 className="w-5 h-5 text-slate-700 flex-shrink-0 mt-0.5" />
-            <div className="text-xs text-slate-700 leading-relaxed">
-              <strong>Immutable Audit Logging:</strong> Any modification to campus settings or authentication parameters is permanently recorded to the append-only <code className="bg-slate-200 px-1 py-0.5 rounded font-mono text-slate-800">AdminAuditLog</code> database collection with your admin ID and IP.
+          <div className="p-4 bg-slate-100 dark:bg-slate-800/60 border border-slate-300 dark:border-slate-700 rounded-xl flex items-start gap-3">
+            <FileLock2 className="w-5 h-5 text-slate-700 dark:text-slate-300 flex-shrink-0 mt-0.5" />
+            <div className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+              <strong>Immutable Audit Logging:</strong> Any modification to campus settings or authentication parameters is permanently recorded to the append-only <code className="bg-slate-200 dark:bg-slate-700 px-1 py-0.5 rounded font-mono text-slate-800 dark:text-slate-200">AdminAuditLog</code> database collection with your admin ID and IP.
             </div>
           </div>
         </div>

@@ -56,19 +56,19 @@ export const Dialog: React.FC<DialogProps> = ({
       {/* Modal Dialog Content */}
       <div
         className={cn(
-          'relative w-full rounded-2xl bg-white shadow-2xl border border-slate-200 z-10 overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-200',
+          'relative w-full rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 z-10 overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-200',
           maxWidthClasses[maxWidth],
           className
         )}
       >
-        <div className="flex items-center justify-between p-6 pb-4 border-b border-slate-100">
+        <div className="flex items-center justify-between p-6 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
-            {title && <h3 className="text-lg font-bold text-slate-900">{title}</h3>}
-            {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
+            {title && <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">{title}</h3>}
+            {description && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{description}</p>}
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+            className="rounded-lg p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:text-slate-500 dark:hover:text-slate-300 dark:hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>

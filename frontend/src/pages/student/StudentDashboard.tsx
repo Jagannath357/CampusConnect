@@ -164,19 +164,19 @@ export const StudentDashboard: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {upcomingEvents.length === 0 ? (
-              <p className="text-xs text-slate-500 text-center py-6">No upcoming events right now.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 text-center py-6">No upcoming events right now.</p>
             ) : (
               upcomingEvents.map((evt) => (
                 <div
                   key={evt._id}
-                  className="p-3.5 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 flex items-center justify-between transition-all"
+                  className="p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between transition-all"
                 >
                   <div className="space-y-1 pr-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded">
                       {evt.category}
                     </span>
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">{evt.title}</h4>
-                    <div className="flex items-center space-x-3 text-[11px] text-slate-500">
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">{evt.title}</h4>
+                    <div className="flex items-center space-x-3 text-[11px] text-slate-500 dark:text-slate-400">
                       <span className="flex items-center">
                         <Clock className="w-3 h-3 mr-1" />
                         {new Date(evt.date).toLocaleDateString()} • {evt.startTime}
@@ -202,30 +202,30 @@ export const StudentDashboard: React.FC = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-base font-bold flex items-center space-x-2">
-              <Briefcase className="w-5 h-5 text-indigo-600" />
+              <Briefcase className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>Eligible Placement Drives</span>
             </CardTitle>
-            <Link to="/placements" className="text-xs font-bold text-indigo-600 hover:underline flex items-center">
+            <Link to="/placements" className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center">
               View All <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
           <CardContent className="space-y-3">
             {eligiblePlacements.length === 0 ? (
-              <p className="text-xs text-slate-500 text-center py-6">
+              <p className="text-xs text-slate-500 dark:text-slate-400 text-center py-6">
                 No active placement drives currently match your branch ({profile?.department}) and CGPA ({profile?.cgpa}).
               </p>
             ) : (
               eligiblePlacements.map((plc) => (
                 <div
                   key={plc._id}
-                  className="p-3.5 rounded-xl border border-slate-100 hover:border-slate-200 bg-slate-50/50 flex items-center justify-between transition-all"
+                  className="p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between transition-all"
                 >
                   <div className="space-y-1 pr-3">
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
                       Eligible: Min CGPA {plc.minimumCgpa}
                     </span>
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">{plc.companyName}</h4>
-                    <p className="text-xs text-slate-600">{plc.jobTitle} • {plc.packageDetails || 'Competitive Package'}</p>
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">{plc.companyName}</h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-300">{plc.jobTitle} • {plc.packageDetails || 'Competitive Package'}</p>
                   </div>
                   <Link to={`/placements/${plc._id}`}>
                     <Button size="sm" variant="outline">
@@ -242,33 +242,33 @@ export const StudentDashboard: React.FC = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-base font-bold flex items-center space-x-2">
-              <Users2 className="w-5 h-5 text-indigo-600" />
+              <Users2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>Open Project Collaborations</span>
             </CardTitle>
-            <Link to="/collaborations" className="text-xs font-bold text-indigo-600 hover:underline flex items-center">
+            <Link to="/collaborations" className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center">
               Browse All <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
           <CardContent className="space-y-3">
             {recentCollaborations.length === 0 ? (
-              <p className="text-xs text-slate-500 text-center py-6">No open collaboration posts found.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 text-center py-6">No open collaboration posts found.</p>
             ) : (
               recentCollaborations.map((collab) => (
                 <Link
                   key={collab._id}
                   to={`/collaborations/${collab._id}`}
-                  className="block p-3.5 rounded-xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/20 bg-slate-50/50 transition-all"
+                  className="block p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/30 bg-slate-50/50 dark:bg-slate-800/40 transition-all"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase">{collab.domain}</span>
-                    <span className="text-[10px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">
+                    <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{collab.domain}</span>
+                    <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded">
                       {collab.vacancyCount} {collab.vacancyCount === 1 ? 'vacancy' : 'vacancies'}
                     </span>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-bold text-slate-900">{collab.title}</h4>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">{collab.title}</h4>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {collab.requiredSkills?.slice(0, 3).map((skill: string) => (
-                      <span key={skill} className="text-[10px] bg-white border border-slate-200 px-2 py-0.5 rounded text-slate-600">
+                      <span key={skill} className="text-[10px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded text-slate-600 dark:text-slate-300">
                         {skill}
                       </span>
                     ))}
@@ -283,28 +283,28 @@ export const StudentDashboard: React.FC = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle className="text-base font-bold flex items-center space-x-2">
-              <HelpCircle className="w-5 h-5 text-indigo-600" />
+              <HelpCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>Recent Academic Q&A</span>
             </CardTitle>
-            <Link to="/questions" className="text-xs font-bold text-indigo-600 hover:underline flex items-center">
+            <Link to="/questions" className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center">
               View All <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </Link>
           </CardHeader>
           <CardContent className="space-y-3">
             {recentQuestions.length === 0 ? (
-              <p className="text-xs text-slate-500 text-center py-6">No questions posted yet.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 text-center py-6">No questions posted yet.</p>
             ) : (
               recentQuestions.map((q) => (
                 <Link
                   key={q._id}
                   to={`/questions/${q._id}`}
-                  className="block p-3.5 rounded-xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/20 bg-slate-50/50 transition-all"
+                  className="block p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800 hover:bg-indigo-50/20 dark:hover:bg-indigo-950/30 bg-slate-50/50 dark:bg-slate-800/40 transition-all"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase">{q.subjectCode} • {q.subjectCategory}</span>
-                    <span className="text-[10px] font-semibold text-slate-600">{q.answerCount} answers</span>
+                    <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">{q.subjectCode} • {q.subjectCategory}</span>
+                    <span className="text-[10px] font-semibold text-slate-600 dark:text-slate-300">{q.answerCount} answers</span>
                   </div>
-                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 line-clamp-1">{q.title}</h4>
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 line-clamp-1">{q.title}</h4>
                 </Link>
               ))
             )}

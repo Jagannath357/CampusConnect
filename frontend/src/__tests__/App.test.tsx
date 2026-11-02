@@ -3,6 +3,8 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from '../contexts/AuthContext';
+import { ThemeProvider } from '../contexts/ThemeContext';
+import { ThemeToggle } from '../components/common/ThemeToggle';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { StatCard } from '../components/common/StatCard';
 import { EmptyState } from '../components/common/EmptyState';
@@ -12,6 +14,22 @@ import { LandingPage } from '../pages/auth/LandingPage';
 import { Users } from 'lucide-react';
 
 describe('CampusConnect Core Frontend Components', () => {
+  it('renders ThemeToggle and switches between light and dark themes', () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle showLabel={true} />
+      </ThemeProvider>
+    );
+
+    // Initial state button
+    const toggleBtn = screen.getByRole('button', { name: /Switch to (dark|light) mode/i });
+    expect(toggleBtn).toBeInTheDocument();
+
+    // Click to toggle
+    fireEvent.click(toggleBtn);
+    expect(document.documentElement.classList.contains('dark') || document.documentElement.classList.contains('light')).toBe(true);
+  });
+
   it('renders StatusBadge with appropriate text and styling', () => {
     const { rerender } = render(<StatusBadge status="ACTIVE" />);
     expect(screen.getByText('ACTIVE')).toBeInTheDocument();
@@ -111,9 +129,11 @@ describe('CampusConnect Core Frontend Components', () => {
   it('renders the official LandingPage with institutional branding and tagline', () => {
     render(
       <BrowserRouter>
-        <AuthProvider>
-          <LandingPage />
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <LandingPage />
+          </AuthProvider>
+        </ThemeProvider>
       </BrowserRouter>
     );
 

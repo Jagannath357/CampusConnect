@@ -67,11 +67,11 @@ export const AdminDashboard: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <ShieldCheck className="w-7 h-7 text-indigo-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <ShieldCheck className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
             <span>Administrative Governance Overview</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Real-time live campus metrics aggregated from Silicon University database collections.
           </p>
         </div>
@@ -158,7 +158,7 @@ export const AdminDashboard: React.FC = () => {
         {/* Event Registrations Chart */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base font-bold text-slate-900">
+            <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
               Top Event Registrations vs Capacity
             </CardTitle>
           </CardHeader>
@@ -167,7 +167,7 @@ export const AdminDashboard: React.FC = () => {
               <div className="h-64 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={charts.eventStats}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.3} />
                     <XAxis
                       dataKey="name"
                       tick={{ fontSize: 10 }}
@@ -189,7 +189,7 @@ export const AdminDashboard: React.FC = () => {
         {/* Grievances by Category Pie Chart */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base font-bold text-slate-900">
+            <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
               Grievances by Category
             </CardTitle>
           </CardHeader>
@@ -226,29 +226,29 @@ export const AdminDashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link
           to="/admin/students"
-          className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-indigo-400 hover:shadow-sm transition-all"
+          className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600 hover:shadow-sm transition-all"
         >
-          <Users className="w-6 h-6 text-indigo-600 mb-2" />
-          <h4 className="text-sm font-bold text-slate-900">Student Account Auditing</h4>
-          <p className="text-xs text-slate-500 mt-1">Review student profiles, graduation batches, and roll numbers.</p>
+          <Users className="w-6 h-6 text-indigo-600 dark:text-indigo-400 mb-2" />
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Student Account Auditing</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Review student profiles, graduation batches, and roll numbers.</p>
         </Link>
 
         <Link
           to="/admin/suspensions"
-          className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-rose-400 hover:shadow-sm transition-all"
+          className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-rose-400 dark:hover:border-rose-600 hover:shadow-sm transition-all"
         >
-          <UserX className="w-6 h-6 text-rose-600 mb-2" />
-          <h4 className="text-sm font-bold text-slate-900">Suspension & Safety Control</h4>
-          <p className="text-xs text-slate-500 mt-1">Enforce guidelines with immediate session and token revocation.</p>
+          <UserX className="w-6 h-6 text-rose-600 dark:text-rose-400 mb-2" />
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Suspension & Safety Control</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Enforce guidelines with immediate session and token revocation.</p>
         </Link>
 
         <Link
           to="/admin/lost-found"
-          className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-sm transition-all"
+          className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-amber-400 dark:hover:border-amber-600 hover:shadow-sm transition-all"
         >
-          <FileCheck2 className="w-6 h-6 text-amber-600 mb-2" />
-          <h4 className="text-sm font-bold text-slate-900">Lost & Found Claim Verification</h4>
-          <p className="text-xs text-slate-500 mt-1">Inspect evidence and resolve pending campus belongings.</p>
+          <FileCheck2 className="w-6 h-6 text-amber-600 dark:text-amber-400 mb-2" />
+          <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Lost & Found Claim Verification</h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Inspect evidence and resolve pending campus belongings.</p>
         </Link>
       </div>
     </div>

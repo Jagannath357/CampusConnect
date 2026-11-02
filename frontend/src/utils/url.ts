@@ -16,3 +16,4 @@ export const getFileUrl = (url?: string): string => {
 
   return `${backendHost}${cleanPath}`;
 };
+

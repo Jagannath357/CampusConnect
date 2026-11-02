@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { GraduationCap, Lock, Mail, ArrowRight, AlertCircle, Shield } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
+import { ThemeToggle } from '../../components/common/ThemeToggle';
 
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
@@ -51,28 +52,32 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors relative">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <ThemeToggle />
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <Link to="/" className="inline-flex items-center space-x-2.5">
           <div className="h-12 w-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
             <GraduationCap className="w-7 h-7" />
           </div>
         </Link>
-        <h2 className="mt-4 text-3xl font-black text-slate-900 tracking-tight">Sign in to CampusConnect</h2>
-        <p className="mt-1 text-xs text-slate-500 font-medium">Silicon University, Bhubaneswar</p>
+        <h2 className="mt-4 text-3xl font-black text-slate-900 dark:text-white tracking-tight">Sign in to CampusConnect</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">Silicon University, Bhubaneswar</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-white py-8 px-6 sm:px-10 shadow-xl border border-slate-200/80 rounded-2xl">
+        <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:px-10 shadow-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl">
           {sessionExpired && (
-            <div className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center space-x-2">
+            <div className="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-xs flex items-center space-x-2">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>Your previous session has expired or was revoked. Please sign in again.</span>
             </div>
           )}
 
           {errorMessage && (
-            <div className="mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-center space-x-2.5">
+            <div className="mb-4 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-200 text-xs font-medium flex items-center space-x-2.5">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -103,37 +108,37 @@ export const LoginPage: React.FC = () => {
           </form>
 
           {/* Academic Evaluation / Demo Credentials Quick Fill Box */}
-          <div className="mt-6 pt-5 border-t border-slate-100">
-            <p className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2 text-center">
+          <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800">
+            <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 text-center">
               Quick Test Credentials:
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <button
                 type="button"
                 onClick={() => handleQuickLogin('rohit.sharma@silicon.ac.in', 'Student@Silicon2026')}
-                className="p-2 text-left rounded-xl bg-slate-50 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition-all"
+                className="p-2 text-left rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-all"
               >
-                <span className="font-bold text-slate-800 block text-[11px]">Student Login</span>
-                <span className="text-[10px] text-slate-500 truncate block">rohit.sharma@silicon...</span>
+                <span className="font-bold text-slate-800 dark:text-slate-100 block text-[11px]">Student Login</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate block">rohit.sharma@silicon...</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleQuickLogin('admin@silicon.ac.in', 'Admin@Silicon2026')}
-                className="p-2 text-left rounded-xl bg-slate-50 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 transition-all"
+                className="p-2 text-left rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 transition-all"
               >
                 <div className="flex items-center space-x-1">
-                  <Shield className="w-3 h-3 text-indigo-600" />
-                  <span className="font-bold text-slate-800 text-[11px]">Admin Login</span>
+                  <Shield className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                  <span className="font-bold text-slate-800 dark:text-slate-100 text-[11px]">Admin Login</span>
                 </div>
-                <span className="text-[10px] text-slate-500 truncate block">admin@silicon.ac.in</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate block">admin@silicon.ac.in</span>
               </button>
             </div>
           </div>
 
-          <div className="mt-6 text-center text-xs text-slate-500">
+          <div className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
             <span>New student at Silicon University? </span>
-            <Link to="/register" className="font-bold text-indigo-600 hover:underline">
+            <Link to="/register" className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               Register here
             </Link>
           </div>

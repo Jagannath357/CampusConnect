@@ -126,20 +126,20 @@ export const EmergencyBroadcastPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+      <div className="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-xl p-6 transition-colors">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-200">
+            <div className="w-12 h-12 rounded-xl bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-200 dark:shadow-none">
               <Radio className="w-6 h-6 animate-pulse" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-red-100 flex items-center gap-2">
                 Emergency System Broadcast
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 border border-red-300">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-100 dark:bg-red-900/70 text-red-800 dark:text-red-200 border border-red-300 dark:border-red-700">
                   Decision Table 6
                 </span>
               </h1>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-red-200/80">
                 Instantly push high-priority critical banners to every logged-in student, faculty, and administrator across the campus network via WebSocket.
               </p>
             </div>
@@ -149,15 +149,15 @@ export const EmergencyBroadcastPage: React.FC = () => {
 
       {/* Status Messages */}
       {error && (
-        <div className="p-4 bg-red-50 border border-red-300 rounded-lg text-sm text-red-800 flex items-center gap-2">
-          <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-600" />
+        <div className="p-4 bg-red-50 dark:bg-red-950/50 border border-red-300 dark:border-red-800 rounded-lg text-sm text-red-800 dark:text-red-200 flex items-center gap-2">
+          <AlertCircle className="w-5 h-5 flex-shrink-0 text-red-600 dark:text-red-400" />
           <span>{error}</span>
         </div>
       )}
 
       {success && (
-        <div className="p-4 bg-green-50 border border-green-300 rounded-lg text-sm text-green-800 flex items-center gap-2">
-          <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-green-600" />
+        <div className="p-4 bg-green-50 dark:bg-emerald-950/50 border border-green-300 dark:border-emerald-800 rounded-lg text-sm text-green-800 dark:text-emerald-200 flex items-center gap-2">
+          <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-green-600 dark:text-emerald-400" />
           <span>{success}</span>
         </div>
       )}
@@ -165,7 +165,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Broadcast Form */}
         <div className="lg:col-span-7 space-y-6">
-          <Card className="border-red-200 shadow-sm">
+          <Card className="border-red-200 dark:border-red-900/60 shadow-sm">
             <CardHeader className="bg-gradient-to-r from-red-600 to-rose-700 text-white rounded-t-xl py-4">
               <CardTitle className="text-lg flex items-center gap-2">
                 <ShieldAlert className="w-5 h-5" />
@@ -174,7 +174,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
             </CardHeader>
             <CardContent className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
                   Alert Title <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -186,7 +186,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
                   Alert Message / Instructions <span className="text-red-500">*</span>
                 </label>
                 <Textarea
@@ -200,7 +200,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-1">
+                  <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
                     Auto-Expiry (Optional)
                   </label>
                   <Input
@@ -208,7 +208,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
                     value={expiresAt}
                     onChange={(e) => setExpiresAt(e.target.value)}
                   />
-                  <p className="text-xs text-gray-500 mt-1">Leaves alert active indefinitely if empty.</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Leaves alert active indefinitely if empty.</p>
                 </div>
 
                 <div className="flex items-center space-x-3 pt-6">
@@ -217,15 +217,15 @@ export const EmergencyBroadcastPage: React.FC = () => {
                     id="isCriticalCheckbox"
                     checked={isCritical}
                     onChange={(e) => setIsCritical(e.target.checked)}
-                    className="h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 dark:border-slate-700 rounded"
                   />
-                  <label htmlFor="isCriticalCheckbox" className="text-sm font-medium text-gray-800 cursor-pointer">
+                  <label htmlFor="isCriticalCheckbox" className="text-sm font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
                     High Priority Critical (Red Banner)
                   </label>
                 </div>
               </div>
 
-              <div className="pt-4 border-t flex justify-end">
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
                 <Button
                   type="button"
                   onClick={() => setShowConfirmModal(true)}
@@ -240,10 +240,10 @@ export const EmergencyBroadcastPage: React.FC = () => {
           </Card>
 
           {/* Live Preview Card */}
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="py-3 bg-gray-50 rounded-t-xl border-b">
-              <CardTitle className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <Eye className="w-4 h-4 text-gray-500" />
+          <Card className="border-gray-200 dark:border-slate-800 shadow-sm">
+            <CardHeader className="py-3 bg-gray-50 dark:bg-slate-800/60 rounded-t-xl border-b border-slate-100 dark:border-slate-800">
+              <CardTitle className="text-sm font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                <Eye className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                 Live Student Portal Banner Preview
               </CardTitle>
             </CardHeader>
@@ -269,7 +269,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-6 text-sm text-gray-500 italic bg-gray-50 rounded-lg border border-dashed">
+                <div className="text-center py-6 text-sm text-gray-500 dark:text-slate-400 italic bg-gray-50 dark:bg-slate-800/40 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
                   Type an alert title above to preview how it will appear across all student screens.
                 </div>
               )}
@@ -279,10 +279,10 @@ export const EmergencyBroadcastPage: React.FC = () => {
 
         {/* History of Dispatched Alerts */}
         <div className="lg:col-span-5 space-y-4">
-          <Card className="border-gray-200 shadow-sm">
-            <CardHeader className="py-4 border-b flex flex-row items-center justify-between">
-              <CardTitle className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <History className="w-5 h-5 text-gray-500" />
+          <Card className="border-gray-200 dark:border-slate-800 shadow-sm">
+            <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between">
+              <CardTitle className="text-base font-bold text-gray-900 dark:text-slate-100 flex items-center gap-2">
+                <History className="w-5 h-5 text-gray-500 dark:text-slate-400" />
                 Broadcast Log
               </CardTitle>
               <Button
@@ -295,14 +295,14 @@ export const EmergencyBroadcastPage: React.FC = () => {
                 Refresh
               </Button>
             </CardHeader>
-            <CardContent className="p-4 divide-y divide-gray-100 max-h-[600px] overflow-y-auto">
+            <CardContent className="p-4 divide-y divide-gray-100 dark:divide-slate-800 max-h-[600px] overflow-y-auto">
               {loading && alerts.length === 0 ? (
                 <div className="py-8 text-center">
                   <LoadingSpinner />
-                  <p className="text-xs text-gray-500 mt-2">Loading broadcast logs...</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-400 mt-2">Loading broadcast logs...</p>
                 </div>
               ) : alerts.length === 0 ? (
-                <div className="text-center py-8 text-sm text-gray-500">
+                <div className="text-center py-8 text-sm text-gray-500 dark:text-slate-400">
                   No emergency broadcasts have been logged yet.
                 </div>
               ) : (
@@ -312,15 +312,15 @@ export const EmergencyBroadcastPage: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <span
                           className={`w-2 h-2 rounded-full ${
-                            alert.active ? 'bg-red-500 animate-ping' : 'bg-gray-300'
+                            alert.active ? 'bg-red-500 animate-ping' : 'bg-gray-300 dark:bg-gray-600'
                           }`}
                         />
-                        <h4 className="font-semibold text-sm text-gray-900">{alert.title}</h4>
+                        <h4 className="font-semibold text-sm text-gray-900 dark:text-slate-100">{alert.title}</h4>
                       </div>
                       <StatusBadge status={alert.active ? 'ACTIVE' : 'EXPIRED'} />
                     </div>
-                    <p className="text-xs text-gray-600 line-clamp-2">{alert.message}</p>
-                    <div className="flex items-center justify-between text-[11px] text-gray-400 pt-1">
+                    <p className="text-xs text-gray-600 dark:text-slate-300 line-clamp-2">{alert.message}</p>
+                    <div className="flex items-center justify-between text-[11px] text-gray-400 dark:text-slate-500 pt-1">
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
                         {new Date(alert.broadcastAt).toLocaleString()}
@@ -329,7 +329,7 @@ export const EmergencyBroadcastPage: React.FC = () => {
                         <button
                           onClick={() => handleDismiss(alert._id)}
                           disabled={dismissingId === alert._id}
-                          className="text-red-600 hover:text-red-800 font-semibold hover:underline"
+                          className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 font-semibold hover:underline"
                         >
                           {dismissingId === alert._id ? 'Deactivating...' : 'Dismiss Alert'}
                         </button>

@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { GraduationCap, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
+import { ThemeToggle } from '../../components/common/ThemeToggle';
 
 export const RegisterPage: React.FC = () => {
   const { register } = useAuth();
@@ -71,21 +72,25 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors relative">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+        <ThemeToggle />
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <Link to="/" className="inline-flex items-center space-x-2.5">
           <div className="h-12 w-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
             <GraduationCap className="w-7 h-7" />
           </div>
         </Link>
-        <h2 className="mt-4 text-3xl font-black text-slate-900 tracking-tight">Create Student Account</h2>
-        <p className="mt-1 text-xs text-slate-500 font-medium">Silicon University Bhubaneswar Student Registration</p>
+        <h2 className="mt-4 text-3xl font-black text-slate-900 dark:text-white tracking-tight">Create Student Account</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">Silicon University Bhubaneswar Student Registration</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl px-4">
-        <div className="bg-white py-8 px-6 sm:px-10 shadow-xl border border-slate-200/80 rounded-2xl">
+        <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:px-10 shadow-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl">
           {errorMessage && (
-            <div className="mb-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-center space-x-2.5">
+            <div className="mb-4 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-200 text-xs font-medium flex items-center space-x-2.5">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -125,13 +130,13 @@ export const RegisterPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Department / Branch
                 </label>
                 <select
                   value={formData.department}
                   onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 >
                   <option value="CSE">Computer Science & Engineering (CSE)</option>
                   <option value="IT">Information Technology (IT)</option>
@@ -143,13 +148,13 @@ export const RegisterPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Graduation Batch
                 </label>
                 <select
                   value={formData.batchYear}
                   onChange={(e) => setFormData({ ...formData, batchYear: parseInt(e.target.value, 10) })}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 >
                   <option value={2025}>Batch of 2025</option>
                   <option value={2026}>Batch of 2026</option>
@@ -181,8 +186,8 @@ export const RegisterPage: React.FC = () => {
               />
             </div>
 
-            <div className="p-3 bg-slate-50 border border-slate-200/80 rounded-xl text-[11px] text-slate-500 space-y-1">
-              <p className="font-semibold text-slate-700">Security Requirement:</p>
+            <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 rounded-xl text-[11px] text-slate-500 dark:text-slate-400 space-y-1">
+              <p className="font-semibold text-slate-700 dark:text-slate-300">Security Requirement:</p>
               <p>• Minimum 8 characters with at least one uppercase letter and one numeric digit.</p>
               <p>• Only official Silicon University emails permitted for student registration.</p>
             </div>
@@ -192,9 +197,9 @@ export const RegisterPage: React.FC = () => {
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-slate-500">
+          <div className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
             <span>Already registered? </span>
-            <Link to="/login" className="font-bold text-indigo-600 hover:underline">
+            <Link to="/login" className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               Sign in to portal
             </Link>
           </div>
