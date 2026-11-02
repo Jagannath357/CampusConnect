@@ -203,16 +203,16 @@ export const MyProfilePage: React.FC = () => {
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Technical Skills</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Technical Skills</h4>
                 <div className="flex flex-wrap gap-2">
                   {profile?.skills && profile.skills.length > 0 ? (
                     profile.skills.map((skill) => (
-                      <span key={skill} className="px-3 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold">
+                      <span key={skill} className="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">
                         {skill}
                       </span>
                     ))
                   ) : (
-                    <span className="text-xs text-slate-400">No skills added yet.</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500">No skills added yet.</span>
                   )}
                 </div>
               </div>

@@ -104,30 +104,30 @@ export const ClubsListPage: React.FC = () => {
           {clubs.map((club) => (
             <Card
               key={club._id}
-              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 transition-all border-slate-200/80"
+              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900"
             >
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+                  <span className="text-[10px] font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
                     {club.category}
                   </span>
-                  <span className="flex items-center text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" /> Verified Club
+                  <span className="flex items-center text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                    <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600 dark:text-emerald-400" /> Verified Club
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 leading-snug">{club.name}</h3>
-                  <span className="text-xs font-mono font-bold text-slate-400">Code: {club.code}</span>
-                  <p className="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">{club.name}</h3>
+                  <span className="text-xs font-mono font-bold text-slate-400 dark:text-slate-400">Code: {club.code}</span>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-3 leading-relaxed">
                     {club.description}
                   </p>
                 </div>
 
-                <div className="space-y-1 text-xs text-slate-500 pt-2 border-t border-slate-100">
+                <div className="space-y-1 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="flex items-center space-x-2">
                     <User className="w-3.5 h-3.5 text-slate-400" />
-                    <span>Lead: <strong>{club.leadStudentName}</strong></span>
+                    <span>Lead: <strong className="text-slate-700 dark:text-slate-200">{club.leadStudentName}</strong></span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Mail className="w-3.5 h-3.5 text-slate-400" />
@@ -136,10 +136,10 @@ export const ClubsListPage: React.FC = () => {
                 </div>
               </CardContent>
 
-              <div className="px-6 py-3 bg-slate-50 border-t border-slate-100 rounded-b-xl flex items-center justify-end text-xs">
+              <div className="px-6 py-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-100 dark:border-slate-800 rounded-b-xl flex items-center justify-end text-xs">
                 <Link
                   to={`/clubs/${club._id}`}
-                  className="font-bold text-indigo-600 hover:text-indigo-800 flex items-center"
+                  className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 flex items-center"
                 >
                   View Details & Membership <ArrowRight className="w-3.5 h-3.5 ml-1" />
                 </Link>

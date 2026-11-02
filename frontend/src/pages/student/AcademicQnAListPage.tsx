@@ -124,42 +124,42 @@ export const AcademicQnAListPage: React.FC = () => {
           {questions.map((q) => (
             <Card
               key={q._id}
-              className="hover:shadow-sm hover:border-indigo-300 transition-all border-slate-200/80"
+              className="hover:shadow-sm hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900"
             >
               <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1.5 flex-1 pr-4">
                   <div className="flex items-center space-x-2 text-xs">
-                    <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+                    <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
                       {q.subjectCode}
                     </span>
                     <span className="text-slate-400">•</span>
-                    <span className="text-slate-500 font-medium">{q.subjectCategory}</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">{q.subjectCategory}</span>
                   </div>
 
                   <Link
                     to={`/questions/${q._id}`}
-                    className="text-base font-bold text-slate-900 hover:text-indigo-600 transition-colors line-clamp-2"
+                    className="text-base font-bold text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors line-clamp-2"
                   >
                     {q.title}
                   </Link>
 
-                  <p className="text-xs text-slate-500 line-clamp-2">{q.description}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{q.description}</p>
 
-                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
-                    <span>Asked by <strong>{q.authorId?.name}</strong></span>
+                  <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400 dark:text-slate-400">
+                    <span>Asked by <strong className="text-slate-700 dark:text-slate-200">{q.authorId?.name}</strong></span>
                     <span>•</span>
                     <span>{new Date(q.createdAt).toLocaleDateString()}</span>
                     {q.tags.map((t) => (
-                      <span key={t} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                      <span key={t} className="text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded border border-slate-200/60 dark:border-slate-700">
                         #{t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4 flex-shrink-0 sm:border-l sm:border-slate-100 sm:pl-6">
+                <div className="flex items-center space-x-4 flex-shrink-0 sm:border-l sm:border-slate-100 dark:sm:border-slate-800 sm:pl-6">
                   <div className="text-center">
-                    <span className="text-lg font-black text-indigo-600 block leading-tight">
+                    <span className="text-lg font-black text-indigo-600 dark:text-indigo-400 block leading-tight">
                       {q.answerCount}
                     </span>
                     <span className="text-[10px] uppercase font-bold text-slate-400">Answers</span>

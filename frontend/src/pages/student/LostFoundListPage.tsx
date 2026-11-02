@@ -127,12 +127,12 @@ export const LostFoundListPage: React.FC = () => {
           {items.map((item) => (
             <Card
               key={item._id}
-              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 transition-all border-slate-200/80 overflow-hidden"
+              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900 overflow-hidden"
             >
               <div>
                 {/* Photo if present */}
                 {item.imageUrl ? (
-                  <div className="h-44 w-full overflow-hidden bg-slate-100 relative">
+                  <div className="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                     <img
                       src={getFileUrl(item.imageUrl)}
                       alt={item.itemName}
@@ -153,31 +153,31 @@ export const LostFoundListPage: React.FC = () => {
                 )}
 
                 <CardContent className="p-5 space-y-2">
-                  <h3 className="text-base font-bold text-slate-900 leading-snug line-clamp-1">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">
                     {item.itemName}
                   </h3>
 
-                  <div className="flex items-center space-x-2 text-xs text-slate-500">
+                  <div className="flex items-center space-x-2 text-xs text-slate-500 dark:text-slate-400">
                     <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
                     <span>
                       {item.locationCategory} {item.locationDetails ? `(${item.locationDetails})` : ''}
                     </span>
                   </div>
 
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed pt-1">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed pt-1">
                     {item.description}
                   </p>
                 </CardContent>
               </div>
 
-              <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
-                <span className="text-[11px] text-slate-500">
+              <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">
                   {new Date(item.dateOccurred).toLocaleDateString()}
                 </span>
 
                 <Link
                   to={`/lost-found/${item._id}`}
-                  className="font-bold text-indigo-600 hover:text-indigo-800 flex items-center"
+                  className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 flex items-center"
                 >
                   View & Claim <ArrowRight className="w-3.5 h-3.5 ml-1" />
                 </Link>

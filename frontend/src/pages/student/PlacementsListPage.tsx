@@ -96,32 +96,32 @@ export const PlacementsListPage: React.FC = () => {
           {placements.map((plc) => (
             <Card
               key={plc._id}
-              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 transition-all border-slate-200/80"
+              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900"
             >
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase">
+                    <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800 uppercase">
                       Eligible • Min CGPA {plc.minimumCgpa}
                     </span>
-                    <h3 className="text-lg font-bold text-slate-900 mt-1">{plc.companyName}</h3>
-                    <p className="text-sm font-semibold text-indigo-600">{plc.jobTitle}</p>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1">{plc.companyName}</h3>
+                    <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">{plc.jobTitle}</p>
                   </div>
 
-                  <span className="text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700 px-2.5 py-1 rounded-lg">
                     {plc.packageDetails || 'Competitive Package'}
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
                   {plc.jobDescription}
                 </p>
 
-                <div className="space-y-1.5 text-xs text-slate-500 pt-2 border-t border-slate-100">
+                <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="flex items-center space-x-2">
                     <Calendar className="w-3.5 h-3.5 text-slate-400" />
                     <span>
-                      Deadline: <strong>{new Date(plc.applicationDeadline).toLocaleDateString()}</strong>
+                      Deadline: <strong className="text-slate-700 dark:text-slate-200">{new Date(plc.applicationDeadline).toLocaleDateString()}</strong>
                     </span>
                   </div>
 
@@ -137,9 +137,9 @@ export const PlacementsListPage: React.FC = () => {
                 </div>
               </CardContent>
 
-              <div className="px-6 py-3 bg-slate-50 border-t border-slate-100 rounded-b-xl flex items-center justify-between text-xs">
-                <span className="text-emerald-700 font-semibold flex items-center">
-                  <CheckCircle2 className="w-3.5 h-3.5 mr-1" /> Profile Verified
+              <div className="px-6 py-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-100 dark:border-slate-800 rounded-b-xl flex items-center justify-between text-xs">
+                <span className="text-emerald-700 dark:text-emerald-300 font-semibold flex items-center">
+                  <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-emerald-600 dark:text-emerald-400" /> Profile Verified
                 </span>
 
                 {plc.applicationUrl ? (

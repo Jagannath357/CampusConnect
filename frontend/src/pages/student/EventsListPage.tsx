@@ -141,33 +141,33 @@ export const EventsListPage: React.FC = () => {
           {events.map((evt) => (
             <Card
               key={evt._id}
-              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 transition-all border-slate-200/80 overflow-hidden"
+              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900 overflow-hidden"
             >
               <div>
                 {/* Event Photo if present */}
                 {evt.imageUrl ? (
-                  <div className="h-44 w-full overflow-hidden bg-slate-100 relative">
+                  <div className="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
                     <img src={getFileUrl(evt.imageUrl)} alt={evt.title} className="w-full h-full object-cover" />
                     <div className="absolute top-2.5 left-2.5">
-                      <span className="text-[10px] font-extrabold uppercase bg-white/95 text-indigo-700 px-2.5 py-1 rounded-full shadow-xs">
+                      <span className="text-[10px] font-extrabold uppercase bg-white/95 dark:bg-slate-900/90 text-indigo-700 dark:text-indigo-300 px-2.5 py-1 rounded-full shadow-xs border border-slate-200/60 dark:border-slate-700">
                         {evt.category}
                       </span>
                     </div>
                   </div>
                 ) : (
                   <div className="p-4 pb-0">
-                    <span className="text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
                       {evt.category}
                     </span>
                   </div>
                 )}
 
                 <CardContent className="p-5 space-y-3">
-                  <h3 className="text-base font-bold text-slate-900 leading-snug line-clamp-1">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">
                     {evt.title}
                   </h3>
 
-                  <div className="space-y-1.5 text-xs text-slate-500">
+                  <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
                     <div className="flex items-center space-x-2">
                       <Clock className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
                       <span>{new Date(evt.date).toLocaleDateString()} • {evt.startTime} - {evt.endTime}</span>
@@ -180,23 +180,23 @@ export const EventsListPage: React.FC = () => {
 
                     <div className="flex items-center space-x-2">
                       <Users className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                      <span>Organizer: <strong>{evt.organizer}</strong></span>
+                      <span>Organizer: <strong className="text-slate-700 dark:text-slate-200">{evt.organizer}</strong></span>
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed pt-1">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed pt-1">
                     {evt.description}
                   </p>
 
                   {/* Seat availability bar */}
                   <div className="pt-2">
-                    <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
+                    <div className="flex justify-between text-[11px] font-semibold text-slate-600 dark:text-slate-300 mb-1">
                       <span>Available Seats</span>
-                      <span className={evt.availableSeats === 0 ? 'text-rose-600 font-bold' : 'text-indigo-600'}>
+                      <span className={evt.availableSeats === 0 ? 'text-rose-600 dark:text-rose-400 font-bold' : 'text-indigo-600 dark:text-indigo-400'}>
                         {evt.availableSeats} / {evt.maxCapacity}
                       </span>
                     </div>
-                    <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5 overflow-hidden">
                       <div
                         className={`h-full rounded-full ${evt.availableSeats === 0 ? 'bg-rose-500' : 'bg-indigo-600'}`}
                         style={{
@@ -208,16 +208,16 @@ export const EventsListPage: React.FC = () => {
                 </CardContent>
               </div>
 
-              <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
                 {evt.isUserRegistered ? (
-                  <span className="flex items-center text-emerald-700 font-bold text-xs">
-                    <CheckCircle2 className="w-4 h-4 mr-1 text-emerald-600" />
+                  <span className="flex items-center text-emerald-700 dark:text-emerald-300 font-bold text-xs">
+                    <CheckCircle2 className="w-4 h-4 mr-1 text-emerald-600 dark:text-emerald-400" />
                     Booked
                   </span>
                 ) : evt.availableSeats === 0 ? (
-                  <span className="text-rose-600 font-bold text-xs">Event Full</span>
+                  <span className="text-rose-600 dark:text-rose-400 font-bold text-xs">Event Full</span>
                 ) : (
-                  <span className="text-slate-500 text-xs">Open for Booking</span>
+                  <span className="text-slate-500 dark:text-slate-400 text-xs">Open for Booking</span>
                 )}
 
                 <Link

@@ -138,12 +138,12 @@ export const CollaborationDetailsPage: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Required Technical Skills</h3>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">Required Technical Skills</h3>
             <div className="flex flex-wrap gap-2">
               {post.requiredSkills.map((skill) => (
                 <span
                   key={skill}
-                  className="px-3 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold"
+                  className="px-3 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-semibold"
                 >
                   {skill}
                 </span>

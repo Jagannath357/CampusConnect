@@ -130,39 +130,39 @@ export const AcademicResourcesPage: React.FC = () => {
           {resources.map((res) => (
             <Card
               key={res._id}
-              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 transition-all border-slate-200/80"
+              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900"
             >
               <CardContent className="p-5 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+                  <span className="text-[10px] font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
                     {res.courseCode}
                   </span>
-                  <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200/60 dark:border-slate-700">
                     {res.category}
                   </span>
                 </div>
 
                 <div className="flex items-start space-x-3 pt-1">
-                  <div className="p-2.5 rounded-xl bg-slate-100 text-slate-600 flex-shrink-0">
+                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-indigo-400 flex-shrink-0 border border-slate-200/60 dark:border-slate-700">
                     <FileText className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 leading-snug line-clamp-2">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug line-clamp-2">
                       {res.title}
                     </h3>
-                    <p className="text-[11px] text-slate-400 mt-0.5">{res.fileName}</p>
+                    <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-0.5">{res.fileName}</p>
                   </div>
                 </div>
 
                 {res.description && (
-                  <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
                     {res.description}
                   </p>
                 )}
               </CardContent>
 
-              <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 rounded-b-xl flex items-center justify-between text-xs">
-                <div className="text-slate-500 text-[11px]">
+              <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-100 dark:border-slate-800 rounded-b-xl flex items-center justify-between text-xs">
+                <div className="text-slate-500 dark:text-slate-400 text-[11px]">
                   <span>{(res.fileSize / 1024 / 1024).toFixed(1)} MB</span>
                   <span className="mx-1.5">•</span>
                   <span>{res.downloadCount} downloads</span>

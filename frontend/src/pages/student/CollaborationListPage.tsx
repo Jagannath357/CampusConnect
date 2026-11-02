@@ -111,10 +111,10 @@ export const CollaborationListPage: React.FC = () => {
                 setSelectedDomain(dom);
                 setPage(1);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border ${
                 selectedDomain === dom
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border-slate-200/80 dark:border-slate-700'
               }`}
             >
               {dom}
@@ -139,23 +139,23 @@ export const CollaborationListPage: React.FC = () => {
           {posts.map((post) => (
             <Card
               key={post._id}
-              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 transition-all border-slate-200/80"
+              className="flex flex-col justify-between hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all border-slate-200/80 dark:border-slate-800 dark:bg-slate-900"
             >
               <CardContent className="p-5 space-y-3">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-700 bg-indigo-50 border border-indigo-200/60 px-2.5 py-0.5 rounded-full">
+                  <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200/60 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
                     {post.domain}
                   </span>
-                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/70 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
                     {post.vacancyCount} {post.vacancyCount === 1 ? 'spot open' : 'spots open'}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 leading-snug hover:text-indigo-600 transition-colors">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 leading-snug hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">
                     {post.description}
                   </p>
                 </div>
@@ -165,7 +165,7 @@ export const CollaborationListPage: React.FC = () => {
                   {post.requiredSkills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-[10px] font-semibold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-md border border-slate-200/60"
+                      className="text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-2.5 py-1 rounded-md border border-slate-200/60 dark:border-slate-700"
                     >
                       {skill}
                     </span>
@@ -173,16 +173,16 @@ export const CollaborationListPage: React.FC = () => {
                 </div>
               </CardContent>
 
-              <div className="px-5 py-3 bg-slate-50 border-t border-slate-100 rounded-b-xl flex items-center justify-between text-xs">
-                <div className="flex items-center space-x-2 text-slate-500">
-                  <span className="font-semibold text-slate-700">{post.creatorId?.name}</span>
+              <div className="px-5 py-3 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-100 dark:border-slate-800 rounded-b-xl flex items-center justify-between text-xs">
+                <div className="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
+                  <span className="font-semibold text-slate-700 dark:text-slate-200">{post.creatorId?.name}</span>
                   <span>•</span>
                   <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
 
                 <Link
                   to={`/collaborations/${post._id}`}
-                  className="font-bold text-indigo-600 hover:text-indigo-800 flex items-center text-xs"
+                  className="font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 flex items-center text-xs"
                 >
                   Details <ArrowRight className="w-3.5 h-3.5 ml-1" />
                 </Link>
