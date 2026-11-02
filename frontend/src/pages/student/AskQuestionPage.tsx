@@ -81,11 +81,11 @@ export const AskQuestionPage: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl font-black text-slate-900 flex items-center space-x-2">
-            <HelpCircle className="w-6 h-6 text-indigo-600" />
+          <CardTitle className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center space-x-2">
+            <HelpCircle className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Ask Academic Question</span>
           </CardTitle>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Get help from course toppers, professors, and senior classmates on university coursework.
           </p>
         </CardHeader>

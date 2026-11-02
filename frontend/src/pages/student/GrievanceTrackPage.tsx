@@ -58,11 +58,11 @@ export const GrievanceTrackPage: React.FC = () => {
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <Search className="w-6 h-6 text-indigo-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <Search className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Track Grievance Status</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Check live administrative resolution progress using your anonymous tracking ticket.
           </p>
         </div>

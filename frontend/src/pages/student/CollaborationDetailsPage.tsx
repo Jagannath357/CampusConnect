@@ -100,7 +100,7 @@ export const CollaborationDetailsPage: React.FC = () => {
                 </span>
                 <StatusBadge status={post.status} />
               </div>
-              <h1 className="text-2xl font-black text-slate-900">{post.title}</h1>
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{post.title}</h1>
             </div>
 
             {isOwner && (

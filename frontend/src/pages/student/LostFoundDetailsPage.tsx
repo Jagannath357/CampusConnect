@@ -135,7 +135,7 @@ export const LostFoundDetailsPage: React.FC = () => {
                 <StatusBadge status={item.type} />
                 <StatusBadge status={item.status} />
               </div>
-              <h1 className="text-2xl font-black text-slate-900">{item.itemName}</h1>
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{item.itemName}</h1>
             </div>
 
             <div className="text-left sm:text-right text-xs text-slate-500">

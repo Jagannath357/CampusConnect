@@ -66,7 +66,7 @@ export const ClubDetailsPage: React.FC = () => {
                   <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-600" /> Officially Verified
                 </span>
               </div>
-              <h1 className="text-2xl font-black text-slate-900">{club.name}</h1>
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100">{club.name}</h1>
               <p className="text-xs font-mono font-bold text-slate-400 mt-0.5">Code: {club.code}</p>
             </div>
 

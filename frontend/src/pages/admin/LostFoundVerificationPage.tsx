@@ -80,11 +80,11 @@ export const LostFoundVerificationPage: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-          <FileCheck2 className="w-6 h-6 text-indigo-600" />
+        <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+          <FileCheck2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
           <span>Lost & Found Ownership Verification</span>
         </h1>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           Inspect photographic claims, compare ownership proof, and authorize final item release.
         </p>
       </div>
@@ -244,22 +244,20 @@ export const LostFoundVerificationPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setEvidenceMatches(true)}
-                  className={`p-3 rounded-xl border text-xs font-bold transition-all ${
-                    evidenceMatches
-                      ? 'bg-emerald-50 border-emerald-400 text-emerald-800 shadow-xs'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }`}
+                  className={`p-3 rounded-xl border text-xs font-bold transition-all ${evidenceMatches
+                    ? 'bg-emerald-50 border-emerald-400 text-emerald-800 shadow-xs'
+                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
                 >
                   ✓ Evidence Matches: Approve & Mark Resolved
                 </button>
                 <button
                   type="button"
                   onClick={() => setEvidenceMatches(false)}
-                  className={`p-3 rounded-xl border text-xs font-bold transition-all ${
-                    !evidenceMatches
-                      ? 'bg-rose-50 border-rose-400 text-rose-800 shadow-xs'
-                      : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                  }`}
+                  className={`p-3 rounded-xl border text-xs font-bold transition-all ${!evidenceMatches
+                    ? 'bg-rose-50 border-rose-400 text-rose-800 shadow-xs'
+                    : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                    }`}
                 >
                   ✕ Evidence Mismatch: Retain Pending Verification
                 </button>

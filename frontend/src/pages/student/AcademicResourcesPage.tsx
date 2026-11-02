@@ -69,11 +69,11 @@ export const AcademicResourcesPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <BookOpen className="w-6 h-6 text-indigo-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <BookOpen className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Academic Resource Repository</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Verified study materials, lecture summaries, lab manuals, and previous year question papers.
           </p>
         </div>

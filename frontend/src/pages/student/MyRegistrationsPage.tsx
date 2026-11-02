@@ -51,11 +51,11 @@ export const MyRegistrationsPage: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <Ticket className="w-6 h-6 text-indigo-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <Ticket className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>My Event Registrations</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Your reserved event passes and unique admission tokens for Silicon University events.
           </p>
         </div>

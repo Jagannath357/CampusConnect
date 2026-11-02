@@ -33,11 +33,11 @@ export const SuspensionManagementPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <UserX className="w-6 h-6 text-rose-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <UserX className="w-6 h-6 text-rose-600 dark:text-rose-400" />
             <span>Guideline Enforcement & Suspension Records</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Audit history of disciplinary suspensions, revocation reasons, and account reactivations.
           </p>
         </div>

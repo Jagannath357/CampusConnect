@@ -101,8 +101,8 @@ export const MyProfilePage: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Academic Profile</h1>
-          <p className="text-xs text-slate-500">Silicon University student record and collaboration profile.</p>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Academic Profile</h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Silicon University student record and collaboration profile.</p>
         </div>
         <Button
           variant={isEditing ? 'outline' : 'primary'}

@@ -113,7 +113,7 @@ export const EventDetailsPage: React.FC = () => {
               <span className="font-extrabold uppercase tracking-wider text-xs text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
                 {event.category}
               </span>
-              <h1 className="text-2xl font-black text-slate-900 mt-2 leading-snug">{event.title}</h1>
+              <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-2 leading-snug">{event.title}</h1>
             </div>
 
             {/* Registration action */}

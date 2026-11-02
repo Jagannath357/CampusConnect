@@ -108,7 +108,7 @@ export const QuestionDetailsPage: React.FC = () => {
             <span className="text-slate-500 font-medium">{question.subjectCategory}</span>
           </div>
 
-          <h1 className="text-2xl font-black text-slate-900 leading-snug">{question.title}</h1>
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 leading-snug">{question.title}</h1>
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-sm text-slate-800 leading-relaxed whitespace-pre-wrap">
             {question.description}

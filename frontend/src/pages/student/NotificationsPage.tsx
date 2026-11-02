@@ -45,11 +45,11 @@ export const NotificationsPage: React.FC = () => {
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <Bell className="w-6 h-6 text-indigo-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <Bell className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Campus Notifications</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Stay informed with real-time updates on event registrations, claims, and announcements.
           </p>
         </div>

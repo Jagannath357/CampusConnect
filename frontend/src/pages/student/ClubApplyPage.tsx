@@ -59,11 +59,11 @@ export const ClubApplyPage: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl font-black text-slate-900 flex items-center space-x-2">
-            <Compass className="w-6 h-6 text-indigo-600" />
+          <CardTitle className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center space-x-2">
+            <Compass className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Apply to Establish Student Club</span>
           </CardTitle>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Applications are evaluated under university organization governance and verified by campus administration.
           </p>
         </CardHeader>

@@ -99,11 +99,11 @@ export const CreateCollaborationPage: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl font-black text-slate-900 flex items-center space-x-2">
-            <Users2 className="w-6 h-6 text-indigo-600" />
+          <CardTitle className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center space-x-2">
+            <Users2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Create Teammate Request Post</span>
           </CardTitle>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Describe your project, team vacancies, and skill requirements for interested classmates.
           </p>
         </CardHeader>

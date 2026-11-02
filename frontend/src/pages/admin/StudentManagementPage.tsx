@@ -59,11 +59,11 @@ export const StudentManagementPage: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2.5">
-            <Users className="w-6 h-6 text-indigo-600" />
+          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <Users className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             <span>Student Account Auditing</span>
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Audit registered student accounts, inspect profiles, and enforce academic community guidelines.
           </p>
         </div>
