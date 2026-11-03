@@ -1,7 +1,9 @@
 import { Response } from 'express';
 import { AuthenticatedRequest } from '../types/index.js';
 import { AcademicResource } from '../models/AcademicResource.js';
-import { uploadToStorage, deleteFromStorage } from '../config/cloudinary.js';
+import { uploadToStorage, deleteFromStorage, getDownloadUrl, isCloudinaryConfigured } from '../config/cloudinary.js';
+import path from 'path';
+import fs from 'fs';
 
 export const getResources = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
@@ -140,15 +142,94 @@ export const trackDownload = async (req: AuthenticatedRequest, res: Response): P
       return;
     }
 
+    let downloadUrl = resource.fileUrl;
+    if (isCloudinaryConfigured && resource.filePublicId && !resource.filePublicId.startsWith('local_')) {
+      const isPdf = resource.fileMimeType === 'application/pdf' || resource.fileName.toLowerCase().endsWith('.pdf');
+      const isImage = resource.fileMimeType?.startsWith('image/');
+      const ext = path.extname(resource.fileName).replace('.', '').toLowerCase();
+      downloadUrl = getDownloadUrl(
+        resource.filePublicId,
+        ext || (isPdf ? 'pdf' : undefined),
+        isPdf || isImage ? 'image' : 'raw',
+        true
+      ) || resource.fileUrl;
+    }
+
     res.status(200).json({
       success: true,
       message: 'Download tracked.',
-      data: { downloadCount: resource.downloadCount },
+      data: {
+        downloadUrl,
+        fileUrl: resource.fileUrl,
+        fileName: resource.fileName,
+        downloadCount: resource.downloadCount,
+      },
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: 'Failed to track download.',
+    });
+  }
+};
+
+export const downloadResourceFile = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const resource = await AcademicResource.findByIdAndUpdate(
+      id,
+      { $inc: { downloadCount: 1 } },
+      { new: true }
+    );
+
+    if (!resource) {
+      res.status(404).json({
+        success: false,
+        message: 'Resource not found.',
+      });
+      return;
+    }
+
+    // Check if local file
+    if (resource.fileUrl.startsWith('/uploads/') || resource.filePublicId?.startsWith('local_')) {
+      const relativePath = resource.fileUrl.replace(/^\/uploads\//, '');
+      const possibleFilePaths = [
+        path.join(process.cwd(), 'uploads', relativePath),
+        path.join(process.cwd(), 'backend', 'uploads', relativePath),
+        path.resolve(process.cwd(), '../uploads', relativePath),
+      ];
+      for (const fp of possibleFilePaths) {
+        if (fs.existsSync(fp)) {
+          res.download(fp, resource.fileName);
+          return;
+        }
+      }
+    }
+
+    // Cloudinary file
+    if (isCloudinaryConfigured && resource.filePublicId && !resource.filePublicId.startsWith('local_')) {
+      const isPdf = resource.fileMimeType === 'application/pdf' || resource.fileName.toLowerCase().endsWith('.pdf');
+      const isImage = resource.fileMimeType?.startsWith('image/');
+      const ext = path.extname(resource.fileName).replace('.', '').toLowerCase();
+      const signedDownloadUrl = getDownloadUrl(
+        resource.filePublicId,
+        ext || (isPdf ? 'pdf' : undefined),
+        isPdf || isImage ? 'image' : 'raw',
+        true
+      );
+
+      if (signedDownloadUrl) {
+        res.redirect(signedDownloadUrl);
+        return;
+      }
+    }
+
+    res.redirect(resource.fileUrl);
+  } catch (error) {
+    console.error('[Download Resource File Error]', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to download resource file.',
     });
   }
 };
@@ -175,7 +256,9 @@ export const deleteResource = async (req: AuthenticatedRequest, res: Response): 
     }
 
     if (resource.filePublicId) {
-      await deleteFromStorage(resource.filePublicId);
+      const isPdf = resource.fileMimeType === 'application/pdf' || resource.fileName.toLowerCase().endsWith('.pdf');
+      const isImage = resource.fileMimeType?.startsWith('image/');
+      await deleteFromStorage(resource.filePublicId, isPdf || isImage ? 'image' : 'raw');
     }
 
     await AcademicResource.deleteOne({ _id: id });

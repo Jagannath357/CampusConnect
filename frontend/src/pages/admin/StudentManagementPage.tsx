@@ -97,10 +97,10 @@ export const StudentManagementPage: React.FC = () => {
               setDepartment(e.target.value);
               setPage(1);
             }}
-            className="h-10 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none"
+            className="h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
           >
             {DEPARTMENTS.map((d) => (
-              <option key={d} value={d}>
+              <option key={d} value={d} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                 Dept: {d}
               </option>
             ))}
@@ -112,10 +112,10 @@ export const StudentManagementPage: React.FC = () => {
               setStatus(e.target.value);
               setPage(1);
             }}
-            className="h-10 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-700 focus:outline-none"
+            className="h-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 focus:outline-none"
           >
             {STATUSES.map((s) => (
-              <option key={s} value={s}>
+              <option key={s} value={s} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                 Status: {s}
               </option>
             ))}

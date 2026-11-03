@@ -80,6 +80,21 @@ export const createApp = (): Application => {
     app.use('/uploads', express.static(uploadDir));
   });
 
+  // Direct robust fallback for uploads route if static middleware passes through
+  app.get('/uploads/*', (req: Request, res: Response) => {
+    const requestedPath = decodeURIComponent(req.path.replace(/^\/uploads\//, ''));
+    for (const baseDir of possibleUploadPaths) {
+      const fullPath = path.resolve(baseDir, requestedPath);
+      if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) {
+        return res.sendFile(fullPath);
+      }
+    }
+    return res.status(404).json({
+      success: false,
+      message: `File not found: ${requestedPath}`,
+    });
+  });
+
   // Health check
   app.get('/api/health', (req: Request, res: Response) => {
     res.status(200).json({

@@ -199,15 +199,15 @@ export const AdminGrievancePage: React.FC = () => {
                   setStatusFilter(e.target.value);
                   setPage(1);
                 }}
-                className="w-full text-sm border-gray-300 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full text-sm border-gray-300 dark:border-slate-700 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
               >
-                <option value="">All Statuses</option>
-                <option value="SUBMITTED">Submitted</option>
-                <option value="UNDER_REVIEW">Under Review</option>
-                <option value="ASSIGNED">Assigned</option>
-                <option value="IN_PROGRESS">In Progress</option>
-                <option value="RESOLVED">Resolved</option>
-                <option value="DISMISSED">Dismissed</option>
+                <option value="" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">All Statuses</option>
+                <option value="SUBMITTED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Submitted</option>
+                <option value="UNDER_REVIEW" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Under Review</option>
+                <option value="ASSIGNED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Assigned</option>
+                <option value="IN_PROGRESS" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">In Progress</option>
+                <option value="RESOLVED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Resolved</option>
+                <option value="DISMISSED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Dismissed</option>
               </select>
             </div>
 
@@ -218,15 +218,15 @@ export const AdminGrievancePage: React.FC = () => {
                   setCategoryFilter(e.target.value);
                   setPage(1);
                 }}
-                className="w-full text-sm border-gray-300 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full text-sm border-gray-300 dark:border-slate-700 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
               >
-                <option value="">All Categories</option>
-                <option value="ACADEMIC">Academic</option>
-                <option value="HOSTEL">Hostel & Mess</option>
-                <option value="INFRASTRUCTURE">Campus Infrastructure</option>
-                <option value="ADMINISTRATIVE">Administrative</option>
-                <option value="HARASSMENT">Anti-Ragging / Harassment</option>
-                <option value="OTHER">Other</option>
+                <option value="" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">All Categories</option>
+                <option value="ACADEMIC" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Academic</option>
+                <option value="HOSTEL" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Hostel & Mess</option>
+                <option value="INFRASTRUCTURE" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Campus Infrastructure</option>
+                <option value="ADMINISTRATIVE" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Administrative</option>
+                <option value="HARASSMENT" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Anti-Ragging / Harassment</option>
+                <option value="OTHER" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">Other</option>
               </select>
             </div>
 
@@ -364,35 +364,35 @@ export const AdminGrievancePage: React.FC = () => {
               {/* Status & Department Selection */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Grievance Status
                   </label>
                   <select
                     value={newStatus}
                     onChange={(e) => setNewStatus(e.target.value)}
-                    className="w-full text-sm border-gray-300 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full text-sm border-gray-300 dark:border-slate-700 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   >
-                    <option value="SUBMITTED">SUBMITTED</option>
-                    <option value="UNDER_REVIEW">UNDER_REVIEW</option>
-                    <option value="ASSIGNED">ASSIGNED</option>
-                    <option value="IN_PROGRESS">IN_PROGRESS</option>
-                    <option value="RESOLVED">RESOLVED</option>
-                    <option value="DISMISSED">DISMISSED</option>
+                    <option value="SUBMITTED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">SUBMITTED</option>
+                    <option value="UNDER_REVIEW" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">UNDER_REVIEW</option>
+                    <option value="ASSIGNED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">ASSIGNED</option>
+                    <option value="IN_PROGRESS" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">IN_PROGRESS</option>
+                    <option value="RESOLVED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">RESOLVED</option>
+                    <option value="DISMISSED" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">DISMISSED</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Assign Committee / Dept
                   </label>
                   <select
                     value={newDepartment}
                     onChange={(e) => setNewDepartment(e.target.value)}
-                    className="w-full text-sm border-gray-300 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full text-sm border-gray-300 dark:border-slate-700 rounded-md py-2 px-3 border focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   >
-                    <option value="">-- No Department Assigned --</option>
+                    <option value="" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">-- No Department Assigned --</option>
                     {DEPARTMENTS.map((dept) => (
-                      <option key={dept} value={dept}>
+                      <option key={dept} value={dept} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                         {dept}
                       </option>
                     ))}

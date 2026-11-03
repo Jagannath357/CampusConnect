@@ -11,7 +11,10 @@ export const getFileUrl = (url?: string): string => {
 
   // Get backend host without /api
   const apiBase = (import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'http://localhost:5000/api') as string;
-  const backendHost = apiBase.replace(/\/api\/?$/, '');
+  let backendHost = apiBase.replace(/\/api\/?$/, '');
+  if (!backendHost || !backendHost.startsWith('http')) {
+    backendHost = 'http://localhost:5000';
+  }
   const cleanPath = url.startsWith('/') ? url : `/${url}`;
 
   return `${backendHost}${cleanPath}`;

@@ -119,16 +119,16 @@ export const CreateEventPage: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Category
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 >
                   {CATEGORIES.map((c) => (
-                    <option key={c} value={c}>
+                    <option key={c} value={c} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                       {c}
                     </option>
                   ))}
@@ -192,17 +192,19 @@ export const CreateEventPage: React.FC = () => {
               />
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Associated Verified Club (Optional)
                 </label>
                 <select
                   value={organizerClubId}
                   onChange={(e) => setOrganizerClubId(e.target.value)}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 >
-                  <option value="">None (Direct University Event)</option>
+                  <option value="" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
+                    None (Direct University Event)
+                  </option>
                   {verifiedClubs.map((club) => (
-                    <option key={club._id} value={club._id}>
+                    <option key={club._id} value={club._id} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                       {club.name} ({club.code})
                     </option>
                   ))}

@@ -106,16 +106,16 @@ export const UploadResourcePage: React.FC = () => {
               />
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Resource Category
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 >
                   {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
+                    <option key={cat} value={cat} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                       {cat}
                     </option>
                   ))}
@@ -133,10 +133,10 @@ export const UploadResourcePage: React.FC = () => {
 
             {/* Document File Input */}
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                 Attach Document (PDF, DOCX, PPTX max 15MB)
               </label>
-              <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-indigo-400 transition-colors bg-slate-50/50">
+              <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-6 text-center hover:border-indigo-400 dark:hover:border-indigo-600 transition-colors bg-slate-50/50 dark:bg-slate-800/40">
                 <input
                   id="resource-file-input"
                   type="file"
@@ -145,27 +145,27 @@ export const UploadResourcePage: React.FC = () => {
                   className="hidden"
                 />
                 <label htmlFor="resource-file-input" className="cursor-pointer block">
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-2">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-2">
                     <Upload className="w-6 h-6" />
                   </div>
                   {selectedFile ? (
                     <div>
-                      <p className="text-sm font-bold text-slate-800">{selectedFile.name}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-sm font-bold text-slate-800 dark:text-slate-100">{selectedFile.name}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         {(selectedFile.size / 1024 / 1024).toFixed(2)} MB • Ready to upload
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <p className="text-sm font-bold text-slate-700">Click to browse file</p>
-                      <p className="text-xs text-slate-400 mt-1">PDF, DOCX, or PPTX up to 15MB</p>
+                      <p className="text-sm font-bold text-slate-700 dark:text-slate-200">Click to browse file</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">PDF, DOCX, or PPTX up to 15MB</p>
                     </div>
                   )}
                 </label>
               </div>
             </div>
 
-            <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100">
+            <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100 dark:border-slate-800">
               <Link to="/resources">
                 <Button type="button" variant="outline">
                   Cancel

@@ -50,18 +50,20 @@ export const AcademicResourcesPage: React.FC = () => {
   }, [search, selectedCategory]);
 
   const handleDownload = async (resource: AcademicResource) => {
-    const targetUrl = getFileUrl(resource.fileUrl);
+    const fallbackUrl = getFileUrl(resource.fileUrl);
     try {
-      await api.post(`/resources/${resource._id}/download`);
+      const res = await api.post(`/resources/${resource._id}/download`);
+      const rawUrl = res.data?.data?.downloadUrl || resource.fileUrl;
+      const targetUrl = getFileUrl(rawUrl);
       window.open(targetUrl, '_blank');
       // Update local download counter
       setResources((prev) =>
         prev.map((r) =>
-          r._id === resource._id ? { ...r, downloadCount: r.downloadCount + 1 } : r
+          r._id === resource._id ? { ...r, downloadCount: (r.downloadCount || 0) + 1 } : r
         )
       );
     } catch (e) {
-      window.open(targetUrl, '_blank');
+      window.open(fallbackUrl, '_blank');
     }
   };
 

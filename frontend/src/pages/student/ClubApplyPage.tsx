@@ -104,16 +104,16 @@ export const ClubApplyPage: React.FC = () => {
               />
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Club Classification
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
+                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
                 >
                   {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat}>
+                    <option key={cat} value={cat} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                       {cat}
                     </option>
                   ))}

@@ -138,27 +138,27 @@ export const AdminAuditLogsPage: React.FC = () => {
       <Card className="border-gray-200 shadow-sm">
         <CardContent className="p-4 flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2 w-full md:w-auto">
-            <Filter className="w-4 h-4 text-gray-500" />
-            <span className="text-xs font-bold text-gray-700 uppercase">Action Filter:</span>
+            <Filter className="w-4 h-4 text-gray-500 dark:text-slate-400" />
+            <span className="text-xs font-bold text-gray-700 dark:text-slate-300 uppercase">Action Filter:</span>
             <select
               value={selectedAction}
               onChange={(e) => {
                 setSelectedAction(e.target.value);
                 setPage(1);
               }}
-              className="text-sm border border-gray-300 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-zinc-600 bg-white"
+              className="text-sm border border-gray-300 dark:border-slate-700 rounded-md py-1.5 px-3 focus:outline-none focus:ring-2 focus:ring-zinc-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
             >
-              <option value="">All Action Types</option>
+              <option value="" className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">All Action Types</option>
               {ACTION_TYPES.map((action) => (
-                <option key={action} value={action}>
+                <option key={action} value={action} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
                   {action}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="text-xs text-gray-500 font-mono">
-            Immutable Collection: <code className="bg-gray-100 px-1.5 py-0.5 rounded">AdminAuditLog</code>
+          <div className="text-xs text-gray-500 dark:text-slate-400 font-mono">
+            Immutable Collection: <code className="bg-gray-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-1.5 py-0.5 rounded">AdminAuditLog</code>
           </div>
         </CardContent>
       </Card>

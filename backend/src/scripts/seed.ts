@@ -22,6 +22,7 @@ import {
   Notification,
 } from '../models/index.js';
 import { hashPassword } from '../utils/password.js';
+import { isCloudinaryConfigured, uploadBufferToStorage } from '../config/cloudinary.js';
 
 export const seedDatabase = async () => {
   try {
@@ -276,7 +277,7 @@ export const seedDatabase = async () => {
     });
 
     console.log('📚 Seeding Academic Resources...');
-    const ensureSamplePdf = (relPath: string, sampleTitle: string) => {
+    const seedPdf = async (relPath: string, sampleTitle: string, defaultName: string) => {
       const locations = [
         path.join(process.cwd(), 'uploads', relPath),
         path.join(process.cwd(), 'backend', 'uploads', relPath),
@@ -287,9 +288,20 @@ export const seedDatabase = async () => {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
         if (!fs.existsSync(loc)) fs.writeFileSync(loc, minimalPdf);
       }
+
+      if (isCloudinaryConfigured) {
+        try {
+          const res = await uploadBufferToStorage(Buffer.from(minimalPdf), defaultName, 'application/pdf', 'resources');
+          return { fileUrl: res.url, filePublicId: res.publicId };
+        } catch (e) {
+          console.warn('[Seed] Cloudinary seed upload fallback to local:', e);
+        }
+      }
+      return { fileUrl: `/uploads/${relPath}`, filePublicId: `local_resources_${path.basename(relPath)}` };
     };
-    ensureSamplePdf('resources/sample-daa-notes.pdf', 'Silicon University - Design and Analysis of Algorithms');
-    ensureSamplePdf('resources/sample-dsp-pyq.pdf', 'Silicon University - Digital Signal Processing Question Bank');
+
+    const daaResource = await seedPdf('resources/sample-daa-notes.pdf', 'Silicon University - Design and Analysis of Algorithms', 'CS301_DAA_Comprehensive_Notes.pdf');
+    const dspResource = await seedPdf('resources/sample-dsp-pyq.pdf', 'Silicon University - Digital Signal Processing Question Bank', 'EC401_DSP_Previous_5_Years_Solved.pdf');
 
     await AcademicResource.create([
       {
@@ -298,7 +310,8 @@ export const seedDatabase = async () => {
         courseCode: 'CS301',
         category: 'Lecture Notes',
         description: 'Complete handwritten and summarized lecture notes covering Asymptotic Notations, Master Theorem, Divide and Conquer, Greedy Algorithms, and Dynamic Programming.',
-        fileUrl: '/uploads/resources/sample-daa-notes.pdf',
+        fileUrl: daaResource.fileUrl,
+        filePublicId: daaResource.filePublicId,
         fileName: 'CS301_DAA_Comprehensive_Notes.pdf',
         fileMimeType: 'application/pdf',
         fileSize: 2450000,
@@ -310,7 +323,8 @@ export const seedDatabase = async () => {
         courseCode: 'EC401',
         category: 'PYQ',
         description: 'Solved university question papers with FFT, Butterworth filter design steps, and Z-transform derivations.',
-        fileUrl: '/uploads/resources/sample-dsp-pyq.pdf',
+        fileUrl: dspResource.fileUrl,
+        filePublicId: dspResource.filePublicId,
         fileName: 'EC401_DSP_Previous_5_Years_Solved.pdf',
         fileMimeType: 'application/pdf',
         fileSize: 3100000,

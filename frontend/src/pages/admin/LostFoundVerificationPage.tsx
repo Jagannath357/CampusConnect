@@ -9,6 +9,7 @@ import {
   MapPin,
   Calendar,
   ExternalLink,
+  Package,
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
@@ -99,7 +100,7 @@ export const LostFoundVerificationPage: React.FC = () => {
       {/* Reported Items List */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-base font-bold text-slate-900">
+          <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
             Pending & Reported Campus Belongings ({items.length})
           </CardTitle>
         </CardHeader>
@@ -107,7 +108,7 @@ export const LostFoundVerificationPage: React.FC = () => {
           {loading ? (
             <LoadingSpinner size="md" />
           ) : items.length === 0 ? (
-            <p className="text-xs text-slate-400 text-center py-8">No reported items.</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-8">No reported items.</p>
           ) : (
             <table className="w-full text-left text-xs text-slate-700 dark:text-slate-300">
               <thead className="bg-slate-50 dark:bg-slate-900/90 border-b border-slate-200/80 dark:border-slate-800 text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
@@ -132,23 +133,23 @@ export const LostFoundVerificationPage: React.FC = () => {
                             className="w-10 h-10 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-400 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold">
-                            N/A
+                          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center flex-shrink-0" title="No photo uploaded">
+                            <Package className="w-5 h-5 text-slate-400 dark:text-slate-400" />
                           </div>
                         )}
                         <div>
                           <p className="font-bold text-slate-900 dark:text-slate-100">{item.itemName}</p>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">{item.description}</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-300 line-clamp-1">{item.description}</p>
                         </div>
                       </div>
                     </td>
                     <td className="p-4 font-bold">
                       <StatusBadge status={item.type} />
                     </td>
-                    <td className="p-4 text-slate-600 dark:text-slate-300">
+                    <td className="p-4 text-slate-700 dark:text-slate-200 font-medium">
                       {item.locationCategory} {item.locationDetails ? `(${item.locationDetails})` : ''}
                     </td>
-                    <td className="p-4 text-slate-600 dark:text-slate-300">
+                    <td className="p-4 text-slate-700 dark:text-slate-200 font-medium">
                       {item.reporterId?.name || 'Student'}
                     </td>
                     <td className="p-4">

@@ -4,6 +4,7 @@ import {
   getResourceById,
   uploadResource,
   trackDownload,
+  downloadResourceFile,
   deleteResource,
 } from '../controllers/resource.controller.js';
 import { authenticate } from '../middleware/auth.js';
@@ -17,6 +18,8 @@ router.use(authenticate);
 
 router.get('/', getResources);
 router.get('/:id', getResourceById);
+router.get('/:id/download', downloadResourceFile);
+router.get('/:id/file', downloadResourceFile);
 router.post('/', upload.single('file'), validate(createResourceSchema), uploadResource);
 router.post('/:id/download', trackDownload);
 router.delete('/:id', deleteResource);
