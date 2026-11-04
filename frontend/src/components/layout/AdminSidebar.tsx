@@ -14,6 +14,7 @@ import {
   Sliders,
   ShieldAlert,
   ClipboardList,
+  Bell,
   X,
   ShieldCheck,
   Lock,
@@ -39,6 +40,7 @@ const adminNavItems = [
   { label: 'Placement Drives', to: '/admin/placements', icon: Briefcase, color: 'text-teal-400' },
   { label: 'Live Analytics', to: '/admin/analytics', icon: BarChart3, color: 'text-emerald-400' },
   { label: 'System Configuration', to: '/admin/configuration', icon: Sliders, color: 'text-blue-400' },
+  { label: 'Notifications', to: '/admin/notifications', icon: Bell, color: 'text-indigo-400' },
   { label: 'Audit Logs', to: '/admin/audit-logs', icon: ClipboardList, color: 'text-slate-400' },
 ];
 

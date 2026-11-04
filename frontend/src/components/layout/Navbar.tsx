@@ -78,9 +78,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
 
               {/* Notification Bell */}
               <Link
-                to={isAdmin ? '/admin/dashboard' : '/notifications'}
+                to={isAdmin ? '/admin/notifications' : '/notifications'}
                 className="relative p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800 transition-colors"
                 title="Notifications"
+                aria-label="Campus Notifications"
               >
                 <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
@@ -147,6 +148,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
                         <span>Admin Console</span>
                       </Link>
                     )}
+
+                    <Link
+                      to={isAdmin ? '/admin/notifications' : '/notifications'}
+                      className="flex items-center space-x-2.5 px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                    >
+                      <Bell className="w-4 h-4" />
+                      <span>Notifications Center</span>
+                      {unreadCount > 0 && (
+                        <span className="ml-auto px-1.5 py-0.2 rounded-full bg-indigo-600 text-white text-[10px] font-bold">
+                          {unreadCount}
+                        </span>
+                      )}
+                    </Link>
 
                     <div className="border-t border-slate-100 dark:border-slate-800 my-1" />
 

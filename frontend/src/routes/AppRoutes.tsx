@@ -117,6 +117,7 @@ export const AppRoutes: React.FC = () => {
           <Route path="/admin/analytics" element={<LiveAnalyticsPage />} />
           <Route path="/admin/configuration" element={<SystemConfigurationPage />} />
           <Route path="/admin/audit-logs" element={<AdminAuditLogsPage />} />
+          <Route path="/admin/notifications" element={<NotificationsPage />} />
         </Route>
       </Route>
 

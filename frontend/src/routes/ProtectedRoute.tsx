@@ -33,6 +33,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole, ch
       return <Navigate to="/unauthorized" replace />;
     }
     if (requiredRole === 'STUDENT' && user.role === 'ADMIN') {
+      if (typeof window !== 'undefined' && window.location.pathname === '/notifications') {
+        return <Navigate to="/admin/notifications" replace />;
+      }
       return <Navigate to="/admin/dashboard" replace />;
     }
   }
