@@ -91,7 +91,7 @@ export const AdminDashboard: React.FC = () => {
       </div>
 
       {/* Aggregate Stat Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         <StatCard
           title="Total Students"
           value={summary?.totalStudents || 0}
@@ -122,7 +122,7 @@ export const AdminDashboard: React.FC = () => {
         />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         <StatCard
           title="Campus Events"
           value={summary?.totalEvents || 0}

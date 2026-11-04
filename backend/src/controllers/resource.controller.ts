@@ -193,14 +193,15 @@ export const downloadResourceFile = async (req: AuthenticatedRequest, res: Respo
     // Check if local file
     if (resource.fileUrl.startsWith('/uploads/') || resource.filePublicId?.startsWith('local_')) {
       const relativePath = resource.fileUrl.replace(/^\/uploads\//, '');
-      const possibleFilePaths = [
-        path.join(process.cwd(), 'uploads', relativePath),
-        path.join(process.cwd(), 'backend', 'uploads', relativePath),
-        path.resolve(process.cwd(), '../uploads', relativePath),
+      const possibleDirs = [
+        path.join(process.cwd(), 'uploads'),
+        path.join(process.cwd(), 'backend', 'uploads'),
+        path.resolve(process.cwd(), '../uploads'),
       ];
-      for (const fp of possibleFilePaths) {
-        if (fs.existsSync(fp)) {
-          res.download(fp, resource.fileName);
+      for (const dir of possibleDirs) {
+        const filePath = path.join(dir, relativePath);
+        if (fs.existsSync(filePath)) {
+          res.download(filePath, resource.fileName);
           return;
         }
       }

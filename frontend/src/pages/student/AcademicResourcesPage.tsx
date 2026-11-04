@@ -50,12 +50,12 @@ export const AcademicResourcesPage: React.FC = () => {
   }, [search, selectedCategory]);
 
   const handleDownload = async (resource: AcademicResource) => {
-    const fallbackUrl = getFileUrl(resource.fileUrl);
+    const targetUrl = getFileUrl(resource.fileUrl);
     try {
       const res = await api.post(`/resources/${resource._id}/download`);
-      const rawUrl = res.data?.data?.downloadUrl || resource.fileUrl;
-      const targetUrl = getFileUrl(rawUrl);
-      window.open(targetUrl, '_blank');
+      const downloadUrl = res.data?.data?.downloadUrl || targetUrl;
+      const finalUrl = getFileUrl(downloadUrl);
+      window.open(finalUrl, '_blank');
       // Update local download counter
       setResources((prev) =>
         prev.map((r) =>
@@ -63,7 +63,7 @@ export const AcademicResourcesPage: React.FC = () => {
         )
       );
     } catch (e) {
-      window.open(fallbackUrl, '_blank');
+      window.open(targetUrl, '_blank');
     }
   };
 
@@ -88,7 +88,7 @@ export const AcademicResourcesPage: React.FC = () => {
       </div>
 
       {/* Filter and Search */}
-      <div className="flex flex-col md:flex-row gap-3 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col md:flex-row gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           <Input
@@ -104,10 +104,10 @@ export const AcademicResourcesPage: React.FC = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border ${
                 selectedCategory === cat
-                  ? 'bg-indigo-600 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border-slate-200/80 dark:border-slate-700'
               }`}
             >
               {cat}

@@ -82,7 +82,7 @@ export const LostFoundListPage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row gap-3 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col md:flex-row gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
           <Input
@@ -94,15 +94,15 @@ export const LostFoundListPage: React.FC = () => {
         </div>
 
         {/* Type toggle */}
-        <div className="flex items-center space-x-1.5 bg-slate-100 p-1 rounded-xl">
+        <div className="flex items-center space-x-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200/60 dark:border-slate-700">
           {(['ALL', 'LOST', 'FOUND'] as const).map((type) => (
             <button
               key={type}
               onClick={() => setSelectedType(type)}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 selectedType === type
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               {type === 'ALL' ? 'All Items' : type}

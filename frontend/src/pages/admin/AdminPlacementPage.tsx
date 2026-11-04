@@ -97,6 +97,21 @@ export const AdminPlacementPage: React.FC = () => {
     setShowModal(true);
   };
 
+  const handleOpenEdit = (item: PlacementItem) => {
+    setEditingId(item._id);
+    setCompanyName(item.companyName);
+    setJobTitle(item.jobTitle);
+    setJobDescription(item.jobDescription);
+    setMinimumCgpa(item.minimumCgpa);
+    setEligibleBranches(item.eligibleBranches);
+    setPackageDetails(item.packageDetails || '');
+    setLocation(item.location || '');
+    setApplicationDeadline(item.applicationDeadline ? item.applicationDeadline.substring(0, 16) : '');
+    setApplicationUrl(item.applicationUrl || '');
+    setContactEmail(item.contactEmail || '');
+    setShowModal(true);
+  };
+
   const handleBranchToggle = (branch: string) => {
     if (eligibleBranches.includes(branch)) {
       setEligibleBranches(eligibleBranches.filter((b) => b !== branch));
@@ -244,27 +259,27 @@ export const AdminPlacementPage: React.FC = () => {
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 font-medium">
-                      <DollarSign className="w-3.5 h-3.5 text-blue-600" />
+                      <DollarSign className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                       Package:
                     </span>
-                    <span className="font-bold text-gray-800">{item.packageDetails || 'As per norms'}</span>
+                    <span className="font-bold text-gray-800 dark:text-slate-100">{item.packageDetails || 'As per norms'}</span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 font-medium">
-                      <Clock className="w-3.5 h-3.5 text-blue-600" />
+                      <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                       Deadline:
                     </span>
-                    <span className="font-semibold text-red-600">
+                    <span className="font-semibold text-rose-600 dark:text-rose-400">
                       {new Date(item.applicationDeadline).toLocaleDateString()}
                     </span>
                   </div>
 
-                  <div className="pt-2 border-t mt-1">
-                    <span className="text-[11px] text-gray-500 font-semibold uppercase">Branches:</span>
+                  <div className="pt-2 border-t border-slate-200 dark:border-slate-800 mt-1">
+                    <span className="text-[11px] text-gray-500 dark:text-slate-400 font-semibold uppercase">Branches:</span>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {item.eligibleBranches.map((b) => (
-                        <span key={b} className="bg-blue-100 text-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                        <span key={b} className="bg-blue-100 dark:bg-blue-950/70 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[10px] font-bold px-1.5 py-0.5 rounded">
                           {b}
                         </span>
                       ))}
@@ -272,32 +287,42 @@ export const AdminPlacementPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t flex items-center justify-between">
+                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <button
                     onClick={() => handleToggleStatus(item)}
-                    className="text-xs font-semibold text-gray-600 hover:text-gray-900 flex items-center gap-1"
+                    className="text-xs font-semibold text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white flex items-center gap-1"
                   >
                     {item.status === 'ACTIVE' ? (
                       <>
-                        <ToggleRight className="w-4 h-4 text-green-600" /> Mark Closed
+                        <ToggleRight className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> Mark Closed
                       </>
                     ) : (
                       <>
-                        <ToggleLeft className="w-4 h-4 text-gray-400" /> Mark Active
+                        <ToggleLeft className="w-4 h-4 text-slate-400" /> Mark Active
                       </>
                     )}
                   </button>
 
-                  {item.applicationUrl && (
-                    <a
-                      href={item.applicationUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-xs text-blue-600 hover:underline flex items-center gap-1 font-semibold"
+                  <div className="flex items-center space-x-2">
+                    {item.applicationUrl && (
+                      <a
+                        href={item.applicationUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold"
+                      >
+                        Apply Link <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleOpenEdit(item)}
+                      className="text-xs"
                     >
-                      Application Link <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
+                      Edit Drive
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -324,7 +349,7 @@ export const AdminPlacementPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Company Name <span className="text-red-500">*</span>
                   </label>
                   <Input
@@ -335,7 +360,7 @@ export const AdminPlacementPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Job Title / Role <span className="text-red-500">*</span>
                   </label>
                   <Input
@@ -348,7 +373,7 @@ export const AdminPlacementPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                   Job Description & Roles <span className="text-red-500">*</span>
                 </label>
                 <Textarea
@@ -362,7 +387,7 @@ export const AdminPlacementPage: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Minimum CGPA <span className="text-red-500">*</span>
                   </label>
                   <Input
@@ -376,7 +401,7 @@ export const AdminPlacementPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Package / CTC
                   </label>
                   <Input
@@ -386,7 +411,7 @@ export const AdminPlacementPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Work Location
                   </label>
                   <Input
@@ -399,7 +424,7 @@ export const AdminPlacementPage: React.FC = () => {
 
               {/* Eligible Branches */}
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1.5">
+                <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1.5">
                   Eligible Academic Branches <span className="text-red-500">*</span>
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -425,7 +450,7 @@ export const AdminPlacementPage: React.FC = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                  <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                     Application Deadline <span className="text-red-500">*</span>
                   </label>
                   <Input

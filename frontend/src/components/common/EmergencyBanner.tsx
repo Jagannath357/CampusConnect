@@ -15,19 +15,19 @@ export const EmergencyBanner: React.FC = () => {
   return (
     <>
       {/* High-Priority Top Persistent Warning Banner */}
-      <div className="bg-rose-600 text-white px-4 py-2.5 shadow-md flex items-center justify-between z-40 sticky top-0">
-        <div className="flex items-center space-x-3 max-w-6xl mx-auto w-full">
-          <span className="flex h-3 w-3 relative">
+      <div className="bg-rose-600 text-white px-3 sm:px-4 py-2 sm:py-2.5 shadow-md flex items-center justify-between w-full border-b border-rose-700/50">
+        <div className="flex items-center space-x-2 sm:space-x-3 max-w-7xl mx-auto w-full">
+          <span className="flex h-2.5 w-2.5 sm:h-3 sm:w-3 relative flex-shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-300"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-amber-300"></span>
           </span>
-          <div className="flex items-center space-x-2">
-            <ShieldAlert className="w-5 h-5 flex-shrink-0 text-amber-300" />
-            <span className="font-bold text-xs uppercase tracking-wider bg-rose-800 px-2 py-0.5 rounded text-amber-200">
+          <div className="flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
+            <ShieldAlert className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-amber-300" />
+            <span className="font-bold text-[10px] sm:text-xs uppercase tracking-wider bg-rose-800 px-1.5 sm:px-2 py-0.5 rounded text-amber-200">
               CAMPUS EMERGENCY ALERT
             </span>
           </div>
-          <div className="text-xs sm:text-sm font-medium truncate flex-1">
+          <div className="text-xs sm:text-sm font-medium truncate flex-1 min-w-0">
             <strong>{emergencyAlert.title}:</strong> {emergencyAlert.message}
           </div>
         </div>

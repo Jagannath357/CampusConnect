@@ -17,7 +17,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className }) =
     case 'RESOLVED':
     case 'PUBLISHED':
       return (
-        <Badge variant="success" className={className}>
+        <Badge variant="success" showDot className={className}>
           {status.replace(/_/g, ' ')}
         </Badge>
       );
@@ -28,7 +28,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className }) =
     case 'ASSIGNED':
     case 'IN_PROGRESS':
       return (
-        <Badge variant="warning" className={className}>
+        <Badge variant="warning" showDot className={className}>
           {status.replace(/_/g, ' ')}
         </Badge>
       );
@@ -38,7 +38,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className }) =
     case 'CANCELLED':
     case 'EXPIRED':
       return (
-        <Badge variant="danger" className={className}>
+        <Badge variant="danger" showDot className={className}>
           {status.replace(/_/g, ' ')}
         </Badge>
       );
@@ -55,14 +55,14 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className }) =
 
     case 'LOST':
       return (
-        <Badge variant="danger" className={className}>
+        <Badge variant="danger" showDot className={className}>
           LOST
         </Badge>
       );
 
     case 'FOUND':
       return (
-        <Badge variant="info" className={className}>
+        <Badge variant="info" showDot className={className}>
           FOUND
         </Badge>
       );
@@ -75,4 +75,3 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className }) =
       );
   }
 };
-

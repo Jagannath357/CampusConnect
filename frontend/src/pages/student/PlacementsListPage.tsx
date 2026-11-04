@@ -78,7 +78,7 @@ export const PlacementsListPage: React.FC = () => {
           placeholder="Search by company name, role, or location..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-9 bg-white"
+          className="pl-9"
         />
       </div>
 

@@ -72,6 +72,14 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       tokenVersion: user.tokenVersion,
     });
 
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: (process.env.NODE_ENV === 'production' ? 'none' : 'lax') as 'none' | 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
+    res.cookie('token', token, cookieOptions);
+
     res.status(201).json({
       success: true,
       message: 'Student account registered successfully.',
@@ -158,6 +166,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       profile = await StudentProfile.findOne({ userId: user._id });
     }
 
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: (process.env.NODE_ENV === 'production' ? 'none' : 'lax') as 'none' | 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
+    res.cookie('token', token, cookieOptions);
+
     res.status(200).json({
       success: true,
       message: 'Login successful.',
@@ -219,6 +235,8 @@ export const logout = async (req: AuthenticatedRequest, res: Response): Promise<
     if (req.user?.userId) {
       await UserSession.deleteMany({ userId: req.user.userId });
     }
+    res.clearCookie('token');
+
     res.status(200).json({
       success: true,
       message: 'Logged out successfully.',

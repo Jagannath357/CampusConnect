@@ -34,10 +34,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
           {isAuthenticated && onToggleSidebar && (
             <button
               onClick={onToggleSidebar}
-              className="lg:hidden p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800 transition-colors"
-              aria-label="Toggle Navigation"
+              className="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              aria-label={isSidebarOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             >
-              {isSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isSidebarOpen ? (
+                <X className="w-6 h-6 text-indigo-600 dark:text-indigo-400 transition-transform duration-200" />
+              ) : (
+                <Menu className="w-6 h-6 transition-transform duration-200" />
+              )}
             </button>
           )}
 
