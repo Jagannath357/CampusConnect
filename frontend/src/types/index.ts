@@ -274,15 +274,18 @@ export interface Notification {
 
 export interface EmergencyAlert {
   _id: string;
+  id?: string;
   title: string;
   message: string;
   issuedBy?: {
-    _id: string;
-    name: string;
+    _id?: string;
+    name?: string;
+    email?: string;
   };
   isCritical: boolean;
   broadcastAt: string;
   active: boolean;
+  expiresAt?: string;
 }
 
 export interface AdminAuditLog {

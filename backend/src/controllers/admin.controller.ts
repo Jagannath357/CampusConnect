@@ -805,13 +805,18 @@ export const broadcastEmergencyAlert = async (
       expiresAt: expiresAt ? new Date(expiresAt) : undefined,
     });
 
-    // 2. Broadcast through active WebSocket channels
+    const populatedAlert = await EmergencyAlert.findById(alert._id).populate('issuedBy', 'name email');
+
+    // 2. Broadcast through active WebSocket channels with full details
     emitEmergencyBroadcast({
+      _id: alert._id,
       id: alert._id,
       title: alert.title,
       message: alert.message,
       isCritical: alert.isCritical,
+      active: alert.active,
       broadcastAt: alert.broadcastAt,
+      issuedBy: populatedAlert?.issuedBy || { name: 'Silicon University Administration' },
     });
 
     // Record administrative audit log

@@ -20,6 +20,7 @@ import {
   Placement,
   SystemConfiguration,
   Notification,
+  EmergencyAlert,
 } from '../models/index.js';
 import { hashPassword } from '../utils/password.js';
 import { isCloudinaryConfigured, uploadBufferToStorage } from '../config/cloudinary.js';
@@ -44,6 +45,7 @@ export const seedDatabase = async () => {
       Placement.deleteMany({}),
       SystemConfiguration.deleteMany({}),
       Notification.deleteMany({}),
+      EmergencyAlert.deleteMany({}),
     ]);
 
     console.log('⚙️ Seeding System Configurations...');
@@ -401,11 +403,53 @@ export const seedDatabase = async () => {
         link: '/events',
       },
       {
+        recipientId: student1._id,
+        title: 'Ownership Verification Approved',
+        message: 'Your reported found item (SanDisk 64GB USB Drive) has been approved by the Administration.',
+        type: 'LOST_FOUND',
+        link: '/lost-found',
+      },
+      {
         recipientId: student2._id,
         title: 'Welcome to CampusConnect!',
         message: 'Welcome to Silicon University\'s centralized student community portal.',
         type: 'INFO',
         link: '/dashboard',
+      },
+      {
+        recipientId: student1._id,
+        title: 'Placement Drive Shortlist: Google Software Engineering Intern',
+        message: 'Congratulations! Your profile has met the 8.5+ CGPA criterion for the upcoming campus recruitment drive.',
+        type: 'PLACEMENT',
+        link: '/placements',
+      },
+    ]);
+
+    console.log('🚨 Seeding Campus Emergency Broadcast Alerts...');
+    await EmergencyAlert.create([
+      {
+        title: 'Severe Weather Advisory: Heavy Monsoon Rains Expected',
+        message: 'IMD has issued an orange alert for Bhubaneswar region. All evening outdoor lab sessions and sports club activities stand suspended. Students are advised to stay indoors within hostel blocks.',
+        issuedBy: admin._id,
+        isCritical: true,
+        active: true,
+        broadcastAt: new Date(Date.now() - 25 * 60 * 1000), // 25 mins ago
+      },
+      {
+        title: 'Campus Power Grid Maintenance Concluded',
+        message: 'Routine electrical grid transformer maintenance across Academic Block 1 and 2 has been successfully completed. High-speed campus Wi-Fi and power outlets have been fully restored.',
+        issuedBy: admin._id,
+        isCritical: false,
+        active: false,
+        broadcastAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+      },
+      {
+        title: 'Silicon HackFest 2026 Venue Check-in Guidelines',
+        message: 'Registered student teams for HackFest 2026 must complete biometric badge verification at the Auditorium foyer by 09:00 AM sharp. Late entries will forfeit hackathon slots.',
+        issuedBy: admin._id,
+        isCritical: false,
+        active: false,
+        broadcastAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
       },
     ]);
 

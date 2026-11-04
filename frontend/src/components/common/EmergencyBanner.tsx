@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { AlertTriangle, Bell, X, ShieldAlert } from 'lucide-react';
 import { useNotifications } from '../../contexts/NotificationContext';
 import { Button } from '../ui/button';
@@ -30,6 +31,12 @@ export const EmergencyBanner: React.FC = () => {
           <div className="text-xs sm:text-sm font-medium truncate flex-1 min-w-0">
             <strong>{emergencyAlert.title}:</strong> {emergencyAlert.message}
           </div>
+          <Link
+            to="/notifications"
+            className="text-[11px] sm:text-xs font-bold text-amber-200 hover:text-white underline whitespace-nowrap ml-2 flex-shrink-0"
+          >
+            All Alerts & Details &rarr;
+          </Link>
         </div>
       </div>
 

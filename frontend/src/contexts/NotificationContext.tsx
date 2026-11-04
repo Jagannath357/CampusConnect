@@ -8,6 +8,7 @@ interface NotificationContextType {
   notifications: Notification[];
   unreadCount: number;
   emergencyAlert: EmergencyAlert | null;
+  emergencyAlerts: EmergencyAlert[];
   isEmergencyOverlayOpen: boolean;
   dismissEmergencyOverlay: () => void;
   markAsRead: (id: string) => Promise<void>;
@@ -22,6 +23,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const [emergencyAlert, setEmergencyAlert] = useState<EmergencyAlert | null>(null);
+  const [emergencyAlerts, setEmergencyAlerts] = useState<EmergencyAlert[]>([]);
   const [isEmergencyOverlayOpen, setIsEmergencyOverlayOpen] = useState<boolean>(false);
 
   const refreshNotifications = async () => {
@@ -29,10 +31,13 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     try {
       const res = await api.get('/notifications');
       if (res.data.success) {
-        setNotifications(res.data.data.notifications);
-        setUnreadCount(res.data.data.unreadCount);
+        setNotifications(res.data.data.notifications || []);
+        setUnreadCount(res.data.data.unreadCount || 0);
         if (res.data.data.activeEmergency) {
           setEmergencyAlert(res.data.data.activeEmergency);
+        }
+        if (res.data.data.emergencyAlerts) {
+          setEmergencyAlerts(res.data.data.emergencyAlerts);
         }
       }
     } catch (err) {
@@ -53,10 +58,23 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setUnreadCount((prev) => prev + 1);
     });
 
-    // Listen for high-priority emergency broadcasts (SRS Module 8 / Module 17)
+    // Listen for high-priority emergency broadcasts (Decision Table 6)
     socket.on('emergency_alert', (alert: EmergencyAlert) => {
       console.warn('🚨 HIGH PRIORITY EMERGENCY ALERT RECEIVED VIA WEBSOCKET:', alert);
-      setEmergencyAlert(alert);
+      const normalizedAlert: EmergencyAlert = {
+        _id: alert._id || alert.id || String(Date.now()),
+        title: alert.title,
+        message: alert.message,
+        isCritical: alert.isCritical ?? true,
+        broadcastAt: alert.broadcastAt || new Date().toISOString(),
+        active: alert.active ?? true,
+        issuedBy: alert.issuedBy || { name: 'Silicon University Administration' },
+      };
+      setEmergencyAlert(normalizedAlert);
+      setEmergencyAlerts((prev) => [
+        normalizedAlert,
+        ...prev.filter((a) => (a._id || a.id) !== normalizedAlert._id),
+      ]);
       setIsEmergencyOverlayOpen(true);
 
       // Play subtle warning sound if permitted
@@ -104,6 +122,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         notifications,
         unreadCount,
         emergencyAlert,
+        emergencyAlerts,
         isEmergencyOverlayOpen,
         dismissEmergencyOverlay,
         markAsRead,
