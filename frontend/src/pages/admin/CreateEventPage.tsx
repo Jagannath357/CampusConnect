@@ -71,7 +71,15 @@ export const CreateEventPage: React.FC = () => {
       });
 
       if (res.data.success) {
-        navigate('/admin/events');
+        if (res.data.data?.imageUrl) {
+          navigate(
+            `/admin/image-view?url=${encodeURIComponent(res.data.data.imageUrl)}&title=${encodeURIComponent(
+              res.data.data.title || title
+            )}&source=${encodeURIComponent('Official Event Poster')}&backUrl=${encodeURIComponent('/admin/events')}`
+          );
+        } else {
+          navigate('/admin/events');
+        }
       }
     } catch (err: any) {
       setErrorMessage(err.response?.data?.message || 'Failed to publish official event.');

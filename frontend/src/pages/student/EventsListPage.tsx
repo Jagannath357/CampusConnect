@@ -146,14 +146,27 @@ export const EventsListPage: React.FC = () => {
               <div>
                 {/* Event Photo if present */}
                 {evt.imageUrl ? (
-                  <div className="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
-                    <img src={getFileUrl(evt.imageUrl)} alt={evt.title} className="w-full h-full object-cover" />
+                  <Link
+                    to={`/image-view?url=${encodeURIComponent(evt.imageUrl)}&title=${encodeURIComponent(
+                      evt.title
+                    )}&source=${encodeURIComponent('Official Campus Event Poster')}&backUrl=/events`}
+                    className="block h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative group cursor-pointer"
+                    title="Click to view poster in full page"
+                  >
+                    <img
+                      src={getFileUrl(evt.imageUrl)}
+                      alt={evt.title}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-200"
+                    />
                     <div className="absolute top-2.5 left-2.5">
                       <span className="text-[10px] font-extrabold uppercase bg-white/95 dark:bg-slate-900/90 text-indigo-700 dark:text-indigo-300 px-2.5 py-1 rounded-full shadow-xs border border-slate-200/60 dark:border-slate-700">
                         {evt.category}
                       </span>
                     </div>
-                  </div>
+                    <div className="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      View Image &rarr;
+                    </div>
+                  </Link>
                 ) : (
                   <div className="p-4 pb-0">
                     <span className="text-[10px] font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">

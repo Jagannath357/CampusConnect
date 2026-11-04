@@ -54,7 +54,17 @@ export const ReportLostFoundPage: React.FC = () => {
       });
 
       if (res.data.success) {
-        navigate(`/lost-found/${res.data.data._id}`);
+        if (res.data.data?.imageUrl) {
+          navigate(
+            `/image-view?url=${encodeURIComponent(res.data.data.imageUrl)}&title=${encodeURIComponent(
+              res.data.data.itemName || itemName
+            )}&source=${encodeURIComponent('Reported Campus Belonging')}&backUrl=${encodeURIComponent(
+              `/lost-found/${res.data.data._id}`
+            )}`
+          );
+        } else {
+          navigate(`/lost-found/${res.data.data._id}`);
+        }
       }
     } catch (err: any) {
       setErrorMessage(err.response?.data?.message || 'Failed to submit item report.');

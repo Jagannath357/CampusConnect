@@ -132,11 +132,17 @@ export const LostFoundListPage: React.FC = () => {
               <div>
                 {/* Photo if present */}
                 {item.imageUrl ? (
-                  <div className="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative">
+                  <Link
+                    to={`/image-view?url=${encodeURIComponent(item.imageUrl)}&title=${encodeURIComponent(
+                      item.itemName
+                    )}&source=${encodeURIComponent('Reported Campus Belonging')}&backUrl=/lost-found`}
+                    className="block h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-800 relative group cursor-pointer"
+                    title="Click to view photo in full page"
+                  >
                     <img
                       src={getFileUrl(item.imageUrl)}
                       alt={item.itemName}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-200"
                     />
                     <div className="absolute top-2.5 left-2.5">
                       <StatusBadge status={item.type} />
@@ -144,7 +150,10 @@ export const LostFoundListPage: React.FC = () => {
                     <div className="absolute top-2.5 right-2.5">
                       <StatusBadge status={item.status} />
                     </div>
-                  </div>
+                    <div className="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                      View Image &rarr;
+                    </div>
+                  </Link>
                 ) : (
                   <div className="p-4 pb-0 flex items-center justify-between">
                     <StatusBadge status={item.type} />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../services/api';
 import {
@@ -23,6 +24,7 @@ import { getFileUrl } from '../../utils/url';
 
 export const MyProfilePage: React.FC = () => {
   const { user, profile, refreshUser } = useAuth();
+  const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -89,6 +91,13 @@ export const MyProfilePage: React.FC = () => {
       if (res.data.success) {
         await refreshUser();
         setSuccessMessage('Avatar uploaded successfully!');
+        if (res.data.data?.avatarUrl) {
+          navigate(
+            `/image-view?url=${encodeURIComponent(res.data.data.avatarUrl)}&title=${encodeURIComponent(
+              `${user?.name || 'Student'} Profile Photo`
+            )}&source=${encodeURIComponent('Academic Profile Photo')}&backUrl=/profile`
+          );
+        }
       }
     } catch (err: any) {
       setErrorMessage(err.response?.data?.message || 'Failed to upload avatar.');
@@ -133,33 +142,46 @@ export const MyProfilePage: React.FC = () => {
         <CardContent className="p-6 sm:p-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 pb-6 border-b border-slate-100">
             {/* Avatar & Upload button */}
-            <div className="relative group">
-              {profile?.avatarUrl ? (
-                <img
-                  src={getFileUrl(profile.avatarUrl)}
-                  alt={user?.name}
-                  className="w-24 h-24 rounded-3xl object-cover border-4 border-indigo-100 shadow-md"
+            <div className="flex flex-col items-center space-y-2">
+              <div className="relative group">
+                {profile?.avatarUrl ? (
+                  <img
+                    src={getFileUrl(profile.avatarUrl)}
+                    alt={user?.name}
+                    className="w-24 h-24 rounded-3xl object-cover border-4 border-indigo-100 dark:border-indigo-900 shadow-md"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-3xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-3xl font-black shadow-inner">
+                    {user?.name?.charAt(0)}
+                  </div>
+                )}
+                <label
+                  htmlFor="avatar-upload"
+                  className="absolute inset-0 bg-slate-900/60 rounded-3xl flex flex-col items-center justify-center text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                >
+                  <Upload className="w-5 h-5 mb-1" />
+                  <span>Change</span>
+                </label>
+                <input
+                  id="avatar-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  disabled={uploadingAvatar}
+                  className="hidden"
                 />
-              ) : (
-                <div className="w-24 h-24 rounded-3xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-3xl font-black shadow-inner">
-                  {user?.name?.charAt(0)}
-                </div>
+              </div>
+
+              {profile?.avatarUrl && (
+                <Link
+                  to={`/image-view?url=${encodeURIComponent(profile.avatarUrl)}&title=${encodeURIComponent(
+                    `${user?.name || 'Student'} Profile Photo`
+                  )}&source=${encodeURIComponent('Academic Profile Photo')}&backUrl=/profile`}
+                  className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                >
+                  View Full Photo &rarr;
+                </Link>
               )}
-              <label
-                htmlFor="avatar-upload"
-                className="absolute inset-0 bg-slate-900/60 rounded-3xl flex flex-col items-center justify-center text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-              >
-                <Upload className="w-5 h-5 mb-1" />
-                <span>Change</span>
-              </label>
-              <input
-                id="avatar-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarChange}
-                disabled={uploadingAvatar}
-                className="hidden"
-              />
             </div>
 
             {/* Basic Info */}

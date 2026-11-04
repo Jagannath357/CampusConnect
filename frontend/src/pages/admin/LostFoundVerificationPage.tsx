@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import {
   FileCheck2,
@@ -127,11 +128,19 @@ export const LostFoundVerificationPage: React.FC = () => {
                     <td className="p-4">
                       <div className="flex items-center space-x-3">
                         {item.imageUrl ? (
-                          <img
-                            src={getFileUrl(item.imageUrl)}
-                            alt={item.itemName}
-                            className="w-10 h-10 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
-                          />
+                          <Link
+                            to={`/admin/image-view?url=${encodeURIComponent(item.imageUrl)}&title=${encodeURIComponent(
+                              item.itemName
+                            )}&source=${encodeURIComponent('Reported Campus Belonging')}&backUrl=/admin/lost-found`}
+                            className="hover:opacity-80 transition-opacity block flex-shrink-0"
+                            title="Click to view image in full page"
+                          >
+                            <img
+                              src={getFileUrl(item.imageUrl)}
+                              alt={item.itemName}
+                              className="w-10 h-10 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
+                            />
+                          </Link>
                         ) : (
                           <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 flex items-center justify-center flex-shrink-0" title="No photo uploaded">
                             <Package className="w-5 h-5 text-slate-400 dark:text-slate-400" />
@@ -220,14 +229,16 @@ export const LostFoundVerificationPage: React.FC = () => {
                   <strong>Proof Details:</strong> {selectedClaim.proofDetails}
                 </p>
                 {selectedClaim.proofFileUrl && (
-                  <a
-                    href={getFileUrl(selectedClaim.proofFileUrl)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:underline font-bold"
+                  <Link
+                    to={`/admin/image-view?url=${encodeURIComponent(
+                      selectedClaim.proofFileUrl
+                    )}&title=${encodeURIComponent(
+                      `Ownership Proof Document - ${selectedClaim.claimantId?.name || 'Claimant'}`
+                    )}&source=${encodeURIComponent('Submitted Ownership Proof')}&backUrl=/admin/lost-found`}
+                    className="inline-flex items-center text-indigo-600 dark:text-indigo-400 hover:underline font-bold text-xs"
                   >
-                    Inspect Uploaded Proof Document <ExternalLink className="w-3.5 h-3.5 ml-1" />
-                  </a>
+                    Inspect Uploaded Proof Document in New Page <ExternalLink className="w-3.5 h-3.5 ml-1" />
+                  </Link>
                 )}
               </div>
             ) : (

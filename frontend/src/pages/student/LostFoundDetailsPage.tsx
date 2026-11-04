@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { LostFoundItem, OwnershipClaim } from '../../types';
@@ -13,6 +13,7 @@ import {
   AlertCircle,
   FileCheck,
   Upload,
+  Maximize2,
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
@@ -24,6 +25,7 @@ import { getFileUrl } from '../../utils/url';
 
 export const LostFoundDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   const [item, setItem] = useState<LostFoundItem | null>(null);
@@ -80,6 +82,16 @@ export const LostFoundDetailsPage: React.FC = () => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       if (res.data.success) {
+        if (res.data.data?.proofFileUrl) {
+          navigate(
+            `/image-view?url=${encodeURIComponent(res.data.data.proofFileUrl)}&title=${encodeURIComponent(
+              `Submitted Ownership Proof - ${item?.itemName || 'Item'}`
+            )}&source=${encodeURIComponent('Ownership Proof Document')}&backUrl=${encodeURIComponent(
+              `/lost-found/${id}`
+            )}`
+          );
+          return;
+        }
         setSuccessMessage('Ownership claim submitted successfully. Campus administration will review your evidence.');
         setClaimDescription('');
         setProofDetails('');
@@ -144,15 +156,27 @@ export const LostFoundDetailsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Photo if present */}
+          {/* Photo if present - Clickable to open in ImageViewerPage */}
           {item.imageUrl && (
-            <div className="rounded-2xl overflow-hidden max-h-80 bg-slate-100 border border-slate-200">
+            <Link
+              to={`/image-view?url=${encodeURIComponent(item.imageUrl)}&title=${encodeURIComponent(
+                item.itemName
+              )}&source=${encodeURIComponent('Reported Campus Belonging')}&backUrl=${encodeURIComponent(
+                `/lost-found/${item._id}`
+              )}`}
+              className="group relative block rounded-2xl overflow-hidden max-h-80 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer shadow-xs hover:shadow-md transition-all"
+              title="Click to view full image in new page"
+            >
               <img
                 src={getFileUrl(item.imageUrl)}
                 alt={item.itemName}
-                className="w-full h-full object-cover max-h-80"
+                className="w-full h-full object-cover max-h-80 group-hover:scale-101 transition-transform duration-200"
               />
-            </div>
+              <div className="absolute bottom-3 right-3 bg-slate-900/85 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1.5 rounded-lg flex items-center space-x-1.5 shadow-md group-hover:bg-indigo-600 transition-colors">
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Open Image in New Page &rarr;</span>
+              </div>
+            </Link>
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 text-xs">
@@ -271,9 +295,16 @@ export const LostFoundDetailsPage: React.FC = () => {
                 <p className="text-slate-700 dark:text-slate-200 leading-relaxed"><strong>Claim:</strong> {claim.claimDescription}</p>
                 <p className="text-slate-600 dark:text-slate-300"><strong>Proof:</strong> {claim.proofDetails}</p>
                 {claim.proofFileUrl && (
-                  <a href={getFileUrl(claim.proofFileUrl)} target="_blank" rel="noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold block">
-                    View Attached Proof File
-                  </a>
+                  <Link
+                    to={`/image-view?url=${encodeURIComponent(claim.proofFileUrl)}&title=${encodeURIComponent(
+                      `Ownership Proof Document - ${claim.claimantId?.name || 'Claimant'}`
+                    )}&source=${encodeURIComponent('Submitted Ownership Evidence')}&backUrl=${encodeURIComponent(
+                      `/lost-found/${item._id}`
+                    )}`}
+                    className="inline-flex items-center text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline pt-1"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5 mr-1" /> View Attached Proof Document in New Page &rarr;
+                  </Link>
                 )}
               </div>
             ))}

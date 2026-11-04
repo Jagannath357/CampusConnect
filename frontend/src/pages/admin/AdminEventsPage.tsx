@@ -16,6 +16,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/ca
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { Dialog } from '../../components/ui/dialog';
+import { getFileUrl } from '../../utils/url';
 
 export const AdminEventsPage: React.FC = () => {
   const [events, setEvents] = useState<any[]>([]);
@@ -102,8 +103,27 @@ export const AdminEventsPage: React.FC = () => {
                 {events.map((evt) => (
                   <tr key={evt._id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/70 transition-colors">
                     <td className="p-4">
-                      <p className="font-bold text-slate-900 dark:text-slate-100">{evt.title}</p>
-                      <p className="text-[11px] text-slate-400 dark:text-slate-400">{evt.organizer}</p>
+                      <div className="flex items-center space-x-3">
+                        {evt.imageUrl && (
+                          <Link
+                            to={`/admin/image-view?url=${encodeURIComponent(evt.imageUrl)}&title=${encodeURIComponent(
+                              evt.title
+                            )}&source=${encodeURIComponent('Official Campus Event Poster')}&backUrl=/admin/events`}
+                            className="block flex-shrink-0 hover:opacity-80 transition-opacity"
+                            title="Click to view full event poster"
+                          >
+                            <img
+                              src={getFileUrl(evt.imageUrl)}
+                              alt={evt.title}
+                              className="w-10 h-10 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
+                            />
+                          </Link>
+                        )}
+                        <div>
+                          <p className="font-bold text-slate-900 dark:text-slate-100">{evt.title}</p>
+                          <p className="text-[11px] text-slate-400 dark:text-slate-400">{evt.organizer}</p>
+                        </div>
+                      </div>
                     </td>
                     <td className="p-4">
                       <span className="text-[10px] font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 px-2.5 py-0.5 rounded-full border border-indigo-200 dark:border-indigo-800">

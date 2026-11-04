@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   AlertCircle,
   ShieldCheck,
+  Maximize2,
 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
@@ -141,11 +142,27 @@ export const EventDetailsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Event Image */}
+          {/* Event Image - Clickable to open in ImageViewerPage */}
           {event.imageUrl && (
-            <div className="rounded-2xl overflow-hidden max-h-80 bg-slate-100 border border-slate-200">
-              <img src={getFileUrl(event.imageUrl)} alt={event.title} className="w-full h-full object-cover max-h-80" />
-            </div>
+            <Link
+              to={`/image-view?url=${encodeURIComponent(event.imageUrl)}&title=${encodeURIComponent(
+                event.title
+              )}&source=${encodeURIComponent('Official Campus Event Poster')}&backUrl=${encodeURIComponent(
+                `/events/${event._id}`
+              )}`}
+              className="group relative block rounded-2xl overflow-hidden max-h-80 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 cursor-pointer shadow-xs hover:shadow-md transition-all"
+              title="Click to view full image in new page"
+            >
+              <img
+                src={getFileUrl(event.imageUrl)}
+                alt={event.title}
+                className="w-full h-full object-cover max-h-80 group-hover:scale-101 transition-transform duration-200"
+              />
+              <div className="absolute bottom-3 right-3 bg-slate-900/85 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1.5 rounded-lg flex items-center space-x-1.5 shadow-md group-hover:bg-indigo-600 transition-colors">
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Open Image in New Page &rarr;</span>
+              </div>
+            </Link>
           )}
 
           {/* Key Metrics */}

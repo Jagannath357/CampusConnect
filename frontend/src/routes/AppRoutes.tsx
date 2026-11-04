@@ -39,6 +39,9 @@ import { ClubApplyPage } from '../pages/student/ClubApplyPage';
 import { PlacementsListPage } from '../pages/student/PlacementsListPage';
 import { NotificationsPage } from '../pages/student/NotificationsPage';
 
+// Common Pages
+import { ImageViewerPage } from '../pages/common/ImageViewerPage';
+
 // Admin Pages
 import { AdminDashboard } from '../pages/admin/AdminDashboard';
 import { StudentManagementPage } from '../pages/admin/StudentManagementPage';
@@ -94,6 +97,7 @@ export const AppRoutes: React.FC = () => {
           <Route path="/placements" element={<PlacementsListPage />} />
           <Route path="/grievance/submit" element={<GrievanceSubmitPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/image-view" element={<ImageViewerPage />} />
         </Route>
       </Route>
 
@@ -118,8 +122,12 @@ export const AppRoutes: React.FC = () => {
           <Route path="/admin/configuration" element={<SystemConfigurationPage />} />
           <Route path="/admin/audit-logs" element={<AdminAuditLogsPage />} />
           <Route path="/admin/notifications" element={<NotificationsPage />} />
+          <Route path="/admin/image-view" element={<ImageViewerPage />} />
         </Route>
       </Route>
+
+      {/* Standalone Image Viewer fallback */}
+      <Route path="/view-image" element={<ImageViewerPage />} />
 
       {/* 404 Catch All */}
       <Route path="*" element={<NotFoundPage />} />
