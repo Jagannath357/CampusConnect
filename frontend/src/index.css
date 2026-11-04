@@ -107,6 +107,17 @@
     border-color: #1e293b !important;
   }
 
+  /* Universal Light Mode Hover States for Tables & Rows */
+  tr:hover {
+    background-color: rgba(241, 245, 249, 0.7);
+  }
+  tr:hover td,
+  tr:hover th,
+  tr:hover p,
+  tr:hover div {
+    color: inherit;
+  }
+
   /* Universal Dark Mode Hover States for Tables, Rows, Cards, and Lists */
   .dark tr:hover,
   .dark tr[class*="hover:bg-"]:hover,
@@ -123,7 +134,7 @@
   .dark tr:hover th,
   .dark tr:hover p,
   .dark tr:hover div,
-  .dark tr:hover span:not([class*="bg-indigo-"]):not([class*="bg-emerald-"]):not([class*="bg-amber-"]):not([class*="bg-rose-"]):not([class*="bg-sky-"]),
+  .dark tr:hover span:not([class*="bg-indigo-"]):not([class*="bg-emerald-"]):not([class*="bg-amber-"]):not([class*="bg-rose-"]):not([class*="bg-sky-"]):not([class*="bg-blue-"]):not([class*="bg-purple-"]):not([class*="bg-teal-"]),
   .dark tr:hover .text-slate-900,
   .dark tr:hover .text-slate-800,
   .dark tr:hover .text-slate-700,

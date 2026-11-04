@@ -345,11 +345,11 @@ export const ClubGovernancePage: React.FC = () => {
       {/* Review Dialog */}
       {selectedApp && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-gray-200 p-6 space-y-4">
-            <h3 className="text-lg font-bold text-gray-900">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full border border-gray-200 dark:border-slate-800 p-6 space-y-4">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">
               {reviewAction === 'APPROVED' ? 'Approve & Verify Organization' : 'Reject Charter Application'}
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-slate-300">
               {reviewAction === 'APPROVED'
                 ? `You are granting official university recognition to "${selectedApp.clubName}". An official club profile and verified status will be generated automatically.`
                 : `Specify why the application for "${selectedApp.clubName}" does not meet university charter criteria.`}
@@ -357,7 +357,7 @@ export const ClubGovernancePage: React.FC = () => {
 
             <form onSubmit={handleSubmitReview} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                   Administrative Notes / Feedback
                 </label>
                 <Textarea
@@ -373,7 +373,7 @@ export const ClubGovernancePage: React.FC = () => {
                 />
               </div>
 
-              <div className="flex justify-end gap-3 pt-3 border-t">
+              <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <Button
                   type="button"
                   variant="outline"

@@ -267,17 +267,17 @@ export const AdminAuditLogsPage: React.FC = () => {
       {/* Inspection Modal */}
       {inspectedLog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-xl w-full border border-gray-200 p-6 space-y-4">
-            <div className="flex items-center justify-between border-b pb-3">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-xl w-full border border-gray-200 dark:border-slate-800 p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-3">
               <div>
                 <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded border ${getActionBadgeColor(inspectedLog.actionType)}`}>
                   {inspectedLog.actionType}
                 </span>
-                <h3 className="text-base font-bold text-gray-900 mt-1">Audit Record Inspector</h3>
+                <h3 className="text-base font-bold text-gray-900 dark:text-slate-100 mt-1">Audit Record Inspector</h3>
               </div>
               <button
                 onClick={() => setInspectedLog(null)}
-                className="text-gray-400 hover:text-gray-600 font-bold text-xl px-2"
+                className="text-gray-400 hover:text-gray-600 dark:text-slate-400 dark:hover:text-slate-200 font-bold text-xl px-2"
               >
                 &times;
               </button>

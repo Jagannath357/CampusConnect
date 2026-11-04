@@ -331,19 +331,19 @@ export const AdminGrievancePage: React.FC = () => {
       {/* Modal / Dialog for Reviewing and Routing */}
       {selectedGrievance && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200">
-            <div className="p-6 border-b bg-gray-50 flex items-center justify-between">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-slate-800">
+            <div className="p-6 border-b border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-900/90 flex items-center justify-between">
               <div>
-                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-indigo-100 text-indigo-900 border border-indigo-200">
+                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950/80 text-indigo-900 dark:text-indigo-200 border border-indigo-200 dark:border-indigo-800">
                   {selectedGrievance.trackingTicket}
                 </span>
-                <h3 className="text-lg font-bold text-gray-900 mt-1">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100 mt-1">
                   Grievance Action & Departmental Routing
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedGrievance(null)}
-                className="text-gray-400 hover:text-gray-600 font-bold text-xl px-2"
+                className="text-gray-400 hover:text-gray-600 dark:text-slate-400 dark:hover:text-slate-200 font-bold text-xl px-2"
               >
                 &times;
               </button>
@@ -351,12 +351,12 @@ export const AdminGrievancePage: React.FC = () => {
 
             <form onSubmit={handleUpdateGrievance} className="p-6 space-y-5">
               {/* Grievance Details */}
-              <div className="bg-slate-50 p-4 rounded-xl border space-y-2">
-                <div className="flex items-center justify-between text-xs text-gray-500">
-                  <span className="font-semibold text-gray-700">Category: {selectedGrievance.category}</span>
+              <div className="bg-slate-50 dark:bg-slate-800/80 p-4 rounded-xl border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400">
+                  <span className="font-semibold text-gray-700 dark:text-slate-200">Category: {selectedGrievance.category}</span>
                   <span>Submitted: {new Date(selectedGrievance.createdAt).toLocaleString()}</span>
                 </div>
-                <p className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">
+                <p className="text-sm text-gray-800 dark:text-slate-100 whitespace-pre-wrap leading-relaxed">
                   {selectedGrievance.description}
                 </p>
               </div>
@@ -402,7 +402,7 @@ export const AdminGrievancePage: React.FC = () => {
 
               {/* Progress Note / Resolution Message */}
               <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-gray-700 dark:text-slate-300 uppercase mb-1">
                   Timeline Action Note / Resolution Statement
                 </label>
                 <Textarea
@@ -414,18 +414,18 @@ export const AdminGrievancePage: React.FC = () => {
               </div>
 
               {/* Timeline History */}
-              <div className="border-t pt-4">
-                <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <div className="border-t border-slate-100 dark:border-slate-800 pt-4">
+                <h4 className="text-xs font-bold text-gray-500 dark:text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <History className="w-3.5 h-3.5" />
                   Status Update History
                 </h4>
                 <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
                   {selectedGrievance.statusTimeline.map((tl, idx) => (
-                    <div key={idx} className="text-xs p-2.5 rounded bg-gray-50 border flex items-start justify-between">
+                    <div key={idx} className="text-xs p-2.5 rounded bg-gray-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 flex items-start justify-between">
                       <div>
-                        <span className="font-semibold text-indigo-700">{tl.status}</span>: {tl.note}
+                        <span className="font-semibold text-indigo-700 dark:text-indigo-400">{tl.status}</span>: {tl.note}
                       </div>
-                      <span className="text-[10px] text-gray-400 whitespace-nowrap ml-2">
+                      <span className="text-[10px] text-gray-400 dark:text-slate-400 whitespace-nowrap ml-2">
                         {new Date(tl.updatedAt).toLocaleDateString()}
                       </span>
                     </div>
@@ -433,7 +433,7 @@ export const AdminGrievancePage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-3 border-t">
+              <div className="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <Button
                   type="button"
                   variant="outline"

@@ -101,11 +101,11 @@ export const QuestionDetailsPage: React.FC = () => {
       <Card>
         <CardContent className="p-6 sm:p-8 space-y-4">
           <div className="flex items-center space-x-2 text-xs">
-            <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+            <span className="font-extrabold uppercase tracking-wider text-[10px] text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
               {question.subjectCode}
             </span>
             <span className="text-slate-400">•</span>
-            <span className="text-slate-500 font-medium">{question.subjectCategory}</span>
+            <span className="text-slate-500 dark:text-slate-400 font-medium">{question.subjectCategory}</span>
           </div>
 
           <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 leading-snug">{question.title}</h1>

@@ -140,7 +140,7 @@ export const MyProfilePage: React.FC = () => {
       {/* Main Profile Card */}
       <Card>
         <CardContent className="p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 pb-6 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 pb-6 border-b border-slate-100 dark:border-slate-800">
             {/* Avatar & Upload button */}
             <div className="flex flex-col items-center space-y-2">
               <div className="relative group">
@@ -151,7 +151,7 @@ export const MyProfilePage: React.FC = () => {
                     className="w-24 h-24 rounded-3xl object-cover border-4 border-indigo-100 dark:border-indigo-900 shadow-md"
                   />
                 ) : (
-                  <div className="w-24 h-24 rounded-3xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-3xl font-black shadow-inner">
+                  <div className="w-24 h-24 rounded-3xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-3xl font-black shadow-inner">
                     {user?.name?.charAt(0)}
                   </div>
                 )}
@@ -187,13 +187,13 @@ export const MyProfilePage: React.FC = () => {
             {/* Basic Info */}
             <div className="flex-1 text-center sm:text-left space-y-1">
               <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-3">
-                <h2 className="text-2xl font-black text-slate-900">{user?.name}</h2>
-                <span className="inline-block text-xs font-extrabold uppercase bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+                <h2 className="text-2xl font-black text-slate-900 dark:text-slate-100">{user?.name}</h2>
+                <span className="inline-block text-xs font-extrabold uppercase bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 px-2.5 py-0.5 rounded-full">
                   Roll: {profile?.rollNumber}
                 </span>
               </div>
-              <p className="text-xs text-slate-500">{user?.email}</p>
-              <p className="text-xs font-medium text-slate-600 pt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400">{user?.email}</p>
+              <p className="text-xs font-medium text-slate-600 dark:text-slate-300 pt-1">
                 {profile?.department} • Batch of {profile?.batchYear} • Silicon University, Bhubaneswar
               </p>
             </div>
@@ -204,28 +204,28 @@ export const MyProfilePage: React.FC = () => {
             <div className="pt-6 space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Department</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Department</span>
                   <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-1">{profile?.department}</p>
                 </div>
                 <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Cumulative CGPA</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Cumulative CGPA</span>
                   <p className="text-base font-bold text-indigo-600 dark:text-indigo-400 mt-1">{profile?.cgpa ? profile.cgpa.toFixed(2) : '0.00'} / 10.0</p>
                 </div>
                 <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400">Contact Number</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Contact Number</span>
                   <p className="text-base font-bold text-slate-800 dark:text-slate-100 mt-1">{profile?.contactNumber || 'Not configured'}</p>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Student Bio</h4>
-                <p className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed bg-slate-50/70 dark:bg-slate-800/80 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Student Bio</h4>
+                <p className="text-sm text-slate-800 dark:text-slate-100 font-medium leading-relaxed bg-slate-50 dark:bg-slate-800/90 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
                   {profile?.bio || 'No bio added yet. Click "Edit Profile" to summarize your academic interests and projects.'}
                 </p>
               </div>
 
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-400 mb-2">Technical Skills</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Technical Skills</h4>
                 <div className="flex flex-wrap gap-2">
                   {profile?.skills && profile.skills.length > 0 ? (
                     profile.skills.map((skill) => (

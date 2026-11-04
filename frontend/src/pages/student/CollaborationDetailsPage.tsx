@@ -95,7 +95,7 @@ export const CollaborationDetailsPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-slate-100">
             <div>
               <div className="flex items-center space-x-2 mb-2">
-                <span className="font-extrabold uppercase tracking-wider text-xs text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">
+                <span className="font-extrabold uppercase tracking-wider text-xs text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200 dark:border-indigo-800 px-3 py-1 rounded-full">
                   {post.domain}
                 </span>
                 <StatusBadge status={post.status} />
