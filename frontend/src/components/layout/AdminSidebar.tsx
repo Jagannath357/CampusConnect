@@ -23,6 +23,7 @@ import { cn } from '../../utils/cn';
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  headerHeight?: number;
 }
 
 const adminNavItems = [
@@ -41,7 +42,7 @@ const adminNavItems = [
   { label: 'Audit Logs', to: '/admin/audit-logs', icon: ClipboardList, color: 'text-slate-400' },
 ];
 
-export const AdminSidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+export const AdminSidebar: React.FC<SidebarProps> = ({ isOpen, onClose, headerHeight = 64 }) => {
   // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -116,18 +117,26 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <>
       {/* 1. Desktop Docked Sidebar (Hidden on mobile, flex item on lg) */}
-      <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 border-r border-slate-800 bg-slate-900 p-4 sticky top-16 self-start max-h-[calc(100vh-4rem)] overflow-y-auto text-slate-300 transition-colors">
-        <div className="flex-1">
+      <aside
+        style={{
+          top: `${headerHeight}px`,
+          height: `calc(100vh - ${headerHeight}px)`,
+        }}
+        className="hidden lg:flex flex-col justify-between w-64 flex-shrink-0 border-r border-slate-800 bg-slate-900 p-4 sticky z-20 text-slate-300 transition-all duration-150"
+      >
+        <div className="flex-1 overflow-y-auto pr-1 space-y-1">
           {renderNavLinks()}
         </div>
 
-        {/* Desktop Institutional Badge */}
-        <div className="mt-6 p-3.5 rounded-xl bg-slate-800/70 border border-slate-700/60 text-center">
-          <p className="text-[11px] font-extrabold text-slate-200">Silicon University</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">Central Admin Portal</p>
-          <div className="mt-1.5 flex items-center justify-center space-x-1.5 text-[9px] font-semibold text-rose-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
-            <span>Admin Level Access</span>
+        {/* Desktop Institutional Badge pinned at bottom */}
+        <div className="mt-4 pt-3 border-t border-slate-800 flex-shrink-0">
+          <div className="p-3 rounded-xl bg-slate-800/70 border border-slate-700/60 text-center">
+            <p className="text-[11px] font-extrabold text-slate-200">Silicon University</p>
+            <p className="text-[10px] text-slate-400 mt-0.5">Central Admin Portal</p>
+            <div className="mt-1.5 flex items-center justify-center space-x-1.5 text-[9px] font-semibold text-rose-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-pulse" />
+              <span>Admin Level Access</span>
+            </div>
           </div>
         </div>
       </aside>
