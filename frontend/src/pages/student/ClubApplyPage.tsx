@@ -1,55 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import api from '../../services/api';
-import { Compass, ArrowLeft, Send, AlertCircle, Shield } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Compass, ArrowLeft, ShieldCheck, Lock } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
-import { Textarea } from '../../components/ui/textarea';
-
-const CATEGORIES = ['TECHNICAL', 'CULTURAL', 'SPORTS', 'ACADEMIC', 'SOCIAL'];
 
 export const ClubApplyPage: React.FC = () => {
-  const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    clubName: '',
-    category: 'TECHNICAL',
-    description: '',
-    objectives: '',
-    facultyAdvisorName: '',
-    facultyAdvisorEmail: '',
-    contactEmail: '',
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [success, setSuccess] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage('');
-
-    if (formData.description.length < 20 || formData.objectives.length < 20) {
-      setErrorMessage('Please provide comprehensive descriptions and objectives (min 20 characters each).');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const res = await api.post('/clubs/apply', formData);
-      if (res.data.success) {
-        setSuccess(true);
-      }
-    } catch (err: any) {
-      setErrorMessage(err.response?.data?.message || 'Failed to submit club application.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-xl mx-auto space-y-6 pt-6">
       <Link
         to="/clubs"
         className="inline-flex items-center text-xs font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
@@ -58,129 +15,34 @@ export const ClubApplyPage: React.FC = () => {
       </Link>
 
       <Card>
-        <CardHeader>
-          <CardTitle className="text-xl font-black text-slate-900 dark:text-slate-100 flex items-center space-x-2">
-            <Compass className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-            <span>Apply to Establish Student Club</span>
+        <CardHeader className="text-center pb-2">
+          <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center mx-auto mb-3 shadow-xs">
+            <Lock className="w-7 h-7" />
+          </div>
+          <CardTitle className="text-xl font-black text-slate-900 dark:text-slate-100">
+            Administrative Club Chartering Only
           </CardTitle>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Applications are evaluated under university organization governance and verified by campus administration.
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto leading-relaxed">
+            Under Silicon University governance guidelines, students cannot register clubs directly. Only university administrators are authorized to establish official student clubs.
           </p>
         </CardHeader>
 
-        <CardContent>
-          {success ? (
-            <div className="p-8 text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                <Shield className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900">Application Submitted!</h3>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                Your proposal for "{formData.clubName}" has been routed to university administration for governance review. You will receive an alert once approved.
-              </p>
-              <div className="pt-2">
-                <Link to="/clubs">
-                  <Button variant="primary" size="sm">
-                    Return to Clubs Directory
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {errorMessage && (
-                <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-center space-x-2">
-                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>{errorMessage}</span>
-                </div>
-              )}
+        <CardContent className="p-6 text-center space-y-4">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 leading-relaxed text-left">
+            <p className="font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 mr-1.5" /> Official Charter Policy
+            </p>
+            To propose a new student society, contact the Dean of Student Affairs or Central Administration. Once chartered, the club will be verified and published to the Student Club Discovery hub.
+          </div>
 
-              <Input
-                label="Proposed Club Name"
-                value={formData.clubName}
-                onChange={(e) => setFormData({ ...formData, clubName: e.target.value })}
-                placeholder="e.g. Silicon Cloud Architecture Chapter"
-                required
-              />
-
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                  Club Classification
-                </label>
-                <select
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500"
-                >
-                  {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat} className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <Textarea
-                label="Club Mission & Charter"
-                rows={4}
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Explain the background, vision, and how this society benefits Silicon University students..."
-                required
-              />
-
-              <Textarea
-                label="Key Objectives & Planned Activities"
-                rows={3}
-                value={formData.objectives}
-                onChange={(e) => setFormData({ ...formData, objectives: e.target.value })}
-                placeholder="Workshops, guest talks, competitive participation, scheduled meetups..."
-                required
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label="Faculty Advisor Full Name"
-                  value={formData.facultyAdvisorName}
-                  onChange={(e) => setFormData({ ...formData, facultyAdvisorName: e.target.value })}
-                  placeholder="e.g. Dr. Soumya Sen"
-                  required
-                />
-
-                <Input
-                  label="Faculty Advisor Email"
-                  type="email"
-                  value={formData.facultyAdvisorEmail}
-                  onChange={(e) => setFormData({ ...formData, facultyAdvisorEmail: e.target.value })}
-                  placeholder="e.g. faculty@silicon.ac.in"
-                  required
-                />
-              </div>
-
-              <Input
-                label="Official Club Contact Email"
-                type="email"
-                value={formData.contactEmail}
-                onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
-                placeholder="e.g. cloudclub@silicon.ac.in"
-                required
-              />
-
-              <div className="flex justify-end space-x-3 pt-4 border-t border-slate-100">
-                <Link to="/clubs">
-                  <Button type="button" variant="outline">
-                    Cancel
-                  </Button>
-                </Link>
-                <Button type="submit" variant="primary" isLoading={loading}>
-                  <Send className="w-4 h-4 mr-1.5" /> Submit Application
-                </Button>
-              </div>
-            </form>
-          )}
+          <Link to="/clubs">
+            <Button variant="primary" size="sm" className="font-bold">
+              <Compass className="w-4 h-4 mr-1.5" /> Explore Active Clubs
+            </Button>
+          </Link>
         </CardContent>
       </Card>
     </div>
   );
 };
-
+export default ClubApplyPage;

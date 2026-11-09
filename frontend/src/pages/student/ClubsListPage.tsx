@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import { Club } from '../../types';
-import { Compass, Plus, Search, ShieldCheck, Mail, ArrowRight, User } from 'lucide-react';
+import { Compass, Search, ShieldCheck, Mail, ArrowRight, User } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { Card, CardContent } from '../../components/ui/card';
@@ -48,15 +48,9 @@ export const ClubsListPage: React.FC = () => {
             <span>Student Club Discovery</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Explore officially approved student societies, technical chapters, and cultural organizations at Silicon University.
+            Explore officially chartered student societies, technical chapters, and cultural organizations at Silicon University.
           </p>
         </div>
-
-        <Link to="/clubs/apply">
-          <Button variant="primary" size="sm">
-            <Plus className="w-4 h-4 mr-1.5" /> Register New Club
-          </Button>
-        </Link>
       </div>
 
       {/* Filter and Search Bar */}
@@ -95,9 +89,7 @@ export const ClubsListPage: React.FC = () => {
         <EmptyState
           icon={Compass}
           title="No Student Clubs Found"
-          description="Submit an application to start an official student organization on campus."
-          actionText="Apply to Register Club"
-          onAction={() => (window.location.href = '/clubs/apply')}
+          description="Official student organizations and clubs are established and chartered by university administration."
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

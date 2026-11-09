@@ -7,8 +7,8 @@ export interface IClub extends Document {
   code: string;
   category: ClubCategory;
   description: string;
-  leadStudentId: Types.ObjectId;
-  leadStudentName: string;
+  leadStudentId?: Types.ObjectId;
+  leadStudentName?: string;
   logoUrl?: string;
   logoPublicId?: string;
   isVerified: boolean;
@@ -49,12 +49,13 @@ const ClubSchema = new Schema<IClub>(
     leadStudentId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: false,
       index: true,
     },
     leadStudentName: {
       type: String,
-      required: true,
+      required: false,
+      default: 'Campus Administration',
     },
     logoUrl: {
       type: String,

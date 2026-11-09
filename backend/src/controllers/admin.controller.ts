@@ -1155,6 +1155,117 @@ export const reviewClubApplication = async (
   }
 };
 
+export const createClub = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const adminId = req.user?.userId;
+    const {
+      name,
+      code,
+      category,
+      description,
+      contactEmail,
+      leadStudentName,
+      leadStudentId,
+      membershipInfo,
+      logoUrl,
+    } = req.body;
+
+    const existingClub = await Club.findOne({
+      $or: [
+        { name: { $regex: `^${name.trim()}$`, $options: 'i' } },
+        ...(code ? [{ code: code.trim().toUpperCase() }] : []),
+      ],
+    });
+
+    if (existingClub) {
+      res.status(409).json({
+        success: false,
+        message: 'A campus club with this name or code already exists in Silicon University.',
+      });
+      return;
+    }
+
+    const generatedCode =
+      code?.trim().toUpperCase() ||
+      name.replace(/[^A-Za-z0-9]/g, '').substring(0, 8).toUpperCase() ||
+      'CLUB';
+
+    const newClub = await Club.create({
+      name: name.trim(),
+      code: generatedCode,
+      category,
+      description: description.trim(),
+      contactEmail: contactEmail.trim().toLowerCase(),
+      leadStudentName: leadStudentName?.trim() || 'Campus Administration',
+      leadStudentId: leadStudentId || undefined,
+      membershipInfo: membershipInfo?.trim() || undefined,
+      logoUrl: logoUrl || undefined,
+      isVerified: true,
+      verifiedBy: adminId,
+      verifiedAt: new Date(),
+    });
+
+    await recordAdminAudit(
+      adminId!,
+      'CLUB_CREATE',
+      'Club',
+      newClub._id.toString(),
+      { name: newClub.name, code: newClub.code, category: newClub.category },
+      req
+    );
+
+    res.status(201).json({
+      success: true,
+      message: `Club "${newClub.name}" created and verified successfully.`,
+      data: newClub,
+    });
+  } catch (error) {
+    console.error('[Create Club Error]', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create new club.',
+    });
+  }
+};
+
+export const deleteClub = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const adminId = req.user?.userId;
+    const { id } = req.params;
+
+    const club = await Club.findById(id);
+    if (!club) {
+      res.status(404).json({
+        success: false,
+        message: 'Club not found.',
+      });
+      return;
+    }
+
+    await Club.findByIdAndDelete(id);
+
+    await recordAdminAudit(
+      adminId!,
+      'CLUB_DELETE',
+      'Club',
+      club._id.toString(),
+      { name: club.name, code: club.code },
+      req
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `Club "${club.name}" removed from official university registry.`,
+    });
+  } catch (error) {
+    console.error('[Delete Club Error]', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete club.',
+    });
+  }
+};
+
 // MODULE 20: Placement Notification Management
 export const getAdminPlacements = async (
   req: AuthenticatedRequest,

@@ -64,60 +64,10 @@ export const getClubById = async (req: AuthenticatedRequest, res: Response): Pro
 };
 
 export const applyForClub = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
-  try {
-    const {
-      clubName,
-      category,
-      description,
-      objectives,
-      facultyAdvisorName,
-      facultyAdvisorEmail,
-      contactEmail,
-    } = req.body;
-
-    const user = await User.findById(req.user?.userId);
-    if (!user) {
-      res.status(404).json({
-        success: false,
-        message: 'Student account not found.',
-      });
-      return;
-    }
-
-    // Check duplicate club name
-    const existingClub = await Club.findOne({ name: { $regex: `^${clubName}$`, $options: 'i' } });
-    if (existingClub) {
-      res.status(409).json({
-        success: false,
-        message: 'A club with this name already exists in Silicon University.',
-      });
-      return;
-    }
-
-    const application = await ClubApplication.create({
-      clubName,
-      category,
-      description,
-      proposedLeadStudentId: user._id,
-      proposedLeadStudentName: user.name,
-      objectives,
-      facultyAdvisorName,
-      facultyAdvisorEmail,
-      contactEmail,
-      status: 'PENDING',
-    });
-
-    res.status(201).json({
-      success: true,
-      message: 'Club registration application submitted for administrative governance review.',
-      data: application,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Failed to submit club application.',
-    });
-  }
+  res.status(403).json({
+    success: false,
+    message: 'Access Denied: Students cannot create or register new clubs. Only campus administrators are authorized to establish official university clubs.',
+  });
 };
 
 export const getMyClubApplications = async (

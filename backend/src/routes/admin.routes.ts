@@ -20,6 +20,8 @@ import {
   updateGrievanceStatus,
   getAdminClubApplications,
   reviewClubApplication,
+  createClub,
+  deleteClub,
   getAdminPlacements,
   createPlacement,
   updatePlacement,
@@ -38,6 +40,7 @@ import {
   createEventSchema,
   createPlacementSchema,
   reviewClubApplicationSchema,
+  createClubSchema,
 } from '../validators/index.js';
 
 const router = Router();
@@ -81,6 +84,8 @@ router.patch('/grievances/:id/status', validate(updateGrievanceStatusSchema), up
 
 // MODULE 19: Student Organization Governance
 router.get('/clubs/applications', getAdminClubApplications);
+router.post('/clubs', validate(createClubSchema), createClub);
+router.delete('/clubs/:id', deleteClub);
 router.post(
   '/clubs/applications/:id/review',
   validate(reviewClubApplicationSchema),

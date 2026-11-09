@@ -210,3 +210,17 @@ export const reviewClubApplicationSchema = z.object({
   }),
 });
 
+export const createClubSchema = z.object({
+  body: z.object({
+    name: z.string().min(2, 'Club name must be at least 2 characters').max(100),
+    code: z.string().min(2).max(15).optional(),
+    category: z.enum(['TECHNICAL', 'CULTURAL', 'SPORTS', 'ACADEMIC', 'SOCIAL']),
+    description: z.string().min(10, 'Description must be at least 10 characters'),
+    contactEmail: z.string().email('Invalid contact email'),
+    leadStudentName: z.string().optional(),
+    leadStudentId: z.string().optional(),
+    membershipInfo: z.string().optional(),
+    logoUrl: z.string().optional(),
+  }),
+});
+
