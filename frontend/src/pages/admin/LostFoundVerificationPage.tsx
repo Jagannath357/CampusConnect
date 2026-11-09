@@ -265,7 +265,8 @@ export const LostFoundVerificationPage: React.FC = () => {
         isOpen={Boolean(verifyingItem)}
         onClose={() => setVerifyingItem(null)}
         title="Verify Ownership Evidence & Resolve Item"
-        maxWidth="xl"
+        description="Audit student claimant identity records, evaluate serial and photographic proof, and confirm item release."
+        maxWidth="2xl"
       >
         {verifyingItem && (() => {
           const itemClaims = claims.filter(

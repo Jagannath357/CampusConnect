@@ -267,7 +267,7 @@ export const AdminAuditLogsPage: React.FC = () => {
       {/* Inspection Modal */}
       {inspectedLog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-xl w-full border border-gray-200 dark:border-slate-800 p-6 space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-slate-800 p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-3">
               <div>
                 <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded border ${getActionBadgeColor(inspectedLog.actionType)}`}>

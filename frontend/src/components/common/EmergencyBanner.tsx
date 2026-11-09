@@ -43,8 +43,8 @@ export const EmergencyBanner: React.FC = () => {
       {/* High-Priority Instant Overlay Modal (triggers automatically on socket broadcast) */}
       {isEmergencyOverlayOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border-4 border-rose-500 overflow-hidden transform scale-100 animate-in zoom-in-95">
-            <div className="bg-rose-600 text-white p-6 pb-4">
+          <div className="relative w-full max-w-lg max-h-[90vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border-4 border-rose-500 overflow-hidden transform scale-100 animate-in zoom-in-95">
+            <div className="bg-rose-600 text-white p-6 pb-4 flex-shrink-0">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="p-2.5 bg-rose-700 rounded-xl">
@@ -66,7 +66,7 @@ export const EmergencyBanner: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="p-6 space-y-4 overflow-y-auto flex-1">
               <div className="bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/80 rounded-xl p-4 text-slate-800 dark:text-rose-100 text-sm leading-relaxed">
                 {emergencyAlert.message}
               </div>

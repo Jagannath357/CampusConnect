@@ -345,7 +345,7 @@ export const ClubGovernancePage: React.FC = () => {
       {/* Review Dialog */}
       {selectedApp && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full border border-gray-200 dark:border-slate-800 p-6 space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-slate-800 p-6 space-y-4">
             <h3 className="text-lg font-bold text-gray-900 dark:text-slate-100">
               {reviewAction === 'APPROVED' ? 'Approve & Verify Organization' : 'Reject Charter Application'}
             </h3>

@@ -388,6 +388,7 @@ export const LostFoundListPage: React.FC = () => {
         isOpen={Boolean(claimModalItem)}
         onClose={() => setClaimModalItem(null)}
         title="Claim Ownership of Reported Item"
+        description="Submit your ownership explanation and serial or photographic proof for administrative review."
         maxWidth="lg"
       >
         {claimModalItem && (
