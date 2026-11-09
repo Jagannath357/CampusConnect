@@ -487,12 +487,24 @@ export const getAdminLostFoundItems = async (
     const claims = await OwnershipClaim.find()
       .populate('itemId')
       .populate('claimantId', 'name email')
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const claimantUserIds = claims.map((c: any) => c.claimantId?._id).filter(Boolean);
+    const profiles = await StudentProfile.find({ userId: { $in: claimantUserIds } }).lean();
+    const profileMap = new Map(profiles.map((p: any) => [p.userId.toString(), p]));
+
+    const enrichedClaims = claims.map((claim: any) => ({
+      ...claim,
+      claimantProfile: claim.claimantId?._id
+        ? profileMap.get(claim.claimantId._id.toString()) || null
+        : null,
+    }));
 
     res.status(200).json({
       success: true,
       message: 'Lost and found administrative items retrieved.',
-      data: { items, claims },
+      data: { items, claims: enrichedClaims },
     });
   } catch (error) {
     res.status(500).json({
@@ -525,12 +537,29 @@ export const verifyLostFoundItem = async (
     if (!evidenceMatches) {
       // Retain item in PENDING_VERIFICATION
       if (claimId) {
-        await OwnershipClaim.findByIdAndUpdate(claimId, {
-          status: 'REJECTED',
-          reviewedBy: adminId,
-          reviewedAt: new Date(),
-          reviewNotes: resolutionNotes || 'Claim rejected: Submitted proof does not match reported item.',
-        });
+        const rejectedClaim = await OwnershipClaim.findByIdAndUpdate(
+          claimId,
+          {
+            status: 'REJECTED',
+            reviewedBy: adminId,
+            reviewedAt: new Date(),
+            reviewNotes: resolutionNotes || 'Claim rejected: Submitted proof does not match reported item.',
+          },
+          { new: true }
+        );
+
+        if (rejectedClaim) {
+          const notification = await Notification.create({
+            recipientId: rejectedClaim.claimantId,
+            title: 'Ownership Claim Rejected',
+            message: `Your ownership claim for "${item.itemName}" was reviewed: ${
+              resolutionNotes || 'Submitted proof did not match the reported item.'
+            }`,
+            type: 'CLAIM',
+            link: `/lost-found/${item._id}`,
+          });
+          emitNotificationToUser(rejectedClaim.claimantId.toString(), notification);
+        }
       }
 
       res.status(200).json({
@@ -565,6 +594,30 @@ export const verifyLostFoundItem = async (
       );
       if (claim) {
         claimantId = claim.claimantId.toString();
+      }
+
+      // Reject any other pending claims on this item
+      const otherClaims = await OwnershipClaim.find({
+        itemId: item._id,
+        _id: { $ne: claimId },
+        status: 'PENDING',
+      });
+
+      for (const other of otherClaims) {
+        other.status = 'REJECTED';
+        other.reviewedBy = adminId as any;
+        other.reviewedAt = new Date();
+        other.reviewNotes = 'Item was verified and released to another verified claimant.';
+        await other.save();
+
+        const notif = await Notification.create({
+          recipientId: other.claimantId,
+          title: 'Ownership Claim Update',
+          message: `Your ownership claim for "${item.itemName}" was not approved because ownership was verified for another claimant.`,
+          type: 'CLAIM',
+          link: `/lost-found/${item._id}`,
+        });
+        emitNotificationToUser(other.claimantId.toString(), notif);
       }
     }
 

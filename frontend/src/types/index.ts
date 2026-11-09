@@ -124,6 +124,10 @@ export interface LostFoundItem {
   };
   resolvedAt?: string;
   resolutionNotes?: string;
+  claimCount?: number;
+  hasUserClaimed?: boolean;
+  userClaimStatus?: 'PENDING' | 'APPROVED' | 'REJECTED';
+  userClaimId?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -136,6 +140,13 @@ export interface OwnershipClaim {
     name: string;
     email: string;
   };
+  claimantProfile?: {
+    rollNumber?: string;
+    department?: string;
+    batchYear?: number;
+    contactNumber?: string;
+    avatarUrl?: string;
+  } | null;
   claimDescription: string;
   proofDetails: string;
   proofFileUrl?: string;

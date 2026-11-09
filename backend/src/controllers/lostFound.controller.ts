@@ -47,10 +47,31 @@ export const getItems = async (req: AuthenticatedRequest, res: Response): Promis
       .skip(skip)
       .limit(limitNum);
 
+    const itemIds = items.map((i) => i._id);
+    const claims = await OwnershipClaim.find({ itemId: { $in: itemIds } }).lean();
+
+    const itemsWithClaims = items.map((doc) => {
+      const itemObj = doc.toObject();
+      const itemClaims = claims.filter(
+        (c: any) => c.itemId.toString() === doc._id.toString()
+      );
+      const userClaim = req.user?.userId
+        ? itemClaims.find((c: any) => c.claimantId.toString() === req.user?.userId)
+        : null;
+
+      return {
+        ...itemObj,
+        claimCount: itemClaims.length,
+        hasUserClaimed: Boolean(userClaim),
+        userClaimStatus: userClaim?.status || null,
+        userClaimId: userClaim?._id || null,
+      };
+    });
+
     res.status(200).json({
       success: true,
       message: 'Lost and found items retrieved.',
-      data: items,
+      data: itemsWithClaims,
       pagination: {
         total,
         page: pageNum,
@@ -79,7 +100,7 @@ export const getItemById = async (req: AuthenticatedRequest, res: Response): Pro
       return;
     }
 
-    // If caller is admin or reporter, fetch claims on this item
+    // If caller is admin or reporter, fetch all claims on this item; if student claimant, fetch their own claim
     let claims: any[] = [];
     if (
       req.user?.role === 'ADMIN' ||
@@ -88,12 +109,33 @@ export const getItemById = async (req: AuthenticatedRequest, res: Response): Pro
       claims = await OwnershipClaim.find({ itemId: id })
         .populate('claimantId', 'name email')
         .sort({ createdAt: -1 });
+    } else if (req.user?.userId) {
+      claims = await OwnershipClaim.find({
+        itemId: id,
+        claimantId: req.user.userId,
+      })
+        .populate('claimantId', 'name email')
+        .sort({ createdAt: -1 });
     }
+
+    const totalClaims = await OwnershipClaim.countDocuments({ itemId: id });
+    const userClaim = req.user?.userId
+      ? await OwnershipClaim.findOne({ itemId: id, claimantId: req.user.userId })
+      : null;
 
     res.status(200).json({
       success: true,
       message: 'Item retrieved.',
-      data: { item, claims },
+      data: {
+        item: {
+          ...item.toObject(),
+          claimCount: totalClaims,
+          hasUserClaimed: Boolean(userClaim),
+          userClaimStatus: userClaim?.status || null,
+          userClaimId: userClaim?._id || null,
+        },
+        claims,
+      },
     });
   } catch (error) {
     res.status(500).json({
@@ -154,6 +196,36 @@ export const submitClaim = async (req: AuthenticatedRequest, res: Response): Pro
       res.status(404).json({
         success: false,
         message: 'Target item not found.',
+      });
+      return;
+    }
+
+    if (item.reporterId.toString() === req.user?.userId) {
+      res.status(400).json({
+        success: false,
+        message: 'You cannot claim an item that you reported yourself.',
+      });
+      return;
+    }
+
+    if (item.status === 'RESOLVED') {
+      res.status(400).json({
+        success: false,
+        message: 'This item has already been verified and resolved by administration.',
+      });
+      return;
+    }
+
+    const existingClaim = await OwnershipClaim.findOne({
+      itemId: id,
+      claimantId: req.user?.userId,
+      status: { $in: ['PENDING', 'APPROVED'] },
+    });
+
+    if (existingClaim) {
+      res.status(400).json({
+        success: false,
+        message: 'You have already submitted an active ownership claim for this item.',
       });
       return;
     }

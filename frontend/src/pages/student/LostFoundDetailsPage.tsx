@@ -217,21 +217,72 @@ export const LostFoundDetailsPage: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Claim Form for other students if Found Item and not yet Resolved */}
-      {!isReporter && item.status !== 'RESOLVED' && (
+      {/* Student's Own Submitted Claim Status */}
+      {!isReporter && claims.length > 0 && user?.role !== 'ADMIN' && (
+        <Card className="border-indigo-200/80 dark:border-indigo-800/80 bg-indigo-50/20 dark:bg-indigo-950/20">
+          <CardHeader>
+            <CardTitle className="text-base font-bold flex items-center space-x-2 text-indigo-950 dark:text-indigo-200">
+              <FileCheck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <span>Your Submitted Ownership Claim</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {claims.map((claim) => (
+              <div
+                key={claim._id}
+                className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs space-y-2 shadow-xs"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-900 dark:text-slate-100">
+                    Claim Status:
+                  </span>
+                  <StatusBadge status={claim.status} />
+                </div>
+                <p className="text-slate-700 dark:text-slate-200 leading-relaxed">
+                  <strong>Your Explanation:</strong> {claim.claimDescription}
+                </p>
+                <p className="text-slate-600 dark:text-slate-300">
+                  <strong>Proof Details:</strong> {claim.proofDetails}
+                </p>
+                {claim.reviewNotes && (
+                  <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                    <span className="font-bold text-slate-800 dark:text-slate-200">Admin Review Notes:</span>{' '}
+                    <span className="text-slate-600 dark:text-slate-300">{claim.reviewNotes}</span>
+                  </div>
+                )}
+                {claim.proofFileUrl && (
+                  <Link
+                    to={`/image-view?url=${encodeURIComponent(claim.proofFileUrl)}&title=${encodeURIComponent(
+                      `Your Submitted Proof - ${item.itemName}`
+                    )}&source=${encodeURIComponent('Submitted Ownership Evidence')}&backUrl=${encodeURIComponent(
+                      `/lost-found/${item._id}`
+                    )}`}
+                    className="inline-flex items-center text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline pt-1"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5 mr-1" /> View Uploaded Proof Document &rarr;
+                  </Link>
+                )}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Claim Form for other students if not yet Resolved and user hasn't claimed yet */}
+      {!isReporter && item.status !== 'RESOLVED' && claims.every((c) => c.status === 'REJECTED' || claims.length === 0) && (
         <Card>
           <CardHeader>
             <CardTitle className="text-lg font-bold flex items-center space-x-2">
-              <FileCheck className="w-5 h-5 text-indigo-600" />
+              <FileCheck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>Claim Ownership of this Item</span>
             </CardTitle>
-            <p className="text-xs text-slate-500">
-              Provide unique identifying details, marks, or purchase invoice proof. Admin will verify before release.
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Provide unique identifying details, marks, or purchase invoice proof. Admin will verify before release. Multiple students may submit claims; administration will verify authentic proof.
             </p>
           </CardHeader>
           <CardContent>
             {errorMessage && (
-              <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium flex items-center space-x-2">
+              <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/70 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-200 text-xs font-medium flex items-center space-x-2">
                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
                 <span>{errorMessage}</span>
               </div>
@@ -257,13 +308,14 @@ export const LostFoundDetailsPage: React.FC = () => {
               />
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                   Supporting Document / Photo Proof (Optional)
                 </label>
                 <input
                   type="file"
+                  accept="image/*,application/pdf"
                   onChange={(e) => setProofFile(e.target.files?.[0] || null)}
-                  className="text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  className="text-xs text-slate-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-950/70 dark:file:text-indigo-300 hover:file:bg-indigo-100"
                 />
               </div>
 
@@ -277,7 +329,7 @@ export const LostFoundDetailsPage: React.FC = () => {
         </Card>
       )}
 
-      {/* If reporter or admin: List claims submitted on this item */}
+      {/* If reporter or admin: List all claims submitted on this item */}
       {(isReporter || user?.role === 'ADMIN') && claims.length > 0 && (
         <Card>
           <CardHeader>
