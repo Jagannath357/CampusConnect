@@ -218,14 +218,20 @@ export interface Club {
   code: string;
   category: 'TECHNICAL' | 'CULTURAL' | 'SPORTS' | 'ACADEMIC' | 'SOCIAL';
   description: string;
-  leadStudentId: {
+  leadStudentId?: {
     _id: string;
     name: string;
     email: string;
   };
-  leadStudentName: string;
+  leadStudentName?: string;
   logoUrl?: string;
   isVerified: boolean;
+  verifiedBy?: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  verifiedAt?: string;
   membershipInfo?: string;
   contactEmail: string;
   createdAt: string;

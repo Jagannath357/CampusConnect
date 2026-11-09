@@ -1228,6 +1228,98 @@ export const createClub = async (req: AuthenticatedRequest, res: Response): Prom
   }
 };
 
+export const getAdminClubById = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const club = await Club.findById(id)
+      .populate('leadStudentId', 'name email')
+      .populate('verifiedBy', 'name email');
+
+    if (!club) {
+      res.status(404).json({
+        success: false,
+        message: 'Club not found.',
+      });
+      return;
+    }
+
+    const events = await Event.find({ organizerClubId: id }).sort({ date: -1 });
+
+    res.status(200).json({
+      success: true,
+      message: 'Club administrative details retrieved.',
+      data: {
+        club,
+        events,
+      },
+    });
+  } catch (error) {
+    console.error('[Get Admin Club Details Error]', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to retrieve club details.',
+    });
+  }
+};
+
+export const updateClub = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const adminId = req.user?.userId;
+    const { id } = req.params;
+    const {
+      name,
+      code,
+      category,
+      description,
+      contactEmail,
+      leadStudentName,
+      membershipInfo,
+      isVerified,
+    } = req.body;
+
+    const club = await Club.findById(id);
+    if (!club) {
+      res.status(404).json({
+        success: false,
+        message: 'Club not found.',
+      });
+      return;
+    }
+
+    if (name) club.name = name.trim();
+    if (code) club.code = code.trim().toUpperCase();
+    if (category) club.category = category;
+    if (description) club.description = description.trim();
+    if (contactEmail) club.contactEmail = contactEmail.trim().toLowerCase();
+    if (leadStudentName !== undefined) club.leadStudentName = leadStudentName.trim() || 'Campus Administration';
+    if (membershipInfo !== undefined) club.membershipInfo = membershipInfo.trim();
+    if (typeof isVerified === 'boolean') club.isVerified = isVerified;
+
+    await club.save();
+
+    await recordAdminAudit(
+      adminId!,
+      'CLUB_UPDATE',
+      'Club',
+      club._id.toString(),
+      { name: club.name, code: club.code, category: club.category },
+      req
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `Club "${club.name}" updated successfully.`,
+      data: club,
+    });
+  } catch (error) {
+    console.error('[Update Club Error]', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update club.',
+    });
+  }
+};
+
 export const deleteClub = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const adminId = req.user?.userId;

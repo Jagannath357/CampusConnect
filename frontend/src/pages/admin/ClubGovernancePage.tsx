@@ -342,11 +342,10 @@ export const ClubGovernancePage: React.FC = () => {
 
                 <div className="p-4 pt-2 border-t border-gray-100 dark:border-slate-800 flex items-center justify-between gap-2">
                   <Link
-                    to={`/clubs/${club._id}`}
-                    target="_blank"
-                    className="inline-flex items-center text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                    to={`/admin/clubs/${club._id}`}
+                    className="inline-flex items-center text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
                   >
-                    View Page <ExternalLink className="w-3 h-3 ml-1" />
+                    View Club Details &rarr;
                   </Link>
                   <Button
                     variant="outline"

@@ -54,6 +54,7 @@ import { CreateEventPage } from '../pages/admin/CreateEventPage';
 import { EmergencyBroadcastPage } from '../pages/admin/EmergencyBroadcastPage';
 import { AdminGrievancePage } from '../pages/admin/AdminGrievancePage';
 import { ClubGovernancePage } from '../pages/admin/ClubGovernancePage';
+import { AdminClubDetailsPage } from '../pages/admin/AdminClubDetailsPage';
 import { AdminPlacementPage } from '../pages/admin/AdminPlacementPage';
 import { LiveAnalyticsPage } from '../pages/admin/LiveAnalyticsPage';
 import { SystemConfigurationPage } from '../pages/admin/SystemConfigurationPage';
@@ -117,6 +118,7 @@ export const AppRoutes: React.FC = () => {
           <Route path="/admin/emergency" element={<EmergencyBroadcastPage />} />
           <Route path="/admin/grievances" element={<AdminGrievancePage />} />
           <Route path="/admin/clubs" element={<ClubGovernancePage />} />
+          <Route path="/admin/clubs/:id" element={<AdminClubDetailsPage />} />
           <Route path="/admin/placements" element={<AdminPlacementPage />} />
           <Route path="/admin/analytics" element={<LiveAnalyticsPage />} />
           <Route path="/admin/configuration" element={<SystemConfigurationPage />} />

@@ -19,8 +19,10 @@ import {
   getAdminGrievances,
   updateGrievanceStatus,
   getAdminClubApplications,
+  getAdminClubById,
   reviewClubApplication,
   createClub,
+  updateClub,
   deleteClub,
   getAdminPlacements,
   createPlacement,
@@ -84,7 +86,9 @@ router.patch('/grievances/:id/status', validate(updateGrievanceStatusSchema), up
 
 // MODULE 19: Student Organization Governance
 router.get('/clubs/applications', getAdminClubApplications);
+router.get('/clubs/:id', getAdminClubById);
 router.post('/clubs', validate(createClubSchema), createClub);
+router.put('/clubs/:id', updateClub);
 router.delete('/clubs/:id', deleteClub);
 router.post(
   '/clubs/applications/:id/review',
