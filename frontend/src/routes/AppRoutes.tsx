@@ -8,6 +8,7 @@ import { AdminLayout } from '../layouts/AdminLayout';
 
 // Public & Auth Pages
 import { LandingPage } from '../pages/auth/LandingPage';
+import { AboutPage } from '../pages/auth/AboutPage';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { RegisterPage } from '../pages/auth/RegisterPage';
 import { UnauthorizedPage } from '../pages/auth/UnauthorizedPage';
@@ -65,6 +66,7 @@ export const AppRoutes: React.FC = () => {
     <Routes>
       {/* Public Pages */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
