@@ -12,6 +12,7 @@ import {
   FileCode,
   Tag,
   ExternalLink,
+  Eye,
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
@@ -170,9 +171,21 @@ export const AcademicResourcesPage: React.FC = () => {
                   <span>{res.downloadCount} downloads</span>
                 </div>
 
-                <Button size="sm" variant="outline" onClick={() => handleDownload(res)}>
-                  <Download className="w-3.5 h-3.5 mr-1" /> Download
-                </Button>
+                <div className="flex items-center space-x-1.5">
+                  <Link
+                    to={`/image-view?url=${encodeURIComponent(res.fileUrl)}&title=${encodeURIComponent(
+                      res.title
+                    )}&source=${encodeURIComponent('Academic Resource')}&backUrl=/resources`}
+                  >
+                    <Button size="sm" variant="ghost" className="text-xs px-2.5">
+                      <Eye className="w-3.5 h-3.5 mr-1" /> View
+                    </Button>
+                  </Link>
+
+                  <Button size="sm" variant="outline" onClick={() => handleDownload(res)}>
+                    <Download className="w-3.5 h-3.5 mr-1" /> Download
+                  </Button>
+                </div>
               </div>
             </Card>
           ))}
