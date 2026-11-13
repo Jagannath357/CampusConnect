@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useNotifications } from '../../contexts/NotificationContext';
 import { getFileUrl } from '../../utils/url';
 import { ThemeToggle } from '../common/ThemeToggle';
+import { cn } from '../../utils/cn';
 import {
   Bell,
   LogOut,
@@ -70,12 +71,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
 
           {isAuthenticated ? (
             <>
-              {/* Emergency indicator if active */}
+              {/* Emergency / Advisory indicator if active */}
               {emergencyAlert?.active && (
-                <div className="hidden md:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/80 text-rose-700 dark:text-rose-300 text-xs font-semibold animate-pulse">
-                  <span className="h-2 w-2 rounded-full bg-rose-600 dark:bg-rose-500" />
-                  <span>Emergency Active</span>
-                </div>
+                <Link
+                  to={isAdmin ? '/admin/notifications' : '/notifications'}
+                  className={cn(
+                    'hidden md:flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-xs font-bold animate-pulse transition-colors',
+                    emergencyAlert.isCritical !== false
+                      ? 'bg-red-50 dark:bg-red-950/80 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300'
+                      : 'bg-amber-50 dark:bg-amber-950/80 border border-amber-300 dark:border-amber-800 text-amber-800 dark:text-amber-200'
+                  )}
+                  title={emergencyAlert.isCritical !== false ? 'Critical Emergency Broadcast Active' : 'Campus Advisory Broadcast Active'}
+                >
+                  <span
+                    className={cn(
+                      'h-2 w-2 rounded-full',
+                      emergencyAlert.isCritical !== false ? 'bg-red-600 dark:bg-red-500' : 'bg-amber-500 dark:bg-amber-400'
+                    )}
+                  />
+                  <span>{emergencyAlert.isCritical !== false ? 'Emergency Active' : 'Advisory Active'}</span>
+                </Link>
               )}
 
               {/* Notification Bell */}

@@ -286,6 +286,8 @@ export interface Notification {
   type: 'INFO' | 'EVENT' | 'LOST_FOUND' | 'CLAIM' | 'PLACEMENT' | 'SYSTEM' | 'EMERGENCY';
   isRead: boolean;
   link?: string;
+  metadata?: Record<string, any>;
+  isCritical?: boolean;
   createdAt: string;
 }
 

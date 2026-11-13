@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AlertTriangle, Bell, X, ShieldAlert } from 'lucide-react';
+import { AlertTriangle, Bell, X, ShieldAlert, Info } from 'lucide-react';
 import { useNotifications } from '../../contexts/NotificationContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../ui/button';
+import { cn } from '../../utils/cn';
 
 export const EmergencyBanner: React.FC = () => {
   const {
@@ -10,31 +12,82 @@ export const EmergencyBanner: React.FC = () => {
     isEmergencyOverlayOpen,
     dismissEmergencyOverlay,
   } = useNotifications();
+  const { user } = useAuth();
 
   if (!emergencyAlert || !emergencyAlert.active) return null;
+
+  const isCritical = emergencyAlert.isCritical !== false;
+  const targetNotificationRoute = user?.role === 'ADMIN' ? '/admin/notifications' : '/notifications';
 
   return (
     <>
       {/* High-Priority Top Persistent Warning Banner */}
-      <div className="bg-rose-600 text-white px-2.5 sm:px-4 py-1.5 sm:py-2.5 shadow-md flex items-center justify-between w-full border-b border-rose-700/50">
+      <div
+        className={cn(
+          'px-2.5 sm:px-4 py-1.5 sm:py-2.5 shadow-md flex items-center justify-between w-full border-b transition-colors',
+          isCritical
+            ? 'bg-red-600 text-white border-red-700/60'
+            : 'bg-amber-400 text-slate-950 border-amber-500'
+        )}
+      >
         <div className="flex items-center space-x-1.5 sm:space-x-3 max-w-7xl mx-auto w-full min-w-0">
           <span className="flex h-2 w-2 sm:h-2.5 sm:w-2.5 relative flex-shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-amber-300"></span>
+            <span
+              className={cn(
+                'animate-ping absolute inline-flex h-full w-full rounded-full opacity-75',
+                isCritical ? 'bg-white' : 'bg-slate-950'
+              )}
+            ></span>
+            <span
+              className={cn(
+                'relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5',
+                isCritical ? 'bg-amber-300' : 'bg-amber-600'
+              )}
+            ></span>
           </span>
           <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
-            <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 text-amber-300" />
-            <span className="font-bold text-[9px] sm:text-xs uppercase tracking-wider bg-rose-800 px-1.5 sm:px-2 py-0.5 rounded text-amber-200">
-              <span className="hidden sm:inline">CAMPUS EMERGENCY ALERT</span>
-              <span className="sm:hidden">ALERT</span>
+            {isCritical ? (
+              <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 text-amber-300" />
+            ) : (
+              <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 text-slate-950" />
+            )}
+            <span
+              className={cn(
+                'font-black text-[9px] sm:text-xs uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded shadow-xs',
+                isCritical
+                  ? 'bg-red-950 text-red-100 border border-red-500/50'
+                  : 'bg-slate-950 text-amber-300 border border-slate-900'
+              )}
+            >
+              {isCritical ? (
+                <>
+                  <span className="hidden sm:inline">CAMPUS CRITICAL ALERT</span>
+                  <span className="sm:hidden">CRITICAL</span>
+                </>
+              ) : (
+                <>
+                  <span className="hidden sm:inline">CAMPUS ADVISORY</span>
+                  <span className="sm:hidden">ADVISORY</span>
+                </>
+              )}
             </span>
           </div>
-          <div className="text-[11px] sm:text-sm font-medium truncate flex-1 min-w-0">
-            <strong className="font-extrabold">{emergencyAlert.title}:</strong> {emergencyAlert.message}
+          <div
+            className={cn(
+              'text-[11px] sm:text-sm font-medium truncate flex-1 min-w-0',
+              isCritical ? 'text-white' : 'text-slate-950 font-semibold'
+            )}
+          >
+            <strong className="font-black">{emergencyAlert.title}:</strong> {emergencyAlert.message}
           </div>
           <Link
-            to="/notifications"
-            className="text-[10px] sm:text-xs font-bold text-amber-200 hover:text-white underline whitespace-nowrap ml-1 sm:ml-2 flex-shrink-0"
+            to={targetNotificationRoute}
+            className={cn(
+              'text-[10px] sm:text-xs font-bold underline whitespace-nowrap ml-1 sm:ml-2 flex-shrink-0 transition-colors',
+              isCritical
+                ? 'text-amber-200 hover:text-white'
+                : 'text-slate-950 hover:text-black font-extrabold'
+            )}
           >
             <span className="hidden sm:inline">All Alerts & Details &rarr;</span>
             <span className="sm:hidden">Details &rarr;</span>
@@ -45,23 +98,53 @@ export const EmergencyBanner: React.FC = () => {
       {/* High-Priority Instant Overlay Modal (triggers automatically on socket broadcast) */}
       {isEmergencyOverlayOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg max-h-[90vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border-4 border-rose-500 overflow-hidden transform scale-100 animate-in zoom-in-95">
-            <div className="bg-rose-600 text-white p-6 pb-4 flex-shrink-0">
+          <div
+            className={cn(
+              'relative w-full max-w-lg max-h-[90vh] flex flex-col bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border-4 overflow-hidden transform scale-100 animate-in zoom-in-95',
+              isCritical ? 'border-red-500' : 'border-amber-400'
+            )}
+          >
+            <div
+              className={cn(
+                'p-6 pb-4 flex-shrink-0',
+                isCritical ? 'bg-red-600 text-white' : 'bg-amber-400 text-slate-950'
+              )}
+            >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2.5 bg-rose-700 rounded-xl">
-                    <AlertTriangle className="w-8 h-8 text-amber-300 animate-bounce" />
+                  <div
+                    className={cn(
+                      'p-2.5 rounded-xl',
+                      isCritical ? 'bg-red-700' : 'bg-amber-500'
+                    )}
+                  >
+                    <AlertTriangle
+                      className={cn(
+                        'w-8 h-8 animate-bounce',
+                        isCritical ? 'text-amber-300' : 'text-slate-950'
+                      )}
+                    />
                   </div>
                   <div>
-                    <span className="text-xs font-black tracking-widest text-amber-200 uppercase bg-rose-800/80 px-2 py-0.5 rounded">
-                      CRITICAL UNIVERSITY BROADCAST
+                    <span
+                      className={cn(
+                        'text-xs font-black tracking-widest uppercase px-2 py-0.5 rounded shadow-xs',
+                        isCritical ? 'text-red-100 bg-red-950' : 'text-amber-300 bg-slate-950'
+                      )}
+                    >
+                      {isCritical ? 'CRITICAL UNIVERSITY BROADCAST' : 'CAMPUS ADVISORY BROADCAST'}
                     </span>
-                    <h2 className="text-xl font-extrabold mt-1">{emergencyAlert.title}</h2>
+                    <h2 className="text-xl font-black mt-1 leading-snug">{emergencyAlert.title}</h2>
                   </div>
                 </div>
                 <button
                   onClick={dismissEmergencyOverlay}
-                  className="rounded-lg p-1.5 text-rose-200 hover:text-white hover:bg-rose-700/60 transition-colors"
+                  className={cn(
+                    'rounded-lg p-1.5 transition-colors',
+                    isCritical
+                      ? 'text-red-100 hover:text-white hover:bg-red-700/60'
+                      : 'text-slate-900 hover:text-black hover:bg-amber-500/60'
+                  )}
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -69,7 +152,14 @@ export const EmergencyBanner: React.FC = () => {
             </div>
 
             <div className="p-6 space-y-4 overflow-y-auto flex-1">
-              <div className="bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/80 rounded-xl p-4 text-slate-800 dark:text-rose-100 text-sm leading-relaxed">
+              <div
+                className={cn(
+                  'border rounded-xl p-4 text-sm leading-relaxed',
+                  isCritical
+                    ? 'bg-red-50 dark:bg-red-950/60 border-red-200 dark:border-red-900/80 text-slate-800 dark:text-red-100'
+                    : 'bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-900/80 text-slate-900 dark:text-amber-100'
+                )}
+              >
                 {emergencyAlert.message}
               </div>
 
@@ -79,7 +169,14 @@ export const EmergencyBanner: React.FC = () => {
               </div>
 
               <div className="flex justify-end pt-2">
-                <Button variant="danger" className="w-full sm:w-auto" onClick={dismissEmergencyOverlay}>
+                <Button
+                  variant={isCritical ? 'danger' : 'primary'}
+                  className={cn(
+                    'w-full sm:w-auto font-black',
+                    !isCritical && 'bg-amber-500 hover:bg-amber-600 text-slate-950 border-amber-600'
+                  )}
+                  onClick={dismissEmergencyOverlay}
+                >
                   Acknowledge & Dismiss Alert
                 </Button>
               </div>

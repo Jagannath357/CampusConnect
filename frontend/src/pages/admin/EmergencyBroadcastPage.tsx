@@ -211,17 +211,55 @@ export const EmergencyBroadcastPage: React.FC = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Leaves alert active indefinitely if empty.</p>
                 </div>
 
-                <div className="flex items-center space-x-3 pt-6">
-                  <input
-                    type="checkbox"
-                    id="isCriticalCheckbox"
-                    checked={isCritical}
-                    onChange={(e) => setIsCritical(e.target.checked)}
-                    className="h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 dark:border-slate-700 rounded"
-                  />
-                  <label htmlFor="isCriticalCheckbox" className="text-sm font-medium text-gray-800 dark:text-gray-200 cursor-pointer">
-                    High Priority Critical (Red Banner)
-                  </label>
+                <div className="md:col-span-2 pt-1">
+                  <div
+                    onClick={() => setIsCritical(!isCritical)}
+                    className={`p-3.5 rounded-xl border-2 cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                      isCritical
+                        ? 'bg-red-50 dark:bg-red-950/50 border-red-500 text-red-950 dark:text-red-100'
+                        : 'bg-amber-50 dark:bg-amber-950/50 border-amber-500 text-amber-950 dark:text-amber-100'
+                    }`}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <input
+                        type="checkbox"
+                        id="isCriticalCheckbox"
+                        checked={isCritical}
+                        onChange={(e) => setIsCritical(e.target.checked)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 dark:border-slate-700 rounded cursor-pointer"
+                      />
+                      <div>
+                        <label
+                          htmlFor="isCriticalCheckbox"
+                          className="text-sm font-black cursor-pointer block"
+                        >
+                          {isCritical
+                            ? 'High Priority Critical Broadcast (Checked)'
+                            : 'Standard Priority Advisory Broadcast (Unchecked)'}
+                        </label>
+                        <p className="text-xs opacity-90 font-medium">
+                          {isCritical
+                            ? 'Checked: Notification card will display with a bold RED background in student and admin notification centers.'
+                            : 'Unchecked: Notification card will display with a bold YELLOW background in student and admin notification centers.'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex-shrink-0">
+                      {isCritical ? (
+                        <span className="text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-red-600 text-white shadow-xs inline-flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                          Red Card Output
+                        </span>
+                      ) : (
+                        <span className="text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-md bg-amber-400 text-slate-950 shadow-xs inline-flex items-center gap-1.5 border border-amber-500">
+                          <span className="w-2 h-2 rounded-full bg-slate-950"></span>
+                          Yellow Card Output
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -242,35 +280,54 @@ export const EmergencyBroadcastPage: React.FC = () => {
           {/* Live Preview Card */}
           <Card className="border-gray-200 dark:border-slate-800 shadow-sm">
             <CardHeader className="py-3 bg-gray-50 dark:bg-slate-800/60 rounded-t-xl border-b border-slate-100 dark:border-slate-800">
-              <CardTitle className="text-sm font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
-                <Eye className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                Live Student Portal Banner Preview
+              <CardTitle className="text-sm font-semibold text-gray-700 dark:text-gray-200 flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <Eye className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                  Live Portal Notification Card Preview
+                </span>
+                <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">
+                  {isCritical ? 'Red Card Output' : 'Yellow Card Output'}
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4">
               {title.trim() ? (
-                <div
-                  className={`p-4 rounded-xl border flex items-start gap-3 shadow-md ${
-                    isCritical
-                      ? 'bg-red-600 text-white border-red-700'
-                      : 'bg-amber-500 text-white border-amber-600'
-                  }`}
-                >
-                  <AlertOctagon className="w-6 h-6 flex-shrink-0 animate-bounce" />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-sm tracking-wide uppercase">
-                        {isCritical ? 'CRITICAL CAMPUS BROADCAST' : 'CAMPUS ADVISORY'}
-                      </span>
-                      <span className="text-xs bg-black/20 px-2 py-0.5 rounded font-mono">Just Now</span>
+                isCritical ? (
+                  <div className="p-4 sm:p-5 rounded-2xl border-2 border-red-700 dark:border-red-500 bg-red-600 dark:bg-red-700 text-white shadow-md flex items-start gap-3.5">
+                    <div className="p-2.5 rounded-xl bg-red-800 text-white border border-red-400/50 flex-shrink-0 mt-0.5">
+                      <Radio className="w-5 h-5 text-white animate-pulse" />
                     </div>
-                    <h3 className="font-bold text-base mt-1">{title}</h3>
-                    <p className="text-sm text-white/95 mt-0.5 leading-relaxed">{message}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-black text-[10px] tracking-wider uppercase bg-red-950 text-red-100 px-2 py-0.5 rounded border border-red-400/60 shadow-xs">
+                          CRITICAL BROADCAST (RED CARD)
+                        </span>
+                        <span className="text-xs bg-red-800 text-red-100 px-2 py-0.5 rounded font-mono font-semibold">Just Now</span>
+                      </div>
+                      <h3 className="font-black text-base mt-1 text-white leading-snug">{title}</h3>
+                      <p className="text-xs sm:text-sm text-red-50 mt-1 leading-relaxed font-medium">{message || 'Alert message content will appear here...'}</p>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="p-4 sm:p-5 rounded-2xl border-2 border-amber-500 dark:border-amber-300 bg-amber-400 dark:bg-amber-400 text-slate-950 shadow-md flex items-start gap-3.5">
+                    <div className="p-2.5 rounded-xl bg-amber-500 text-slate-950 border border-amber-600/50 flex-shrink-0 mt-0.5">
+                      <Radio className="w-5 h-5 text-slate-950 animate-pulse" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-black text-[10px] tracking-wider uppercase bg-slate-950 text-amber-300 px-2 py-0.5 rounded border border-slate-900 shadow-xs">
+                          CAMPUS ADVISORY (YELLOW CARD)
+                        </span>
+                        <span className="text-xs bg-slate-950 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">Just Now</span>
+                      </div>
+                      <h3 className="font-black text-base mt-1 text-slate-950 leading-snug">{title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-900 mt-1 leading-relaxed font-semibold">{message || 'Alert message content will appear here...'}</p>
+                    </div>
+                  </div>
+                )
               ) : (
                 <div className="text-center py-6 text-sm text-gray-500 dark:text-slate-400 italic bg-gray-50 dark:bg-slate-800/40 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
-                  Type an alert title above to preview how it will appear across all student screens.
+                  Type an alert title above to preview whether it renders as a Red or Yellow notification card.
                 </div>
               )}
             </CardContent>
@@ -309,13 +366,22 @@ export const EmergencyBroadcastPage: React.FC = () => {
                 alerts.map((alert) => (
                   <div key={alert._id} className="py-3.5 first:pt-0 last:pb-0 space-y-2">
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span
                           className={`w-2 h-2 rounded-full ${
                             alert.active ? 'bg-red-500 animate-ping' : 'bg-gray-300 dark:bg-gray-600'
                           }`}
                         />
-                        <h4 className="font-semibold text-sm text-gray-900 dark:text-slate-100">{alert.title}</h4>
+                        <h4 className="font-bold text-sm text-gray-900 dark:text-slate-100">{alert.title}</h4>
+                        {alert.isCritical !== false ? (
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-red-100 dark:bg-red-950/80 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-800">
+                            Critical (Red Card)
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-800">
+                            Advisory (Yellow Card)
+                          </span>
+                        )}
                       </div>
                       <StatusBadge status={alert.active ? 'ACTIVE' : 'EXPIRED'} />
                     </div>
