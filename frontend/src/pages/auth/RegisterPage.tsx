@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { GraduationCap, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { GraduationCap, ArrowRight, AlertCircle, Home } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import { ThemeToggle } from '../../components/common/ThemeToggle';
@@ -72,23 +72,39 @@ export const RegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 transition-colors relative">
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8 transition-colors relative">
+      {/* Top Controls: Back to Home & Theme Toggle */}
+      <div className="max-w-xl w-full mx-auto flex items-center justify-between mb-4">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all"
+          title="Return to Home Page"
+        >
+          <Home className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <span>Back to Home</span>
+        </Link>
+
         <ThemeToggle />
       </div>
 
+      {/* Brand Header */}
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link to="/" className="inline-flex items-center space-x-2.5">
-          <div className="h-12 w-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md">
+        <Link to="/" className="inline-flex items-center space-x-2.5 group">
+          <div className="h-12 w-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
             <GraduationCap className="w-7 h-7" />
           </div>
         </Link>
-        <h2 className="mt-4 text-3xl font-black text-slate-900 dark:text-white tracking-tight">Create Student Account</h2>
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">Silicon University Bhubaneswar Student Registration</p>
+        <h2 className="mt-3 text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+          Create Student Account
+        </h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
+          Silicon University Bhubaneswar Student Registration
+        </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl px-4">
-        <div className="bg-white dark:bg-slate-900 py-8 px-6 sm:px-10 shadow-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl">
+      {/* Form Card */}
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-xl">
+        <div className="bg-white dark:bg-slate-900 py-7 px-6 sm:px-10 shadow-xl border border-slate-200/80 dark:border-slate-800 rounded-2xl">
           {errorMessage && (
             <div className="mb-4 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-200 text-xs font-medium flex items-center space-x-2.5">
               <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -192,20 +208,31 @@ export const RegisterPage: React.FC = () => {
               <p>• Only official Silicon University emails permitted for student registration.</p>
             </div>
 
-            <Button type="submit" variant="primary" className="w-full mt-2" isLoading={isLoading}>
+            <Button type="submit" variant="primary" className="w-full mt-2 font-bold" isLoading={isLoading}>
               Complete Registration <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400">
-            <span>Already registered? </span>
-            <Link to="/login" className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
-              Sign in to portal
-            </Link>
+          <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 text-center space-y-3">
+            <div className="text-xs text-slate-500 dark:text-slate-400">
+              <span>Already registered? </span>
+              <Link to="/login" className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+                Sign in to portal
+              </Link>
+            </div>
+
+            <div>
+              <Link
+                to="/"
+                className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
+                &larr; Return to Homepage
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
+export default RegisterPage;

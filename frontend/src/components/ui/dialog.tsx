@@ -50,7 +50,7 @@ export const Dialog: React.FC<DialogProps> = ({
   const hasHeader = Boolean(title || description);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto p-3 sm:p-4 md:p-6 flex min-h-full items-center justify-center">
+    <div className="fixed inset-0 z-50 overflow-y-auto p-3 sm:p-4 md:p-6 flex min-h-full justify-center">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"

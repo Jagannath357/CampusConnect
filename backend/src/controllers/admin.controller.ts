@@ -61,41 +61,80 @@ export const getDashboardStats = async (
     ]);
 
     // Analytics charts aggregation
-    // 1. Registrations per event (top 5)
-    const eventStats = await EventRegistration.aggregate([
-      { $match: { status: 'CONFIRMED' } },
-      { $group: { _id: '$eventId', count: { $sum: 1 } } },
-      { $sort: { count: -1 } },
-      { $limit: 5 },
-      {
-        $lookup: {
-          from: 'events',
-          localField: '_id',
-          foreignField: '_id',
-          as: 'eventInfo',
-        },
-      },
-      { $unwind: '$eventInfo' },
-      {
-        $project: {
-          name: '$eventInfo.title',
-          registrations: '$count',
-          capacity: '$eventInfo.maxCapacity',
-        },
-      },
-    ]);
+    // 1. Event capacity vs confirmed registrations (top 6 recent/active events)
+    const recentEvents = await Event.find().sort({ date: -1, createdAt: -1 }).limit(6);
+    const eventStats = await Promise.all(
+      recentEvents.map(async (ev) => {
+        const registrations = await EventRegistration.countDocuments({
+          eventId: ev._id,
+          status: 'CONFIRMED',
+        });
+        return {
+          name: ev.title,
+          registrations,
+          capacity: ev.maxCapacity,
+          availableSeats: Math.max(0, ev.maxCapacity - registrations),
+          fillRate: ev.maxCapacity > 0 ? Math.round((registrations / ev.maxCapacity) * 100) : 0,
+        };
+      })
+    );
 
     // 2. Grievances by category
     const grievancesByCategory = await Grievance.aggregate([
       { $group: { _id: '$category', count: { $sum: 1 } } },
       { $project: { category: '$_id', count: 1, _id: 0 } },
+      { $sort: { count: -1 } },
     ]);
 
-    // 3. Students by branch
+    // 3. Grievances by resolution status
+    const grievancesByStatus = await Grievance.aggregate([
+      { $group: { _id: '$status', count: { $sum: 1 } } },
+      { $project: { status: '$_id', count: 1, _id: 0 } },
+    ]);
+
+    // 4. Students by branch / academic department
     const studentsByBranch = await StudentProfile.aggregate([
       { $group: { _id: '$department', count: { $sum: 1 } } },
       { $project: { branch: '$_id', count: 1, _id: 0 } },
+      { $sort: { count: -1 } },
     ]);
+
+    // 5. Clubs by category
+    const clubsByCategory = await Club.aggregate([
+      { $match: { isVerified: true } },
+      { $group: { _id: '$category', count: { $sum: 1 } } },
+      { $project: { category: '$_id', count: 1, _id: 0 } },
+      { $sort: { count: -1 } },
+    ]);
+
+    // 6. Student Account Status Breakdown (Active vs Suspended)
+    const accountStatusDistribution = [
+      { name: 'Active Students', count: activeStudents, color: '#10b981' },
+      { name: 'Suspended', count: suspendedStudents, color: '#ef4444' },
+    ];
+
+    // 7. Platform Monthly Activity Trend (Last 6 Months)
+    const now = new Date();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const activityTrend = [];
+    for (let i = 5; i >= 0; i--) {
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const endOfMonth = new Date(now.getFullYear(), now.getMonth() - i + 1, 1);
+      const label = `${months[startOfMonth.getMonth()]}`;
+
+      const [regCount, qCount, collabCount] = await Promise.all([
+        EventRegistration.countDocuments({ createdAt: { $gte: startOfMonth, $lt: endOfMonth } }),
+        AcademicQuestion.countDocuments({ createdAt: { $gte: startOfMonth, $lt: endOfMonth } }),
+        CollaborationPost.countDocuments({ createdAt: { $gte: startOfMonth, $lt: endOfMonth } }),
+      ]);
+
+      activityTrend.push({
+        month: label,
+        registrations: regCount,
+        questions: qCount,
+        collaborations: collabCount,
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -119,7 +158,11 @@ export const getDashboardStats = async (
         charts: {
           eventStats,
           grievancesByCategory,
+          grievancesByStatus,
           studentsByBranch,
+          clubsByCategory,
+          accountStatusDistribution,
+          activityTrend,
         },
       },
     });

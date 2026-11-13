@@ -14,6 +14,10 @@ import {
   TrendingUp,
   AlertTriangle,
   ArrowRight,
+  BarChart3,
+  PieChart as PieIcon,
+  Activity,
+  Calendar,
 } from 'lucide-react';
 import {
   BarChart,
@@ -26,13 +30,35 @@ import {
   PieChart,
   Pie,
   Cell,
+  Legend,
+  AreaChart,
+  Area,
 } from 'recharts';
 import { StatCard } from '../../components/common/StatCard';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 
-const COLORS = ['#4f46e5', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+const PALETTE = ['#4f46e5', '#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6', '#ef4444', '#14b8a6'];
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-slate-900/95 text-white p-3 rounded-xl shadow-xl border border-slate-700/80 text-xs backdrop-blur-md z-50">
+        <p className="font-bold text-slate-200 border-b border-slate-800 pb-1.5 mb-1.5">{label}</p>
+        <div className="space-y-1">
+          {payload.map((entry: any, index: number) => (
+            <p key={`item-${index}`} className="flex items-center justify-between gap-4 font-medium" style={{ color: entry.color || '#fff' }}>
+              <span>{entry.name}:</span>
+              <span className="font-mono font-bold text-white">{entry.value}</span>
+            </p>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
 
 export const AdminDashboard: React.FC = () => {
   const [data, setData] = useState<any>(null);
@@ -76,14 +102,14 @@ export const AdminDashboard: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 self-start sm:self-auto">
           <Link to="/admin/emergency">
-            <Button variant="danger" size="sm">
+            <Button variant="danger" size="sm" className="font-bold">
               <Radio className="w-4 h-4 mr-1.5 animate-pulse" /> Emergency Broadcast
             </Button>
           </Link>
-          <Link to="/admin/events/create">
-            <Button variant="primary" size="sm">
+          <Link to="/admin/events/new">
+            <Button variant="primary" size="sm" className="font-bold">
               Publish Official Event
             </Button>
           </Link>
@@ -155,28 +181,34 @@ export const AdminDashboard: React.FC = () => {
 
       {/* Recharts Data Visualizations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Event Registrations Chart */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
-              Top Event Registrations vs Capacity
+        {/* 1. Event Registrations vs Capacity Histogram */}
+        <Card className="min-w-0 overflow-hidden shadow-xs border-slate-200 dark:border-slate-800">
+          <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+            <CardTitle className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+              <span>Event Registrations vs Capacity Histogram</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 sm:p-5">
             {charts?.eventStats && charts.eventStats.length > 0 ? (
-              <div className="h-64 w-full">
+              <div className="h-64 w-full min-w-0">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={charts.eventStats}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.3} />
+                  <BarChart data={charts.eventStats} margin={{ top: 10, right: 10, left: -20, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
                     <XAxis
                       dataKey="name"
-                      tick={{ fontSize: 10 }}
+                      tick={{ fontSize: 10, fill: '#64748b' }}
+                      stroke="#cbd5e1"
+                      interval={0}
+                      angle={-15}
+                      textAnchor="end"
                       tickFormatter={(val) => (val.length > 15 ? `${val.substring(0, 15)}...` : val)}
                     />
-                    <YAxis tick={{ fontSize: 11 }} />
-                    <Tooltip />
+                    <YAxis tick={{ fontSize: 11, fill: '#64748b' }} stroke="#cbd5e1" allowDecimals={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '6px' }} />
                     <Bar dataKey="registrations" fill="#4f46e5" radius={[4, 4, 0, 0]} name="Booked Seats" />
-                    <Bar dataKey="capacity" fill="#cbd5e1" radius={[4, 4, 0, 0]} name="Max Capacity" />
+                    <Bar dataKey="capacity" fill="#cbd5e1" opacity={0.6} radius={[4, 4, 0, 0]} name="Max Capacity" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -186,16 +218,17 @@ export const AdminDashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Grievances by Category Pie Chart */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base font-bold text-slate-900 dark:text-slate-100">
-              Grievances by Category
+        {/* 2. Grievances by Category Circular Donut Diagram */}
+        <Card className="min-w-0 overflow-hidden shadow-xs border-slate-200 dark:border-slate-800">
+          <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+            <CardTitle className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <PieIcon className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+              <span>Grievances by Category (Circular Diagram)</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-4 sm:p-5">
             {charts?.grievancesByCategory && charts.grievancesByCategory.length > 0 ? (
-              <div className="h-64 w-full flex items-center justify-center">
+              <div className="h-64 w-full min-w-0 flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -204,19 +237,97 @@ export const AdminDashboard: React.FC = () => {
                       nameKey="category"
                       cx="50%"
                       cy="50%"
+                      innerRadius={50}
                       outerRadius={80}
-                      label={({ category, percent }) => `${category} ${(percent * 100).toFixed(0)}%`}
+                      paddingAngle={3}
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                     >
                       {charts.grievancesByCategory.map((entry: any, index: number) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        <Cell key={`cell-${index}`} fill={PALETTE[index % PALETTE.length]} strokeWidth={2} />
                       ))}
                     </Pie>
-                    <Tooltip />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '6px' }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
             ) : (
               <p className="text-xs text-slate-400 text-center py-16">No grievance submissions recorded.</p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Row 2: Department Enrollment Histogram & Engagement Trend */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Department Enrollment Histogram */}
+        <Card className="min-w-0 overflow-hidden shadow-xs border-slate-200 dark:border-slate-800">
+          <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+            <CardTitle className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <BarChart3 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span>Department Student Enrollment Histogram</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 sm:p-5">
+            {charts?.studentsByBranch && charts.studentsByBranch.length > 0 ? (
+              <div className="h-64 w-full min-w-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={charts.studentsByBranch} margin={{ top: 10, right: 10, left: -20, bottom: 10 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
+                    <XAxis dataKey="branch" tick={{ fontSize: 11, fill: '#64748b' }} stroke="#cbd5e1" />
+                    <YAxis tick={{ fontSize: 11, fill: '#64748b' }} stroke="#cbd5e1" allowDecimals={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="count" name="Enrolled Students" radius={[6, 6, 0, 0]}>
+                      {charts.studentsByBranch.map((_: any, idx: number) => (
+                        <Cell key={`bar-dept-${idx}`} fill={PALETTE[idx % PALETTE.length]} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <p className="text-xs text-slate-400 text-center py-16">No student department data available.</p>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 6-Month Platform Engagement Area Graph */}
+        <Card className="min-w-0 overflow-hidden shadow-xs border-slate-200 dark:border-slate-800">
+          <CardHeader className="py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+            <CardTitle className="text-sm font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+              <Activity className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span>Platform Activity Trend Graph (Historical)</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 sm:p-5">
+            {charts?.activityTrend && charts.activityTrend.length > 0 ? (
+              <div className="h-64 w-full min-w-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={charts.activityTrend} margin={{ top: 10, right: 15, left: -20, bottom: 5 }}>
+                    <defs>
+                      <linearGradient id="dashboardArea" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.4} />
+                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#94a3b8" opacity={0.2} />
+                    <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#64748b' }} stroke="#cbd5e1" />
+                    <YAxis tick={{ fontSize: 11, fill: '#64748b' }} stroke="#cbd5e1" allowDecimals={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area
+                      type="monotone"
+                      dataKey="registrations"
+                      name="Event Bookings"
+                      stroke="#4f46e5"
+                      strokeWidth={2}
+                      fillOpacity={1}
+                      fill="url(#dashboardArea)"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            ) : (
+              <p className="text-xs text-slate-400 text-center py-16">No activity trend available.</p>
             )}
           </CardContent>
         </Card>
@@ -254,4 +365,4 @@ export const AdminDashboard: React.FC = () => {
     </div>
   );
 };
-
+export default AdminDashboard;
