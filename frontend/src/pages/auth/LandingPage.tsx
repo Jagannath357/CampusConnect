@@ -79,27 +79,27 @@ export const LandingPage: React.FC = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col transition-colors w-full">
       {/* Header Navbar - Homepage only */}
       <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2.5 group">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
-              <GraduationCap className="w-5 h-5" />
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between min-w-0">
+          <Link to="/" className="flex items-center space-x-2 sm:space-x-2.5 group min-w-0">
+            <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
+              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-slate-100">CampusConnect</span>
-                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 uppercase">
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1 sm:space-x-1.5 min-w-0">
+                <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 dark:text-slate-100 truncate">CampusConnect</span>
+                <span className="text-[9px] sm:text-[10px] font-bold px-1 sm:px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 uppercase flex-shrink-0">
                   Silicon
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Silicon University, Bhubaneswar</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block truncate">Silicon University, Bhubaneswar</p>
             </div>
           </Link>
 
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            {/* About Page Link - Shown strictly on Homepage Navbar */}
+          <div className="flex items-center space-x-1.5 sm:space-x-3 flex-shrink-0">
+            {/* About Page Link - Hidden on mobile view, visible on md+ screens */}
             <Link
               to="/about"
-              className="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center space-x-1"
+              className="hidden md:inline-flex text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors items-center space-x-1"
             >
               <Info className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
               <span>About</span>
@@ -107,21 +107,22 @@ export const LandingPage: React.FC = () => {
 
             <Link
               to="/grievance/submit"
-              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hidden md:block px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hidden lg:block px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               Anonymous Grievance
             </Link>
 
-            <ThemeToggle />
+            {/* Theme Toggle - Always visible in all views, all conditions, all devices */}
+            <ThemeToggle className="flex-shrink-0" />
 
             {isAuthenticated ? (
-              <Link to={isAdmin ? '/admin/dashboard' : '/dashboard'}>
+              <Link to={isAdmin ? '/admin/dashboard' : '/dashboard'} className="hidden sm:inline-flex">
                 <Button size="sm" variant="primary" className="font-bold text-xs">
                   Open {isAdmin ? 'Admin Console' : 'Student Portal'}
                 </Button>
               </Link>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="hidden sm:flex items-center space-x-2">
                 <Link to="/login">
                   <Button size="sm" variant="outline" className="font-semibold text-xs">
                     Sign In
@@ -260,6 +261,70 @@ export const LandingPage: React.FC = () => {
             <div className="text-2xl sm:text-3xl font-black text-purple-600 dark:text-purple-400 font-mono">Single</div>
             <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1">Unified Digital Campus Hub</p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">Academics, events, placements</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Dedicated About Platform Section */}
+      <section className="py-12 sm:py-16 bg-slate-100/70 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="bg-gradient-to-br from-white to-indigo-50/40 dark:from-slate-900 dark:to-indigo-950/30 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 p-6 sm:p-10 lg:p-12 shadow-xs relative overflow-hidden">
+            {/* Ambient background decoration */}
+            <div className="absolute top-0 right-0 -mt-12 -mr-12 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-3xl space-y-4 sm:space-y-5">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-xs font-bold border border-indigo-200 dark:border-indigo-800">
+                <Info className="w-3.5 h-3.5" />
+                <span>About Silicon CampusConnect</span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                Built for the Silicon Community, <br className="hidden sm:inline" />
+                Engineered for Integrity & Excellence.
+              </h2>
+
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                CampusConnect is the centralized digital ecosystem developed for Silicon University, Bhubaneswar. Built to bridge students, faculty, and administrative departments, the platform unites academic peer discussions, verified study resource repositories, photographic lost-and-found resolution, event ticketing, placement drives, and cryptographic anonymous grievances under a unified institutional single-sign-on network.
+              </p>
+
+              {/* Key Highlights Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 pb-2">
+                <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                  <div className="text-indigo-600 dark:text-indigo-400 font-black text-sm flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4" /> 100% Verified
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Exclusive to @silicon.ac.in university community.</p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                  <div className="text-emerald-600 dark:text-emerald-400 font-black text-sm flex items-center gap-1.5">
+                    <Radio className="w-4 h-4" /> Instant Broadcasts
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time emergency & advisory push alerts.</p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-xs">
+                  <div className="text-rose-600 dark:text-rose-400 font-black text-sm flex items-center gap-1.5">
+                    <Lock className="w-4 h-4" /> Zero-Trace Privacy
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Cryptographic tickets for anonymous grievances.</p>
+                </div>
+              </div>
+
+              {/* Call to action button */}
+              <div className="pt-2">
+                <Link to="/about">
+                  <Button
+                    size="lg"
+                    className="font-black text-xs sm:text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-md inline-flex items-center gap-2 px-6 py-3"
+                  >
+                    <Info className="w-4 h-4" />
+                    <span>About Us</span>
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

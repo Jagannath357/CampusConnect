@@ -52,26 +52,28 @@ export const AboutPage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center space-x-1.5 sm:space-x-3 flex-shrink-0">
             <Link
               to="/"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all flex-shrink-0"
               title="Return to Home Page"
             >
               <Home className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              <span>Back to Home</span>
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Home</span>
             </Link>
 
-            <ThemeToggle />
+            {/* Theme Toggle - Always visible in all views, all conditions, all devices */}
+            <ThemeToggle className="flex-shrink-0" />
 
             {isAuthenticated ? (
-              <Link to={isAdmin ? '/admin/dashboard' : '/dashboard'}>
+              <Link to={isAdmin ? '/admin/dashboard' : '/dashboard'} className="hidden sm:inline-flex">
                 <Button size="sm" variant="primary" className="font-bold text-xs">
                   Go to {isAdmin ? 'Admin Console' : 'Student Portal'}
                 </Button>
               </Link>
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="hidden sm:flex items-center space-x-2">
                 <Link to="/login">
                   <Button size="sm" variant="outline" className="font-semibold text-xs">
                     Sign In
