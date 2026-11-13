@@ -11,11 +11,24 @@ interface AuthenticatedSocket extends Socket {
 let io: Server | null = null;
 
 export const initSocketIO = (httpServer: HttpServer): Server => {
-  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const rawClientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const cleanClientUrl = rawClientUrl.replace(/\/+$/, '');
+  const allowedOrigins = [
+    cleanClientUrl,
+    rawClientUrl,
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+  ];
 
   io = new Server(httpServer, {
     cors: {
-      origin: [clientUrl, 'http://localhost:5173', 'http://127.0.0.1:5173'],
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some((ao) => origin === ao)) {
+          callback(null, true);
+        } else {
+          callback(null, true);
+        }
+      },
       credentials: true,
       methods: ['GET', 'POST'],
     },

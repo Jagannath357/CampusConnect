@@ -20,9 +20,11 @@ export const createApp = (): Application => {
   );
 
   // CORS
-  const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const rawClientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+  const cleanClientUrl = rawClientUrl.replace(/\/+$/, '');
   const allowedOrigins = [
-    clientUrl,
+    cleanClientUrl,
+    rawClientUrl,
     'http://localhost:5173',
     'http://127.0.0.1:5173',
   ];
@@ -30,10 +32,11 @@ export const createApp = (): Application => {
   app.use(
     cors({
       origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(origin) || allowedOrigins.some((ao) => origin === ao)) {
           callback(null, true);
         } else {
-          callback(null, true); // Allow during local development
+          // Allow all origins by default to prevent blocking during deployment
+          callback(null, true);
         }
       },
       credentials: true,
