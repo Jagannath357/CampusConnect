@@ -119,19 +119,13 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ isOpen, onClose, headerHe
   return (
     <>
       {/* 1. Desktop Docked Sidebar (Hidden on mobile, flex item on lg) */}
-      <aside
-        style={{
-          top: `${headerHeight}px`,
-          height: `calc(100vh - ${headerHeight}px)`,
-        }}
-        className="hidden lg:flex flex-col justify-between w-64 flex-shrink-0 border-r border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sticky z-20 text-slate-700 dark:text-slate-300 transition-colors duration-150"
-      >
-        <div className="flex-1 overflow-y-auto pr-1 space-y-1">
+      <aside className="hidden lg:flex flex-col justify-between w-64 flex-shrink-0 border-r border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 h-full min-h-0 z-20 text-slate-700 dark:text-slate-300 transition-colors duration-150">
+        <div className="flex-1 overflow-y-auto pr-1 space-y-1 min-h-0">
           {renderNavLinks()}
         </div>
 
         {/* Desktop Institutional Badge pinned at bottom */}
-        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex-shrink-0">
+        <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex-shrink-0">
           <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center">
             <p className="text-[11px] font-extrabold text-slate-800 dark:text-slate-200">Silicon University</p>
             <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Central Admin Portal</p>
@@ -156,12 +150,12 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ isOpen, onClose, headerHe
       {/* Mobile Sliding Drawer Panel */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-white dark:bg-slate-900 shadow-2xl flex flex-col lg:hidden transition-transform duration-300 ease-in-out border-r border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300',
+          'fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] h-full bg-white dark:bg-slate-900 shadow-2xl flex flex-col lg:hidden transition-transform duration-300 ease-in-out border-r border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 min-h-0',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         {/* Drawer Header with Title & Cross Button */}
-        <div className="flex items-center justify-between px-4 py-4 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between px-4 py-4 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
           <div className="flex items-center space-x-2.5">
             <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-xs">
               <ShieldCheck className="w-4 h-4" />
@@ -186,12 +180,12 @@ export const AdminSidebar: React.FC<SidebarProps> = ({ isOpen, onClose, headerHe
         </div>
 
         {/* Drawer Body - Scrollable navigation list */}
-        <div className="flex-1 overflow-y-auto p-3 space-y-1">
+        <div className="flex-1 overflow-y-auto p-3 space-y-1 min-h-0">
           {renderNavLinks(onClose)}
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-3.5 m-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center">
+        <div className="p-3.5 m-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-center flex-shrink-0">
           <p className="text-[11px] font-extrabold text-slate-800 dark:text-slate-200">Silicon University</p>
           <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">Central Admin Portal</p>
           <div className="mt-1 flex items-center justify-center space-x-1.5 text-[9px] font-semibold text-rose-700 dark:text-rose-400">
