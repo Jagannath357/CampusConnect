@@ -48,14 +48,15 @@
     --ring: 226 100% 64%;
   }
 
-  html, body {
+  html {
     height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    scroll-behavior: smooth;
   }
 
   body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: hsl(var(--foreground));
     background: hsl(var(--background));
@@ -65,8 +66,6 @@
   }
 
   #root {
-    height: 100%;
-    width: 100%;
     min-height: 100%;
     display: flex;
     flex-direction: column;

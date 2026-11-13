@@ -15,6 +15,10 @@ import {
   ShieldCheck,
   ArrowRight,
   Sparkles,
+  Radio,
+  Lock,
+  Building2,
+  CheckCircle2,
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 
@@ -26,90 +30,105 @@ export const LandingPage: React.FC = () => {
       title: 'Project Teammate Finder',
       desc: 'Form high-impact squads for hackathons, capstones, and technical innovation.',
       icon: Users2,
-      color: 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400',
+      to: '/collaborations',
+      color: 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800',
     },
     {
       title: 'Academic Peer Q&A',
       desc: 'Ask course questions, share code snippets, and master subjects with seniors.',
       icon: HelpCircle,
-      color: 'bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400',
+      to: '/questions',
+      color: 'bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border-sky-200 dark:border-sky-800',
     },
     {
       title: 'Academic Resource Repository',
-      desc: 'Access lecture notes, previous-year question banks, and lab documents.',
+      desc: 'Access verified lecture notes, previous-year question banks, and lab documents.',
       icon: BookOpen,
-      color: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400',
+      to: '/resources',
+      color: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800',
     },
     {
       title: 'Lost and Found Hub',
-      desc: 'Report lost campus belongings with verified photographic claim processing.',
+      desc: 'Report misplaced belongings and audit student ownership claims with photo proof.',
       icon: Search,
-      color: 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400',
+      to: '/lost-found',
+      color: 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800',
     },
     {
       title: 'Campus Event Reservations',
       desc: 'Discover workshops, cultural fests, and hackathons with instant seat booking.',
       icon: Calendar,
-      color: 'bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400',
+      to: '/events',
+      color: 'bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-800',
     },
     {
       title: 'Student Club Discovery',
       desc: 'Explore officially verified technical and cultural clubs in Silicon University.',
       icon: Compass,
-      color: 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400',
+      to: '/clubs',
+      color: 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800',
     },
     {
       title: 'Eligible Placements',
       desc: 'Personalized recruitment opportunities filtered strictly by branch & CGPA.',
       icon: Briefcase,
-      color: 'bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400',
+      to: '/placements',
+      color: 'bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border-teal-200 dark:border-teal-800',
     },
     {
       title: 'Anonymous Grievance',
       desc: 'Submit feedback with zero identity tracking via random cryptographic tickets.',
       icon: AlertOctagon,
-      color: 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400',
+      to: '/grievance/submit',
+      color: 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-800',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col transition-colors">
-      {/* Header */}
-      <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col transition-colors w-full">
+      {/* Header Navbar */}
+      <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-2.5">
-            <div className="h-9 w-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-sm">
+          <Link to="/" className="flex items-center space-x-2.5 group">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
               <GraduationCap className="w-5 h-5" />
             </div>
             <div>
-              <span className="font-extrabold text-base text-slate-900 dark:text-slate-100">CampusConnect</span>
-              <span className="ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                Silicon
-              </span>
+              <div className="flex items-center space-x-1.5">
+                <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-slate-100">CampusConnect</span>
+                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 uppercase">
+                  Silicon
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Silicon University, Bhubaneswar</p>
             </div>
-          </div>
+          </Link>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <ThemeToggle />
 
-            <Link to="/grievance/submit" className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hidden sm:block">
+            <Link
+              to="/grievance/submit"
+              className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hidden md:block px-2 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
               Anonymous Grievance
             </Link>
+
             {isAuthenticated ? (
               <Link to={isAdmin ? '/admin/dashboard' : '/dashboard'}>
-                <Button size="sm" variant="primary">
-                  Go to {isAdmin ? 'Admin Console' : 'Student Portal'}
+                <Button size="sm" variant="primary" className="font-bold text-xs">
+                  Open {isAdmin ? 'Admin Console' : 'Student Portal'}
                 </Button>
               </Link>
             ) : (
               <div className="flex items-center space-x-2">
                 <Link to="/login">
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" className="font-semibold text-xs">
                     Sign In
                   </Button>
                 </Link>
                 <Link to="/register">
-                  <Button size="sm" variant="primary">
+                  <Button size="sm" variant="primary" className="font-bold text-xs">
                     Register
                   </Button>
                 </Link>
@@ -120,41 +139,41 @@ export const LandingPage: React.FC = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-16 sm:py-24 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 border-b border-slate-200/80 dark:border-slate-800">
+      <section className="relative py-14 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-indigo-50/20 to-slate-50 dark:from-slate-900 dark:via-indigo-950/20 dark:to-slate-950 border-b border-slate-200/80 dark:border-slate-800">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-bold mb-6">
-            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200/80 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs font-bold mb-6 shadow-xs">
+            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
             <span>Silicon University Bhubaneswar • Centralized Campus Portal</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 dark:text-white tracking-tight leading-[1.15] max-w-4xl mx-auto">
             One Campus. One Community. <br className="hidden sm:block" />
             <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 bg-clip-text text-transparent">
               One Connection.
             </span>
           </h1>
 
-          <p className="mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            CampusConnect bridges academic discussions, project collaboration, official event registrations, 
-            verified lost-and-found claims, anonymous grievances, and real-time emergency broadcasts under a single digital university platform.
+          <p className="mt-5 text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            CampusConnect brings academic discussions, project collaboration, official event seat bookings, 
+            verified lost-and-found claims, anonymous grievance routing, and real-time emergency broadcasts under a single institutional digital portal.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md mx-auto">
             {isAuthenticated ? (
               <Link to={isAdmin ? '/admin/dashboard' : '/dashboard'} className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto text-base">
-                  Open {isAdmin ? 'Admin Console' : 'Student Portal'} <ArrowRight className="w-4 h-4 ml-1" />
+                <Button size="lg" className="w-full sm:w-auto text-sm sm:text-base font-bold shadow-md">
+                  Open {isAdmin ? 'Admin Console' : 'Student Portal'} <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Button>
               </Link>
             ) : (
               <>
                 <Link to="/register" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto text-base">
-                    Register Student Account <ArrowRight className="w-4 h-4 ml-1" />
+                  <Button size="lg" className="w-full sm:w-auto text-sm sm:text-base font-bold shadow-md">
+                    Register Student Account <ArrowRight className="w-4 h-4 ml-1.5" />
                   </Button>
                 </Link>
                 <Link to="/login" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto text-base">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto text-sm sm:text-base font-semibold">
                     Log In to Portal
                   </Button>
                 </Link>
@@ -162,26 +181,58 @@ export const LandingPage: React.FC = () => {
             )}
           </div>
 
-          <div className="mt-10 flex items-center justify-center space-x-6 text-xs text-slate-500 dark:text-slate-400">
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs text-slate-500 dark:text-slate-400">
             <span className="flex items-center space-x-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>Strict Role-Based Access Control</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
+              <span>Role-Based Access Control</span>
             </span>
-            <span>•</span>
-            <span>WebSocket Real-Time Broadcasts</span>
-            <span>•</span>
-            <span>Single-Campus Boundary</span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center space-x-1.5">
+              <Radio className="w-4 h-4 text-rose-600 dark:text-rose-400 flex-shrink-0" />
+              <span>WebSocket Live Alerts</span>
+            </span>
+            <span className="hidden sm:inline">•</span>
+            <span className="flex items-center space-x-1.5">
+              <Lock className="w-4 h-4 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
+              <span>Silicon Institutional Boundary</span>
+            </span>
           </div>
         </div>
       </section>
 
-      {/* Feature Grid */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 flex-1">
+      {/* Trust & Architecture Metrics Strip */}
+      <section className="border-b border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60 py-8 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+          <div className="p-3">
+            <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400 font-mono">100%</div>
+            <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1">Verified University Domain</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">@silicon.ac.in authentication</p>
+          </div>
+          <div className="p-3">
+            <div className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 font-mono">Real-Time</div>
+            <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1">Campus Emergency Broadcasts</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">Instant socket alerting</p>
+          </div>
+          <div className="p-3">
+            <div className="text-2xl sm:text-3xl font-black text-rose-600 dark:text-rose-400 font-mono">Zero-Leak</div>
+            <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1">Cryptographic Grievances</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">Anonymous ticket resolution</p>
+          </div>
+          <div className="p-3">
+            <div className="text-2xl sm:text-3xl font-black text-purple-600 dark:text-purple-400 font-mono">Single</div>
+            <p className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-1">Unified Digital Campus Hub</p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">Academics, events, placements</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Grid Section */}
+      <section className="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 w-full">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
             Integrated Campus Services
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
             Every feature connects students with campus administration through a unified, high-integrity architecture.
           </p>
         </div>
@@ -190,28 +241,58 @@ export const LandingPage: React.FC = () => {
           {features.map((feat, idx) => {
             const Icon = feat.icon;
             return (
-              <div
+              <Link
                 key={idx}
-                className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-indigo-300 dark:hover:border-indigo-700 transition-all flex flex-col justify-between"
+                to={feat.to}
+                className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-indigo-400 dark:hover:border-indigo-600 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${feat.color}`}>
+                  <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-4 transition-transform group-hover:scale-105 ${feat.color}`}>
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">{feat.title}</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">{feat.desc}</p>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {feat.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+                    {feat.desc}
+                  </p>
                 </div>
-              </div>
+                <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition-transform">
+                  <span>Access Service</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                </div>
+              </Link>
             );
           })}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-4 sm:px-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors">
-        <p>© {new Date().getFullYear()} Silicon University, Bhubaneswar. CampusConnect Single-Campus Prototype.</p>
+      <footer className="mt-auto bg-white dark:bg-slate-900 border-t border-slate-200/80 dark:border-slate-800 py-8 px-4 sm:px-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-2">
+            <GraduationCap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="font-bold text-slate-800 dark:text-slate-200">CampusConnect</span>
+            <span>•</span>
+            <span>Silicon University, Bhubaneswar</span>
+          </div>
+
+          <div className="flex items-center space-x-4 text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+            <Link to="/grievance/submit" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+              Submit Grievance
+            </Link>
+            <Link to="/grievance/track" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+              Track Ticket
+            </Link>
+            <Link to="/login" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+              Portal Sign In
+            </Link>
+          </div>
+
+          <p>© {new Date().getFullYear()} Silicon University. Single-Campus Prototype.</p>
+        </div>
       </footer>
     </div>
   );
 };
-
+export default LandingPage;
