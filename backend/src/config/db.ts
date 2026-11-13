@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 
 export const connectDB = async (uri?: string): Promise<typeof mongoose> => {
-  const mongoUri = uri || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/campusconnect';
+  const mongoUri =
+    uri ||
+    process.env.MONGODB_URI ||
+    'mongodb+srv://Jagannath300:Jaga123mongodb@cluster0.rouoh.mongodb.net/campusconnect';
   try {
     const conn = await mongoose.connect(mongoUri);
     console.log(`[MongoDB] Connected to database: ${conn.connection.host}/${conn.connection.name}`);
