@@ -69,47 +69,47 @@ export const StudentDashboard: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
       {/* Student Welcome & Profile Summary Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-6 sm:p-8 shadow-lg">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center space-x-4">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white p-4 sm:p-8 shadow-lg min-w-0">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 min-w-0">
+          <div className="flex items-center space-x-3.5 sm:space-x-4 min-w-0">
             {profile?.avatarUrl ? (
               <img
                 src={getFileUrl(profile.avatarUrl)}
                 alt={user?.name}
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-400/40 shadow-md"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl object-cover border-2 border-indigo-400/40 shadow-md flex-shrink-0"
               />
             ) : (
-              <div className="w-16 h-16 rounded-2xl bg-indigo-600/60 border-2 border-indigo-400/30 flex items-center justify-center text-xl font-black">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-indigo-600/60 border-2 border-indigo-400/30 flex items-center justify-center text-lg sm:text-xl font-black flex-shrink-0">
                 {user?.name?.charAt(0)}
               </div>
             )}
-            <div>
-              <div className="flex items-center space-x-2">
-                <h1 className="text-xl sm:text-2xl font-black tracking-tight">Welcome, {user?.name}!</h1>
-                <span className="text-[10px] font-extrabold uppercase bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded-full">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center space-x-2 flex-wrap">
+                <h1 className="text-lg sm:text-2xl font-black tracking-tight truncate">Welcome, {user?.name}!</h1>
+                <span className="text-[9px] sm:text-[10px] font-extrabold uppercase bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 px-2 py-0.5 rounded-full">
                   Student
                 </span>
               </div>
-              <p className="text-xs text-indigo-200 mt-1 flex items-center space-x-2 flex-wrap">
+              <p className="text-[11px] sm:text-xs text-indigo-200 mt-1 flex items-center gap-1.5 sm:space-x-2 flex-wrap">
                 <span>Roll: {profile?.rollNumber || 'N/A'}</span>
                 <span>•</span>
                 <span>Dept: {profile?.department || 'CSE'}</span>
                 <span>•</span>
-                <span>Graduation Batch: {profile?.batchYear || '2026'}</span>
+                <span>Batch: {profile?.batchYear || '2026'}</span>
                 <span>•</span>
                 <span className="font-bold text-amber-300">CGPA: {profile?.cgpa ? profile.cgpa.toFixed(2) : '0.00'}</span>
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2.5">
+          <div className="flex items-center space-x-2 sm:space-x-2.5 self-start md:self-auto flex-wrap">
             <Link to="/profile">
-              <Button variant="secondary" size="sm" className="bg-white/10 hover:bg-white/20 text-white border border-white/20">
+              <Button variant="secondary" size="sm" className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs">
                 Edit Profile
               </Button>
             </Link>
             <Link to="/collaborations/create">
-              <Button variant="primary" size="sm" className="bg-indigo-500 hover:bg-indigo-600 text-white">
+              <Button variant="primary" size="sm" className="bg-indigo-500 hover:bg-indigo-600 text-white text-xs">
                 Post Collab Request
               </Button>
             </Link>

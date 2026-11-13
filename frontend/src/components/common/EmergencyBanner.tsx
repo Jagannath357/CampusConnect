@@ -16,26 +16,28 @@ export const EmergencyBanner: React.FC = () => {
   return (
     <>
       {/* High-Priority Top Persistent Warning Banner */}
-      <div className="bg-rose-600 text-white px-3 sm:px-4 py-2 sm:py-2.5 shadow-md flex items-center justify-between w-full border-b border-rose-700/50">
-        <div className="flex items-center space-x-2 sm:space-x-3 max-w-7xl mx-auto w-full">
-          <span className="flex h-2.5 w-2.5 sm:h-3 sm:w-3 relative flex-shrink-0">
+      <div className="bg-rose-600 text-white px-2.5 sm:px-4 py-1.5 sm:py-2.5 shadow-md flex items-center justify-between w-full border-b border-rose-700/50">
+        <div className="flex items-center space-x-1.5 sm:space-x-3 max-w-7xl mx-auto w-full min-w-0">
+          <span className="flex h-2 w-2 sm:h-2.5 sm:w-2.5 relative flex-shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-amber-300"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-amber-300"></span>
           </span>
-          <div className="flex items-center space-x-1.5 sm:space-x-2 flex-shrink-0">
-            <ShieldAlert className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-amber-300" />
-            <span className="font-bold text-[10px] sm:text-xs uppercase tracking-wider bg-rose-800 px-1.5 sm:px-2 py-0.5 rounded text-amber-200">
-              CAMPUS EMERGENCY ALERT
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+            <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 text-amber-300" />
+            <span className="font-bold text-[9px] sm:text-xs uppercase tracking-wider bg-rose-800 px-1.5 sm:px-2 py-0.5 rounded text-amber-200">
+              <span className="hidden sm:inline">CAMPUS EMERGENCY ALERT</span>
+              <span className="sm:hidden">ALERT</span>
             </span>
           </div>
-          <div className="text-xs sm:text-sm font-medium truncate flex-1 min-w-0">
-            <strong>{emergencyAlert.title}:</strong> {emergencyAlert.message}
+          <div className="text-[11px] sm:text-sm font-medium truncate flex-1 min-w-0">
+            <strong className="font-extrabold">{emergencyAlert.title}:</strong> {emergencyAlert.message}
           </div>
           <Link
             to="/notifications"
-            className="text-[11px] sm:text-xs font-bold text-amber-200 hover:text-white underline whitespace-nowrap ml-2 flex-shrink-0"
+            className="text-[10px] sm:text-xs font-bold text-amber-200 hover:text-white underline whitespace-nowrap ml-1 sm:ml-2 flex-shrink-0"
           >
-            All Alerts & Details &rarr;
+            <span className="hidden sm:inline">All Alerts & Details &rarr;</span>
+            <span className="sm:hidden">Details &rarr;</span>
           </Link>
         </div>
       </div>

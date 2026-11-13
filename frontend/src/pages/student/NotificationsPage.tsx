@@ -214,15 +214,15 @@ export const NotificationsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
-            <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800">
-              <Bell className="w-5 h-5" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs min-w-0">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
+            <div className="p-1.5 sm:p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800 flex-shrink-0">
+              <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <span>Campus Notification Center</span>
+            <span className="truncate">Campus Notification Center</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
             Official emergency broadcasts, academic updates, event badges, and administrative notices.
           </p>
         </div>
@@ -241,10 +241,10 @@ export const NotificationsPage: React.FC = () => {
 
       {/* TOP BANNER: Last/Most Recent Active Campus Emergency Broadcast */}
       {emergencyAlert && emergencyAlert.active && (
-        <div className="relative overflow-hidden p-5 sm:p-6 rounded-2xl bg-rose-50 dark:bg-rose-950/90 border-2 border-rose-400 dark:border-rose-600 text-rose-950 dark:text-rose-100 shadow-lg transition-all animate-in fade-in duration-200">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="space-y-2 flex-1">
-              <div className="flex items-center space-x-2.5">
+        <div className="relative overflow-hidden p-4 sm:p-6 rounded-2xl bg-rose-50 dark:bg-rose-950/90 border-2 border-rose-400 dark:border-rose-600 text-rose-950 dark:text-rose-100 shadow-lg transition-all animate-in fade-in duration-200 min-w-0">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 min-w-0">
+            <div className="space-y-2 flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                 <span className="flex h-3 w-3 relative flex-shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-600 dark:bg-rose-400"></span>
@@ -257,22 +257,22 @@ export const NotificationsPage: React.FC = () => {
                 </span>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight leading-snug">
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight leading-snug break-words">
                 {emergencyAlert.title}
               </h2>
 
-              <p className="text-xs sm:text-sm text-slate-800 dark:text-rose-100 font-medium leading-relaxed max-w-3xl">
+              <p className="text-xs sm:text-sm text-slate-800 dark:text-rose-100 font-medium leading-relaxed max-w-3xl break-words">
                 {emergencyAlert.message}
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 pt-2 text-[11px] text-slate-700 dark:text-rose-200 font-semibold border-t border-rose-200/80 dark:border-rose-800/80">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2 text-[11px] text-slate-700 dark:text-rose-200 font-semibold border-t border-rose-200/80 dark:border-rose-800/80">
                 <span className="flex items-center space-x-1">
-                  <Building2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
-                  <span>{emergencyAlert.issuedBy?.name || 'Silicon University Administration'}</span>
+                  <Building2 className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 flex-shrink-0" />
+                  <span className="truncate">{emergencyAlert.issuedBy?.name || 'Silicon University Administration'}</span>
                 </span>
                 <span>•</span>
                 <span className="flex items-center space-x-1">
-                  <Clock className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                  <Clock className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 flex-shrink-0" />
                   <span>Broadcasted on {formatTimestamp(emergencyAlert.broadcastAt).full}</span>
                 </span>
               </div>

@@ -151,20 +151,20 @@ export const LiveAnalyticsPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-6 sm:p-7 shadow-md border border-indigo-900/60">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300 shadow-inner">
-              <Activity className="w-6 h-6 animate-pulse" />
+      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-4 sm:p-7 shadow-md border border-indigo-900/60 min-w-0">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 min-w-0">
+          <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300 shadow-inner flex-shrink-0">
+              <Activity className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
             </div>
-            <div>
-              <h1 className="text-2xl font-black flex items-center gap-2">
-                <span>Live Telemetry & Statistical Visualizations</span>
-                <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/30">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg sm:text-2xl font-black flex items-center gap-2 flex-wrap">
+                <span className="truncate">Live Telemetry & Visualizations</span>
+                <span className="text-[9px] sm:text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 flex-shrink-0">
                   Real-Time
                 </span>
               </h1>
-              <p className="text-xs text-indigo-200/80 mt-1">
+              <p className="text-xs text-indigo-200/80 mt-1 leading-relaxed">
                 Visual statistical models, department distribution histograms, circular grievance ratios, and platform growth curves.
               </p>
             </div>
@@ -172,7 +172,7 @@ export const LiveAnalyticsPage: React.FC = () => {
           <Button
             onClick={fetchAnalytics}
             variant="outline"
-            className="text-white border-white/20 hover:bg-white/10 flex items-center gap-2 text-xs font-bold self-start md:self-auto"
+            className="text-white border-white/20 hover:bg-white/10 flex items-center gap-2 text-xs font-bold self-start md:self-auto flex-shrink-0"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Refresh Telemetry

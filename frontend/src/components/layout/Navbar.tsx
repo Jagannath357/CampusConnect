@@ -27,44 +27,46 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
-      <div className="flex items-center justify-between px-4 sm:px-6 h-16 max-w-7xl mx-auto">
+    <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors w-full">
+      <div className="flex items-center justify-between px-3 sm:px-6 h-14 sm:h-16 max-w-7xl mx-auto w-full min-w-0">
         {/* Left: Mobile Toggle & Brand Identity */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-1.5 sm:space-x-3 min-w-0 flex-shrink">
           {isAuthenticated && onToggleSidebar && (
             <button
               onClick={onToggleSidebar}
-              className="lg:hidden p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
+              className="lg:hidden p-1.5 sm:p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500/30 flex-shrink-0"
               aria-label={isSidebarOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             >
               {isSidebarOpen ? (
-                <X className="w-6 h-6 text-indigo-600 dark:text-indigo-400 transition-transform duration-200" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600 dark:text-indigo-400 transition-transform duration-200" />
               ) : (
-                <Menu className="w-6 h-6 transition-transform duration-200" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200" />
               )}
             </button>
           )}
 
-          <Link to="/" className="flex items-center space-x-2.5 group">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
-              <GraduationCap className="w-5 h-5" />
+          <Link to="/" className="flex items-center space-x-1.5 sm:space-x-2.5 group min-w-0">
+            <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-indigo-500 flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
+              <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-slate-100">CampusConnect</span>
-                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 uppercase">
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1.5 min-w-0">
+                <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 dark:text-slate-100 truncate">
+                  CampusConnect
+                </span>
+                <span className="hidden sm:inline-block text-[10px] font-bold px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 uppercase flex-shrink-0">
                   Silicon
                 </span>
               </div>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden sm:block">Silicon University, Bhubaneswar</p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium hidden md:block truncate">Silicon University, Bhubaneswar</p>
             </div>
           </Link>
         </div>
 
         {/* Right: Actions, Notifications, Theme Toggle & User */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="flex items-center space-x-1 sm:space-x-2.5 flex-shrink-0">
           {/* Theme Toggle Button */}
-          <ThemeToggle />
+          <ThemeToggle className="p-1.5 sm:p-2" />
 
           {isAuthenticated ? (
             <>
@@ -79,32 +81,32 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar, isSidebarOpen }
               {/* Notification Bell */}
               <Link
                 to={isAdmin ? '/admin/notifications' : '/notifications'}
-                className="relative p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="relative p-1.5 sm:p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-slate-100 dark:hover:bg-slate-800 transition-colors flex-shrink-0"
                 title="Notifications"
                 aria-label="Campus Notifications"
               >
-                <Bell className="w-5 h-5" />
+                <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute top-1 right-1 flex items-center justify-center min-w-4.5 h-4.5 px-1 rounded-full bg-indigo-600 text-[10px] font-bold text-white shadow-xs">
+                  <span className="absolute top-0.5 right-0.5 sm:top-1 sm:right-1 flex items-center justify-center min-w-4 h-4 sm:min-w-4.5 sm:h-4.5 px-1 rounded-full bg-indigo-600 text-[9px] sm:text-[10px] font-bold text-white shadow-xs">
                     {unreadCount > 9 ? '9+' : unreadCount}
                   </span>
                 )}
               </Link>
 
               {/* Profile dropdown */}
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <button
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center space-x-2 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
+                  className="flex items-center space-x-1.5 sm:space-x-2 p-1 sm:p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
                 >
                   {profile?.avatarUrl ? (
                     <img
                       src={getFileUrl(profile.avatarUrl)}
                       alt={user?.name}
-                      className="w-8 h-8 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-slate-200 dark:border-slate-700 flex-shrink-0"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center text-xs">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold flex items-center justify-center text-xs flex-shrink-0">
                       {user?.name?.charAt(0).toUpperCase()}
                     </div>
                   )}

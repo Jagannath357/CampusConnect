@@ -91,25 +91,25 @@ export const AdminDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2.5">
-            <ShieldCheck className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
-            <span>Administrative Governance Overview</span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 min-w-0">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight flex items-center space-x-2 sm:space-x-2.5">
+            <ShieldCheck className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
+            <span className="truncate">Administrative Governance Overview</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
             Real-time live campus metrics aggregated from Silicon University database collections.
           </p>
         </div>
 
-        <div className="flex items-center space-x-2 self-start sm:self-auto">
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
           <Link to="/admin/emergency">
-            <Button variant="danger" size="sm" className="font-bold">
-              <Radio className="w-4 h-4 mr-1.5 animate-pulse" /> Emergency Broadcast
+            <Button variant="danger" size="sm" className="font-bold text-xs">
+              <Radio className="w-3.5 h-3.5 mr-1.5 animate-pulse" /> Emergency Broadcast
             </Button>
           </Link>
           <Link to="/admin/events/new">
-            <Button variant="primary" size="sm" className="font-bold">
+            <Button variant="primary" size="sm" className="font-bold text-xs">
               Publish Official Event
             </Button>
           </Link>

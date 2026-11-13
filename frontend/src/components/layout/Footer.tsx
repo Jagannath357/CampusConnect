@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           <span>Silicon University, Bhubaneswar</span>
         </div>
 
-        <div className="flex items-center space-x-6">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
           <Link to="/grievance/submit" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
             Anonymous Grievance
           </Link>
