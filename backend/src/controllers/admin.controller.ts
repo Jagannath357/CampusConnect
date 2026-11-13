@@ -592,18 +592,31 @@ export const verifyLostFoundItem = async (
         );
 
         if (rejectedClaim) {
-          const notification = await Notification.create({
-            recipientId: rejectedClaim.claimantId,
-            title: 'Ownership Claim Rejected',
-            message: `Your ownership claim for "${item.itemName}" was reviewed: ${
-              resolutionNotes || 'Submitted proof did not match the reported item.'
-            }`,
-            type: 'CLAIM',
-            link: `/lost-found/${item._id}`,
-          });
-          emitNotificationToUser(rejectedClaim.claimantId.toString(), notification);
+          try {
+            const notification = await Notification.create({
+              recipientId: rejectedClaim.claimantId,
+              title: 'Ownership Claim Rejected',
+              message: `Your ownership claim for "${item.itemName}" was reviewed: ${
+                resolutionNotes || 'Submitted proof did not match the reported item.'
+              }`,
+              type: 'CLAIM',
+              link: `/lost-found/${item._id}`,
+            });
+            emitNotificationToUser(rejectedClaim.claimantId.toString(), notification);
+          } catch (notifErr) {
+            console.warn('[Notification Error]', notifErr);
+          }
         }
       }
+
+      await recordAdminAudit(
+        adminId,
+        'LOST_FOUND_REJECT_CLAIM',
+        'LostFoundItem',
+        item._id.toString(),
+        { resolutionNotes, claimId },
+        req
+      );
 
       res.status(200).json({
         success: true,
@@ -639,28 +652,33 @@ export const verifyLostFoundItem = async (
         claimantId = claim.claimantId.toString();
       }
 
-      // Reject any other pending claims on this item
+      // Reject all other claims on this item
       const otherClaims = await OwnershipClaim.find({
         itemId: item._id,
         _id: { $ne: claimId },
-        status: 'PENDING',
       });
 
       for (const other of otherClaims) {
-        other.status = 'REJECTED';
-        other.reviewedBy = adminId as any;
-        other.reviewedAt = new Date();
-        other.reviewNotes = 'Item was verified and released to another verified claimant.';
-        await other.save();
+        if (other._id.toString() !== claimId.toString()) {
+          other.status = 'REJECTED';
+          other.reviewedBy = adminId as any;
+          other.reviewedAt = new Date();
+          other.reviewNotes = 'Item was verified and released to another verified claimant.';
+          await other.save();
 
-        const notif = await Notification.create({
-          recipientId: other.claimantId,
-          title: 'Ownership Claim Update',
-          message: `Your ownership claim for "${item.itemName}" was not approved because ownership was verified for another claimant.`,
-          type: 'CLAIM',
-          link: `/lost-found/${item._id}`,
-        });
-        emitNotificationToUser(other.claimantId.toString(), notif);
+          try {
+            const notif = await Notification.create({
+              recipientId: other.claimantId,
+              title: 'Ownership Claim Update',
+              message: `Your ownership claim for "${item.itemName}" was not approved because ownership was verified for another claimant.`,
+              type: 'CLAIM',
+              link: `/lost-found/${item._id}`,
+            });
+            emitNotificationToUser(other.claimantId.toString(), notif);
+          } catch (notifErr) {
+            console.warn('[Notification Error]', notifErr);
+          }
+        }
       }
     }
 

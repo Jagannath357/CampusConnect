@@ -18,6 +18,7 @@ import {
   Phone,
   GraduationCap,
   Eye,
+  FileText,
 } from 'lucide-react';
 import { Button } from '../../components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '../../components/ui/card';
@@ -61,42 +62,53 @@ export const LostFoundVerificationPage: React.FC = () => {
 
   const openVerificationModal = (item: any, claimToSelect?: any) => {
     setVerifyingItem(item);
-    const itemClaims = claims.filter(
-      (c) => c.itemId?._id === item._id || c.itemId === item._id
-    );
+    const itemIdStr = (item._id || item.id).toString();
+    const itemClaims = claims.filter((c) => {
+      const cItemId = c.itemId?._id ? c.itemId._id.toString() : c.itemId?.toString();
+      return cItemId === itemIdStr;
+    });
 
     if (claimToSelect) {
       setSelectedClaim(claimToSelect);
+      setEvidenceMatches(claimToSelect.status !== 'REJECTED');
+      setResolutionNotes(claimToSelect.reviewNotes || '');
     } else if (itemClaims.length > 0) {
       // Prefer the first pending claim, else the first claim
       const pendingClaim = itemClaims.find((c) => c.status === 'PENDING');
-      setSelectedClaim(pendingClaim || itemClaims[0]);
+      const chosen = pendingClaim || itemClaims[0];
+      setSelectedClaim(chosen);
+      setEvidenceMatches(chosen.status !== 'REJECTED');
+      setResolutionNotes(chosen.reviewNotes || '');
     } else {
       setSelectedClaim(null);
+      setResolutionNotes('');
+      setEvidenceMatches(true);
     }
-
-    setResolutionNotes('');
-    setEvidenceMatches(true);
   };
 
-  const handleVerify = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleApproveClaim = async () => {
     if (!verifyingItem) return;
 
     setActionLoading(true);
     setSuccessMessage('');
     try {
+      const notes =
+        resolutionNotes.trim() ||
+        (selectedClaim
+          ? `Ownership verified for student ${selectedClaim.claimantId?.name || 'claimant'} and item handed over.`
+          : 'Ownership verified and approved by campus administrator.');
+
       const res = await api.post(`/admin/lost-found/${verifyingItem._id}/verify`, {
         claimId: selectedClaim?._id || undefined,
-        resolutionNotes,
-        evidenceMatches,
+        resolutionNotes: notes,
+        evidenceMatches: true,
       });
 
       if (res.data.success) {
         setSuccessMessage(
-          evidenceMatches
-            ? 'Item ownership verified, claimant notified, and marked as RESOLVED.'
-            : 'Claim rejected. Item retained in active status for reviewing other student claims.'
+          selectedClaim
+            ? `Item ownership verified & resolved for ${selectedClaim.claimantId?.name}. All other student claims on this item were rejected.`
+            : 'Item marked as resolved.'
         );
         setVerifyingItem(null);
         setSelectedClaim(null);
@@ -105,8 +117,54 @@ export const LostFoundVerificationPage: React.FC = () => {
       }
     } catch (err: any) {
       console.error('Failed to verify item', err);
+      alert(err.response?.data?.message || 'Failed to verify and resolve item.');
     } finally {
       setActionLoading(false);
+    }
+  };
+
+  const handleRejectClaim = async () => {
+    if (!verifyingItem || !selectedClaim) {
+      alert('Please select a student claimant from the dropdown to reject their claim.');
+      return;
+    }
+
+    setActionLoading(true);
+    setSuccessMessage('');
+    try {
+      const notes =
+        resolutionNotes.trim() ||
+        'Claim rejected: Submitted proof does not match reported item specifications.';
+
+      const res = await api.post(`/admin/lost-found/${verifyingItem._id}/verify`, {
+        claimId: selectedClaim._id,
+        resolutionNotes: notes,
+        evidenceMatches: false,
+      });
+
+      if (res.data.success) {
+        setSuccessMessage(
+          `Claim by ${selectedClaim.claimantId?.name || 'student'} rejected. Item remains active for reviewing other claims.`
+        );
+        setVerifyingItem(null);
+        setSelectedClaim(null);
+        setResolutionNotes('');
+        await fetchItems();
+      }
+    } catch (err: any) {
+      console.error('Failed to reject claim', err);
+      alert(err.response?.data?.message || 'Failed to reject claim.');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (evidenceMatches) {
+      await handleApproveClaim();
+    } else {
+      await handleRejectClaim();
     }
   };
 
@@ -327,46 +385,42 @@ export const LostFoundVerificationPage: React.FC = () => {
                   </div>
                 ) : (
                   <>
-                    {/* Claimant Selector Tabs if multiple claims */}
-                    {itemClaims.length > 1 && (
-                      <div className="flex flex-wrap gap-2 p-2 bg-slate-100 dark:bg-slate-800/90 rounded-xl border border-slate-200/80 dark:border-slate-700">
-                        {itemClaims.map((claim, idx) => (
-                          <button
-                            key={claim._id}
-                            type="button"
-                            onClick={() => {
-                              setSelectedClaim(claim);
-                              setEvidenceMatches(claim.status !== 'REJECTED');
-                              setResolutionNotes(claim.reviewNotes || '');
-                            }}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border flex items-center space-x-2 ${
-                              selectedClaim?._id === claim._id
-                                ? 'bg-indigo-600 text-white border-indigo-600 shadow-xs'
-                                : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-indigo-300'
-                            }`}
-                          >
-                            <span className="w-4 h-4 rounded-full bg-black/20 flex items-center justify-center text-[10px]">
-                              {idx + 1}
-                            </span>
-                            <span>{claim.claimantId?.name}</span>
-                            <span className="text-[10px] opacity-80 font-mono">
-                              ({claim.claimantProfile?.rollNumber || 'Student'})
-                            </span>
-                            <span
-                              className={`text-[9px] px-1.5 py-0.2 rounded font-extrabold uppercase ${
-                                claim.status === 'APPROVED'
-                                  ? 'bg-emerald-500 text-white'
-                                  : claim.status === 'REJECTED'
-                                  ? 'bg-rose-500 text-white'
-                                  : 'bg-amber-400 text-slate-900'
-                              }`}
-                            >
-                              {claim.status}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                    {/* Claimant Drop Down Menu */}
+                    <div className="space-y-1.5 p-3 rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700">
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center justify-between">
+                        <span className="flex items-center gap-1.5">
+                          <Users className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                          <span>Select Student Claimant:</span>
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 font-normal">
+                          {itemClaims.length} Claim{itemClaims.length > 1 ? 's' : ''} Received
+                        </span>
+                      </label>
+
+                      <select
+                        value={selectedClaim?._id || ''}
+                        onChange={(e) => {
+                          const found = itemClaims.find((c) => (c._id || c.id) === e.target.value);
+                          if (found) {
+                            setSelectedClaim(found);
+                            setEvidenceMatches(found.status !== 'REJECTED');
+                            setResolutionNotes(found.reviewNotes || '');
+                          }
+                        }}
+                        className="w-full h-11 px-3.5 py-2 rounded-xl text-sm font-bold bg-white dark:bg-slate-900 border-2 border-indigo-300 dark:border-indigo-700 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 shadow-sm cursor-pointer transition-colors"
+                      >
+                        {itemClaims.map((claim, idx) => {
+                          const name = claim.claimantId?.name || 'Unnamed Student';
+                          const roll = claim.claimantProfile?.rollNumber || claim.claimantId?.email || 'Student';
+                          const dept = claim.claimantProfile?.department || '';
+                          return (
+                            <option key={claim._id} value={claim._id}>
+                              {idx + 1}. {name} (Roll: {roll}{dept ? ` • ${dept}` : ''}) — [{claim.status}]
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
 
                     {/* Detailed Card for Selected Student Claimant */}
                     {selectedClaim && (
@@ -441,7 +495,7 @@ export const LostFoundVerificationPage: React.FC = () => {
                             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
                               Claimant's Ownership Explanation:
                             </span>
-                            <p className="mt-1 p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 leading-relaxed">
+                            <p className="mt-1 p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
                               {selectedClaim.claimDescription}
                             </p>
                           </div>
@@ -455,18 +509,64 @@ export const LostFoundVerificationPage: React.FC = () => {
                             </p>
                           </div>
 
+                          {/* Particular Proof Image / Document Preview */}
                           {selectedClaim.proofFileUrl && (
-                            <div className="pt-1">
-                              <Link
-                                to={`/admin/image-view?url=${encodeURIComponent(
-                                  selectedClaim.proofFileUrl
-                                )}&title=${encodeURIComponent(
-                                  `Ownership Proof - ${selectedClaim.claimantId?.name || 'Claimant'}`
-                                )}&source=${encodeURIComponent('Submitted Ownership Proof')}&backUrl=/admin/lost-found`}
-                                className="inline-flex items-center px-3 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 font-bold text-xs transition-colors"
-                              >
-                                Inspect Uploaded Proof Document in New Page <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
-                              </Link>
+                            <div className="space-y-1.5 pt-2 border-t border-slate-200/80 dark:border-slate-700">
+                              <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                                  <Eye className="w-3.5 h-3.5 text-indigo-500" />
+                                  <span>Claimant's Uploaded Proof Evidence:</span>
+                                </span>
+                                <Link
+                                  to={`/admin/image-view?url=${encodeURIComponent(
+                                    selectedClaim.proofFileUrl
+                                  )}&title=${encodeURIComponent(
+                                    `Ownership Proof - ${selectedClaim.claimantId?.name || 'Claimant'}`
+                                  )}&source=${encodeURIComponent('Submitted Ownership Proof')}&backUrl=/admin/lost-found`}
+                                  target="_blank"
+                                  className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                                >
+                                  Inspect Fullscreen <ExternalLink className="w-3 h-3" />
+                                </Link>
+                              </div>
+
+                              {selectedClaim.proofFileUrl.toLowerCase().includes('.pdf') ? (
+                                <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
+                                  <div className="flex items-center space-x-3 min-w-0">
+                                    <div className="p-2.5 rounded-lg bg-rose-50 dark:bg-rose-950/70 text-rose-600 dark:text-rose-400 flex-shrink-0">
+                                      <FileText className="w-6 h-6" />
+                                    </div>
+                                    <div className="min-w-0">
+                                      <p className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">
+                                        PDF Ownership Proof Document
+                                      </p>
+                                      <p className="text-[10px] text-slate-400 truncate">
+                                        {selectedClaim.claimantId?.name}'s proof attachment
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <Link
+                                    to={`/admin/image-view?url=${encodeURIComponent(
+                                      selectedClaim.proofFileUrl
+                                    )}&title=${encodeURIComponent(
+                                      `Ownership Proof - ${selectedClaim.claimantId?.name || 'Claimant'}`
+                                    )}&source=${encodeURIComponent('Submitted Ownership Proof')}&backUrl=/admin/lost-found`}
+                                    target="_blank"
+                                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1 shadow-xs flex-shrink-0"
+                                  >
+                                    <span>View PDF</span>
+                                    <ExternalLink className="w-3 h-3" />
+                                  </Link>
+                                </div>
+                              ) : (
+                                <div className="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden max-h-60 group relative">
+                                  <img
+                                    src={getFileUrl(selectedClaim.proofFileUrl)}
+                                    alt="Claimant ownership proof evidence"
+                                    className="max-h-56 w-auto object-contain rounded-lg shadow-md transition-transform group-hover:scale-102"
+                                  />
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>
@@ -497,7 +597,7 @@ export const LostFoundVerificationPage: React.FC = () => {
                     </span>
                     <span className="text-[10px] font-normal opacity-80 mt-1">
                       {selectedClaim
-                        ? `Resolves item to ${selectedClaim.claimantId?.name}. Rejects any other pending claims.`
+                        ? `Resolves item to ${selectedClaim.claimantId?.name}. Rejects all other claims.`
                         : 'Resolves item and records administrative handover.'}
                     </span>
                   </button>
@@ -532,23 +632,47 @@ export const LostFoundVerificationPage: React.FC = () => {
                     ? 'Notes on serial verification, student ID check, and hand-over release details...'
                     : 'Reason for claim rejection (e.g. serial numbers do not match, invoice date differs)...'
                 }
-                required
               />
 
-              <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                <Button type="button" variant="outline" onClick={() => setVerifyingItem(null)}>
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-slate-200/80 dark:border-slate-800">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setVerifyingItem(null)}
+                  disabled={actionLoading}
+                  className="w-full sm:w-auto"
+                >
                   Cancel
                 </Button>
-                <Button
-                  type="submit"
-                  variant={evidenceMatches ? 'primary' : 'danger'}
-                  isLoading={actionLoading}
-                  className="font-bold"
-                >
-                  {evidenceMatches
-                    ? 'Confirm Verification & Release Item'
-                    : 'Confirm Claim Rejection'}
-                </Button>
+
+                <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto justify-end">
+                  {selectedClaim && selectedClaim.status !== 'REJECTED' && (
+                    <Button
+                      type="button"
+                      variant="danger"
+                      onClick={handleRejectClaim}
+                      isLoading={actionLoading}
+                      className="font-bold flex items-center space-x-1.5 shadow-xs"
+                    >
+                      <XCircle className="w-4 h-4 mr-1.5" />
+                      <span>Reject this Student's Claim</span>
+                    </Button>
+                  )}
+
+                  <Button
+                    type="button"
+                    onClick={handleApproveClaim}
+                    isLoading={actionLoading}
+                    className="font-bold bg-emerald-600 hover:bg-emerald-700 text-white flex items-center space-x-1.5 shadow-xs"
+                  >
+                    <CheckCircle2 className="w-4 h-4 mr-1.5" />
+                    <span>
+                      {selectedClaim
+                        ? `Approve & Resolve to ${selectedClaim.claimantId?.name?.split(' ')[0] || 'Student'}`
+                        : 'Approve & Mark Resolved'}
+                    </span>
+                  </Button>
+                </div>
               </div>
             </form>
           );
