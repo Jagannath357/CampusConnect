@@ -4,6 +4,7 @@ dotenv.config();
 import http from 'http';
 import { createApp } from './app.js';
 import { connectDB } from './config/db.js';
+import { bootstrapAdmin } from './scripts/bootstrapAdmin.js';
 import { initSocketIO } from './sockets/socketManager.js';
 
 const PORT = process.env.PORT || 5000;
@@ -12,6 +13,9 @@ const startServer = async () => {
   try {
     // Connect to MongoDB
     await connectDB();
+
+    // Ensure Initial Administrator exists in database
+    await bootstrapAdmin();
 
     const app = createApp();
     const server = http.createServer(app);
